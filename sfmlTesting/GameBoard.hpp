@@ -2,8 +2,12 @@
 
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-
+using std::string;
+using std::cout;
+using std::cin;
+using std::endl;
 
 class Board {
 
@@ -11,6 +15,9 @@ public:
 	Board(sf::RenderWindow& window);
 
 	void drawBoard();
+
+	void placeShip(string shipName, char x, int y,bool veritcal);
+
 
 private:
 

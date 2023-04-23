@@ -1,5 +1,5 @@
 #include "GameBoard.hpp"
-#include <iostream>
+
 
 
 Board::Board(sf::RenderWindow& window) : m_window(window) {
@@ -93,6 +93,25 @@ void Board::drawBoard() {
     }
 
   
+
+}
+
+void Board::placeShip(string shipName, char x, int y, bool veritcal) {
+
+    sf::Texture texture;
+
+    if (!texture.loadFromFile("ShipTypes/ship.png")) {
+        cout << "Error loading ship file" << endl;
+    }
+
+    sf::Sprite sprite(texture);
+
+    sprite.setPosition(240.f, 180.f);
+
+    m_window.draw(sprite);
+    m_window.display();
+
+
 
 }
 

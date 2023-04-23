@@ -21,8 +21,11 @@ int main()
                 window.close();
         }
 
-        window.clear();
+        
+
+       // window.clear();
         board.drawBoard();
+        board.placeShip("ship",'A',1,true);
       //  window.draw(text);
         window.display();
     }
