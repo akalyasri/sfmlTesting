@@ -24,12 +24,11 @@ void Board::drawBoard() {
     sf::Text text;
     //("A", font, 500);
     text.setFont(font);
-    text.setString("HELLO");
-
-    text.setPosition(500, 400);
-    text.setFillColor(sf::Color::White);
+   // text.setString("HELLO");
+    //text.setPosition(500, 400);
+    text.setFillColor(sf::Color::Black);
     text.setCharacterSize(24);
-    text.setStyle(sf::Text::Bold & sf::Text::Underlined);
+   // text.setStyle(sf::Text::Bold & sf::Text::Underlined);
 
 
 
@@ -48,13 +47,44 @@ void Board::drawBoard() {
                 m_square.setFillColor(darkBlue2);
             }
 
-            //m_window.draw(m_square);
-            m_window.draw(text);
+            m_window.draw(m_square);
+         //   m_window.draw(text);
 
         }
     }
 
 
+    // Draw white squares (first row and first column)
+    m_square.setFillColor(sf::Color::White);
+
+    for (int i = 0; i < 10; i++) {
+
+        m_square.setPosition(i * 80.f + 80.f, 0);
+        m_window.draw(m_square);
+
+        m_square.setPosition(0, i * 80.f + 80.f);
+        m_window.draw(m_square);
+    }
+
+
+    char label = 'A';
+
+    for (int i = 0; i < 10; i++) {
+
+        text.setString(std::string(1, label));
+        text.setPosition(i * 80.f + 80.f + 30.f, 5.f);
+
+        m_window.draw(text);
+
+        label++;
+
+        text.setString(std::to_string(i));
+        text.setPosition(5.f, i * 80.f + 80.f + 30.f);
+
+        m_window.draw(text);
+    }
+
+  
 
 }
 
