@@ -11,6 +11,9 @@ Board::Board(sf::RenderWindow& window) : m_window(window) {
 
 void Board::drawBoard(int startX, int startY) {
 
+    locationX = startX;
+    locationY = startY;
+
     sf::Color darkBlue1(12, 56, 97);
     sf::Color darkBlue2(8, 38, 66);
     sf::Color lightSeaBlue(135, 206, 250);
@@ -66,10 +69,10 @@ void Board::drawBoard(int startX, int startY) {
 
     for (int i = 0; i < 10; i++) {
 
-        m_square.setPosition(i * 80.f + 80.f, 0);
+        m_square.setPosition((i + startX) * 80.f + 80.f, (0 + startY) * 80.f);
         m_window.draw(m_square);
 
-        m_square.setPosition(0, i * 80.f + 80.f);
+        m_square.setPosition((0 + startX) * 80.f, (i+startY) * 80.f + 80.f);
         m_window.draw(m_square);
     }
 
@@ -80,14 +83,14 @@ void Board::drawBoard(int startX, int startY) {
     for (int i = 0; i < 10; i++) {
 
         text.setString(std::string(1, label));
-        text.setPosition(i * 80.f + 80.f + 30.f, 5.f);
-
+        text.setPosition((i+startX) * 80.f + 80.f + 30.f, 10.f+(startY*80.f));
+         //COME BACK TO THIS
         m_window.draw(text);
 
         label++;
 
         text.setString(std::to_string(i));
-        text.setPosition(5.f, i * 80.f + 80.f + 30.f);
+        text.setPosition(10.f+(startX*80.f), (i + startY) * 80.f + 80.f + 30.f);
 
         m_window.draw(text);
     }
@@ -100,8 +103,8 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 
     // Convert Corrdinate
 
-    float xCoord = float(80 * ((x+2) - 'A'));
-    float yCoord = float((y+1) * 80);
+    float xCoord = float(80 * ((x+2+locationX) - 'A'));
+    float yCoord = float((y+1+locationY) * 80);
 
     sf::Texture texture;
 
@@ -124,6 +127,10 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
     }
     else if (shipName == "Destroyer") {
 
+        if (!texture.loadFromFile("ShipTypes/destroyer_1x2.png")) {
+            cout << "Error loading ship file" << endl;
+        }
+
     }
     else if (shipName == "Submarine") {
         if (!texture.loadFromFile("ShipTypes/sub_1x3.png")) {
@@ -141,9 +148,9 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
     sprite.setRotation(orientation);
 
     m_window.draw(sprite);
-    m_window.display();
+    //m_window.display();
 
-    sf::sleep(sf::milliseconds(1000)); // Add a delay of 100 milliseconds
+   // sf::sleep(sf::milliseconds(1000)); // Add a delay of 100 milliseconds
 
     
     

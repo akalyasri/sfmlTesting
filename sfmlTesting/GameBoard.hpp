@@ -32,6 +32,10 @@ private:
 	sf::RectangleShape m_square;
 
 
+	int locationX;
+	int locationY;
+
+
 };
 
 

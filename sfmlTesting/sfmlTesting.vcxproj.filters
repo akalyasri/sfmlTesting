@@ -34,5 +34,8 @@
     <Image Include="ShipTypes\cruiser_1x3.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="ShipTypes\destroyer_1x2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
