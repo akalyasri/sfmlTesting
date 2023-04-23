@@ -15,15 +15,15 @@ void Board::drawBoard() {
     sf::Color darkBlue2(8, 38, 66);
 
     sf::Font font;
-  // font.loadFromFile("C:\Windows\Fonts\Arial");
+   //font.loadFromFile("Fonts/arialbd.ttf");
 
-   /* if (!font.loadFromFile("C:\CPTS\CS122\sfmlTesting\arial.ttf")) {
+   if (!font.loadFromFile("Fonts/arialbd.ttf")) {
         std::cout << "Error opening file" << std::endl;
-    }*/
+    }
 
     sf::Text text;
     //("A", font, 500);
-    //text.setFont(sf::Font::Arial);
+    text.setFont(font);
     text.setString("HELLO");
 
     text.setPosition(500, 400);

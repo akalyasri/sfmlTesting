@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-#if 0
+//#if 0
 
 int main()
 {
@@ -11,16 +11,18 @@ int main()
     //sf::Style::Resize
     Board board(window);
 
-   // sf::RectangleShape squareBoard(sf::Vector2f(80.f, 80.f));
+   
+    
+    //sf::RectangleShape squareBoard(sf::Vector2f(80.f, 80.f));
 
-    /*sf::CircleShape shape(100.f);
+    ///*sf::CircleShape shape(100.f);
 
-    shape.setFillColor(sf::Color::Green);*/
+    //shape.setFillColor(sf::Color::Green);*/
 
     //reduces CPU usuage
     //window.setFramerateLimit(30);
 
-
+    
 
     //will loop until you exit the program
     while (window.isOpen())
@@ -41,8 +43,8 @@ int main()
     return 0;
 }
 
-#else 
-
+//#else 
+/*
 int main(void) {
     // Create a window
     sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Text Example");
@@ -86,4 +88,4 @@ int main(void) {
 
 #endif
 
-
+*/
