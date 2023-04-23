@@ -138,9 +138,12 @@
   <ItemGroup>
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="main_1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game.h" />
     <ClInclude Include="GameBoard.hpp" />
+    <ClInclude Include="header.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ShipTypes\bomb_1x1.png" />
