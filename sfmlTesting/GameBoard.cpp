@@ -54,7 +54,7 @@ void Board::drawBoard() {
     }
 
 
-    // Draw white squares (first row and first column)
+    // Draw white squares (first row and first column) for the labels
     m_square.setFillColor(sf::Color::White);
 
     for (int i = 0; i < 10; i++) {
@@ -67,6 +67,7 @@ void Board::drawBoard() {
     }
 
 
+    // Writing the labels
     char label = 'A';
 
     for (int i = 0; i < 10; i++) {
@@ -89,89 +90,3 @@ void Board::drawBoard() {
 }
 
 
-
-/*
-Board::Board(sf::RenderWindow& App) : myWindow(App) {
-
-
-	//boardColor = sf::Color::Blue;
-
-
-
-}
-
-
-
-
-//Board::Board(sf::RectangleShape& squareBoard) : myBoard(squareBoard) {
-//
-//
-//	for (int y = 0; y < 10; y++) {
-//
-//		for (int x = 0; x < 10; x++) {
-//
-//			squareBoard.setPosition(y * 80.f, x * 80.f);
-//
-//			if ((y + x) % 2 == 0) {
-//				squareBoard.setFillColor(sf::Color::Black);
-//
-//			}
-//			else {
-//				squareBoard.setFillColor(sf::Color::Blue);
-//			}
-//
-//
-//		}
-//
-//
-//	}
-//
-//
-//}
-
-// void Board::drawBoard(sf::RectangleShape &squareBoard) : myBoard(squareBoard) {
-//
-//
-//	for (int y = 0; y < 10; y++) {
-//
-//		for (int x = 0; x < 10; x++) {
-//			 
-//			squareBoard.setPosition(y * 80.f, x * 80.f);
-//
-//			if ((y + x) % 2 == 0) {
-//				squareBoard.setFillColor(sf::Color::Black);
-//
-//			}
-//			else {
-//				squareBoard.setFillColor(sf::Color::Blue);
-//			}
-//
-//
-//		}
-//
-//
-//	}
-//
-//
-//}
-
-
-void Board::drawBoard(sf::RectangleShape& squareBoard) : myBoard(squareBoard) {
-    for (int y = 1; y <= 10; y++) {
-        for (int x = 1; x <= 10; x++) {
-            squareBoard.setPosition(y * 80.f, x * 80.f);
-            if ((y + x) % 2 == 0) {
-                squareBoard.setFillColor(sf::Color::Black);
-            }
-            else {
-                squareBoard.setFillColor(sf::Color::Blue);
-            }
-            // Draw the square with the specified position and color
-           // App.draw(squareBoard);
-        }
-    }
-}
-
-
-
-*/
