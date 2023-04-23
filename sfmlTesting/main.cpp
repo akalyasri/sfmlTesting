@@ -30,7 +30,7 @@ int main()
        // window.clear();
         board.drawBoard(0,0);
         board.placeShip("Carrier",'B',5,0);
-        board.placeShip("Cruiser", 'E', 0, 90);
+      //  board.placeShip("Cruiser", 'E', 0, 90);
       //  window.draw(text);
         window.display();
 
