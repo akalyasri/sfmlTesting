@@ -13,6 +13,9 @@ void Board::drawBoard() {
 
     sf::Color darkBlue1(12, 56, 97);
     sf::Color darkBlue2(8, 38, 66);
+    sf::Color lightSeaBlue(135, 206, 250);
+    sf::Color originalColor(255, 128, 64);
+
 
     sf::Font font;
    //font.loadFromFile("Fonts/arialbd.ttf");
@@ -32,20 +35,24 @@ void Board::drawBoard() {
 
 
 
-    // Draw the board
+    // Draw the board - checkers
     for (int y = 0; y < 11; y++) {
 
         for (int x = 0; x < 11; x++) {
 
             m_square.setPosition(x * 80.f, y * 80.f);
 
-            if ((x + y) % 2 == 0) {
-                m_square.setFillColor(darkBlue1);
-            }
+            //if ((x + y) % 2 == 0) {
+                m_square.setOutlineThickness(5.f);
+                m_square.setOutlineColor(sf::Color::White);
+                m_square.setFillColor(lightSeaBlue);
+            //}
 
-            else {
+          /*  else {
+                m_square.setOutlineThickness(5.f);
+                m_square.setOutlineColor(darkBlue1);
                 m_square.setFillColor(darkBlue2);
-            }
+            }*/
 
             m_window.draw(m_square);
          //   m_window.draw(text);
