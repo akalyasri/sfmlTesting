@@ -15,10 +15,23 @@ void Board::drawBoard() {
     sf::Color darkBlue2(8, 38, 66);
 
     sf::Font font;
-    
+  // font.loadFromFile("C:\Windows\Fonts\Arial");
 
-    sf::Text text("A", font, 24);
-    text.setPosition(100, 100);
+   /* if (!font.loadFromFile("C:\CPTS\CS122\sfmlTesting\arial.ttf")) {
+        std::cout << "Error opening file" << std::endl;
+    }*/
+
+    sf::Text text;
+    //("A", font, 500);
+    //text.setFont(sf::Font::Arial);
+    text.setString("HELLO");
+
+    text.setPosition(500, 400);
+    text.setFillColor(sf::Color::White);
+    text.setCharacterSize(24);
+    text.setStyle(sf::Text::Bold & sf::Text::Underlined);
+
+
 
     // Draw the board
     for (int y = 0; y < 11; y++) {
@@ -35,9 +48,14 @@ void Board::drawBoard() {
                 m_square.setFillColor(darkBlue2);
             }
 
-            m_window.draw(m_square);
+            //m_window.draw(m_square);
+            m_window.draw(text);
+
         }
     }
+
+
+
 }
 
 
