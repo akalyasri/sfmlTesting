@@ -105,9 +105,31 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 
     sf::Texture texture;
 
-    if (!texture.loadFromFile("ShipTypes/ship1.png")) {
-        cout << "Error loading ship file" << endl;
+    if (shipName == "Carrier") {
+
+        if (!texture.loadFromFile("ShipTypes/carrier_1x4.png")) {
+            cout << "Error loading ship file" << endl;
+        }
+
     }
+    else if (shipName == "Battleship") {
+
+    }
+    else if (shipName == "Cruiser") {
+
+        if (!texture.loadFromFile("ShipTypes/cruiser_1x3.png")) {
+            cout << "Error loading ship file" << endl;
+        }
+
+    }
+    else if (shipName == "Destroyer") {
+
+    }
+    else if (shipName == "Submarine") {
+
+    }
+
+ 
 
   
     sf::Sprite sprite(texture);

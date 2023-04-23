@@ -29,7 +29,8 @@ int main()
 
        // window.clear();
         board.drawBoard();
-        board.placeShip("ship",'H',5,270);
+        board.placeShip("Carrier",'B',5,0);
+        board.placeShip("Cruiser", 'E', 0, 90);
       //  window.draw(text);
         window.display();
 

@@ -27,4 +27,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="ShipTypes\carrier_1x4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ShipTypes\cruiser_1x3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
