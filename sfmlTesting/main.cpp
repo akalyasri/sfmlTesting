@@ -6,7 +6,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(880, 880), "Game Board!");
+    sf::RenderWindow window(sf::VideoMode(880*2, 880), "Game Board!");
     //sf::Style::Resize
     Board board(window);
 
@@ -28,7 +28,7 @@ int main()
         
 
        // window.clear();
-        board.drawBoard();
+        board.drawBoard(0,0);
         board.placeShip("Carrier",'B',5,0);
         board.placeShip("Cruiser", 'E', 0, 90);
       //  window.draw(text);

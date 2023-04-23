@@ -14,9 +14,15 @@ class Board {
 public:
 	Board(sf::RenderWindow& window);
 
-	void drawBoard();
+	void drawBoard(int startX, int startY);
 
 	void placeShip(string shipName, char x, int y, int orientation);
+
+	void placeBomb(char x, int y);
+
+	bool checkHit(char x, int y);
+
+	void placeExtras(string name, char x, int y);
 
 
 private:

@@ -9,7 +9,7 @@ Board::Board(sf::RenderWindow& window) : m_window(window) {
 
 }
 
-void Board::drawBoard() {
+void Board::drawBoard(int startX, int startY) {
 
     sf::Color darkBlue1(12, 56, 97);
     sf::Color darkBlue2(8, 38, 66);
@@ -40,7 +40,7 @@ void Board::drawBoard() {
 
         for (int x = 0; x < 11; x++) {
 
-            m_square.setPosition(x * 80.f, y * 80.f);
+            m_square.setPosition((x+startX) * 80.f, (y+startY) * 80.f);
 
             //if ((x + y) % 2 == 0) {
                 m_square.setOutlineThickness(5.f);
@@ -146,6 +146,16 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
     
     
 
+}
+
+void Board::placeBomb(char x, int y) {
+
+    // Convert coordinates
+
+    // Place bomb
+
+
+    //
 }
 
 
