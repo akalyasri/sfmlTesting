@@ -98,20 +98,31 @@ void Board::drawBoard() {
 
 void Board::placeShip(string shipName, char x, int y, bool veritcal) {
 
+    // Convert Corrdinate
+
+    float xCoord = float(80 * ((x+2) - 'A'));
+    float yCoord = float((y+1) * 80);
+
     sf::Texture texture;
 
-    if (!texture.loadFromFile("ShipTypes/ship.png")) {
+    if (!texture.loadFromFile("ShipTypes/ship1.png")) {
         cout << "Error loading ship file" << endl;
     }
 
+    int loopCount = 1;
     sf::Sprite sprite(texture);
 
-    sprite.setPosition(240.f, 180.f);
+    sprite.setPosition(xCoord, yCoord);
+    //sprite.scale(.9f, .9f);
+    sprite.setRotation(90.f*loopCount);
 
     m_window.draw(sprite);
     m_window.display();
 
+    sf::sleep(sf::milliseconds(1000)); // Add a delay of 100 milliseconds
 
+    loopCount++;
+    
 
 }
 

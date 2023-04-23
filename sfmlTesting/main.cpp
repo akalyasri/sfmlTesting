@@ -19,15 +19,22 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+
+
+
         }
 
         
 
        // window.clear();
         board.drawBoard();
-        board.placeShip("ship",'A',1,true);
+        board.placeShip("ship",'H',5,true);
       //  window.draw(text);
         window.display();
+
+       
+
     }
 
     return 0;
