@@ -96,7 +96,7 @@ void Board::drawBoard() {
 
 }
 
-void Board::placeShip(string shipName, char x, int y, bool veritcal) {
+void Board::placeShip(string shipName, char x, int y, int orientation) {
 
     // Convert Corrdinate
 
@@ -109,19 +109,19 @@ void Board::placeShip(string shipName, char x, int y, bool veritcal) {
         cout << "Error loading ship file" << endl;
     }
 
-    int loopCount = 1;
+  
     sf::Sprite sprite(texture);
 
     sprite.setPosition(xCoord, yCoord);
     //sprite.scale(.9f, .9f);
-    sprite.setRotation(90.f*loopCount);
+    sprite.setRotation(orientation);
 
     m_window.draw(sprite);
     m_window.display();
 
     sf::sleep(sf::milliseconds(1000)); // Add a delay of 100 milliseconds
 
-    loopCount++;
+    
     
 
 }

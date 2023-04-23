@@ -29,7 +29,7 @@ int main()
 
        // window.clear();
         board.drawBoard();
-        board.placeShip("ship",'H',5,true);
+        board.placeShip("ship",'H',5,270);
       //  window.draw(text);
         window.display();
 

@@ -16,7 +16,7 @@ public:
 
 	void drawBoard();
 
-	void placeShip(string shipName, char x, int y,bool veritcal);
+	void placeShip(string shipName, char x, int y,int orientation);
 
 
 private:
