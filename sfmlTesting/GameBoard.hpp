@@ -20,7 +20,7 @@ public:
 
 	void placeBomb(char x, int y);
 
-	bool checkHit(char x, int y);
+	bool checkHit(char x, int y); //icnlude sound effects
 
 	void placeExtras(string name, char x, int y);
 

@@ -103,7 +103,7 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 
     // Convert Corrdinate
 
-    float xCoord = float(80 * ((x+2+locationX) - 'A'));
+    float xCoord = float(80 * ((x+1+locationX) - 'A'));
     float yCoord = float((y+1+locationY) * 80);
 
     sf::Texture texture;
@@ -160,6 +160,21 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 void Board::placeBomb(char x, int y) {
 
     // Convert coordinates
+
+    float xCoord = float(80 * ((x + 1 + locationX) - 'A'));
+    float yCoord = float((y + 1 + locationY) * 80);
+
+    sf::Texture texture;
+
+    if (!texture.loadFromFile("ShipTypes/bomb_1x1.png")) {
+        cout << "Error loading ship file" << endl;
+    }
+
+    sf::Sprite sprite(texture);
+
+    sprite.setPosition(xCoord, yCoord);
+
+    m_window.draw(sprite);
 
     // Place bomb
 

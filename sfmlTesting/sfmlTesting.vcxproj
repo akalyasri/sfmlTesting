@@ -143,6 +143,7 @@
     <ClInclude Include="GameBoard.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="ShipTypes\bomb_1x1.png" />
     <Image Include="ShipTypes\carrier_1x4.png" />
     <Image Include="ShipTypes\cruiser_1x3.png" />
     <Image Include="ShipTypes\destroyer_1x2.png" />

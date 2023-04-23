@@ -34,8 +34,10 @@ int main()
 
 
 
-        player2.placeShip("Cruiser", 'A',1, 0);
+        player2.placeShip("Cruiser", 'A',6, 0);
+        player2.placeBomb('A', 1);
         player1.placeShip("Destroyer",'B',5,0);
+        player2.placeBomb('B', 6);
       //  board.placeShip("Cruiser", 'E', 0, 90);
       //  window.draw(text);
         window.display();
