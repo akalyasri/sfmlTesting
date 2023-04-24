@@ -21,16 +21,22 @@
     <ClCompile Include="GameBoard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main_1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameBoard.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="ShipTypes\carrier_1x4.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="ShipTypes\cruiser_1x3.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -38,6 +44,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="ShipTypes\bomb_1x1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\carrier_1x5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\battleship_1x5.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
