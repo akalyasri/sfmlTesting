@@ -66,12 +66,31 @@ public:
 	}
 
 
+
+	void setX(int uX)
+	{
+		x = uX;
+	}
+	void setY(int uY)
+	{
+		y = uY;
+	}
+	void setOrientation(int uRotation)
+	{
+		orintation = uRotation;
+	}
+
+
 private:
 	int player;
 	int hp;
 	char identification;
 	int hit;
 	int sunk;
+
+	int x;
+	int y;
+	int orintation;
 };
 
 class fleet
@@ -464,57 +483,57 @@ public:
 			if (yesNo(1) == 0)
 			{
 				printf("Pick the first coordinate to place your carrier (X Y): ");
-				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification());
+				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
 				printf("Pick the first coordinate to place your battleship (X Y): ");
-				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification());
+				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
 				printf("Pick the first coordinate to place your cruiser (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification());
+				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
 				printf("Pick the first coordinate to place your submarine (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification());
+				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
 				printf("Pick the first coordinate to place your destroyer (X Y): ");
-				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification());
+				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
 				system("cls");
 				//print_board(board, 10, 10);
 
 			}
 			else
 			{
-				placeAuto(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification());
+				placeAuto(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
 
-				placeAuto(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification());
+				placeAuto(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
 
-				placeAuto(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification());
+				placeAuto(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
 
-				placeAuto(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification());
+				placeAuto(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
 
-				placeAuto(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification());
+				placeAuto(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
 				system("cls");
 				//print_board(board, 10, 10);
 			}
 		}
 		if (whoPlay == PLAYER2)
 		{
-			placeAuto(boardPlayer2, 4, fleetPlayer2.carrier->getIdentification());
+			placeAuto(boardPlayer2, 4, fleetPlayer2.carrier->getIdentification(), fleetPlayer2);
 
-			placeAuto(boardPlayer2, 3, fleetPlayer2.battleship->getIdentification());
+			placeAuto(boardPlayer2, 3, fleetPlayer2.battleship->getIdentification(), fleetPlayer2);
 
-			placeAuto(boardPlayer2, 2, fleetPlayer2.cruiser->getIdentification());
+			placeAuto(boardPlayer2, 2, fleetPlayer2.cruiser->getIdentification(), fleetPlayer2);
 
-			placeAuto(boardPlayer2, 2, fleetPlayer2.submarine->getIdentification());
+			placeAuto(boardPlayer2, 2, fleetPlayer2.submarine->getIdentification(), fleetPlayer2);
 
-			placeAuto(boardPlayer2, 1, fleetPlayer2.destroyer->getIdentification());
+			placeAuto(boardPlayer2, 1, fleetPlayer2.destroyer->getIdentification(), fleetPlayer2);
 		}
 	}
 
@@ -541,9 +560,11 @@ private:
 
 	int status[2] = { 0,0 };
 
+	int infoX;
+	int infoY;
+	int infoRotation;
+
 protected:
-
-
 	int yesNo(int type)
 	{
 		int choice = NO;
@@ -567,10 +588,7 @@ protected:
 	}
 
 
-
-
-
-	void placeMan(char board[][10], int size, char identification)
+	void placeMan(char board[][10], int size, char identification, class fleet& ref)
 	{
 		int x = 0, y = 0;
 		int placeable = YES;
@@ -581,6 +599,8 @@ protected:
 
 		// scanf("%d %d", &x, &y); 
 		inputCheck(1, board, &x, &y, rotation, &choice); // x and y input
+
+
 
 		for (int i = x; (i >= x - size); i--) // left check
 		{
@@ -676,9 +696,12 @@ protected:
 		//scanf("%d", &choice);
 		inputCheck(2, board, &x, &y, rotation, &choice); // rotation choice input
 
+		int uRot;
+
 		switch (choice)
 		{
 		case 1: // rotate left
+			uRot = 270;
 			for (int i = x; i >= x - size; i--)
 			{
 				board[y][i] = identification;
@@ -686,6 +709,7 @@ protected:
 			break;
 
 		case 2: // rotate rigght
+			uRot = 90;
 			for (int i = x; i <= x + size; i++)
 			{
 				board[y][i] = identification;
@@ -693,6 +717,7 @@ protected:
 			break;
 
 		case 3: // rotate down
+			uRot = 180;
 			for (int i = y; i <= y + size; i++)
 			{
 				board[i][x] = identification;
@@ -700,6 +725,7 @@ protected:
 			break;
 
 		case 4: // roate up
+			uRot = 0;
 			for (int i = y; i >= y - size; i--)
 			{
 				board[i][x] = identification;
@@ -708,6 +734,42 @@ protected:
 
 
 		}
+
+		/////////////////////////////////////////////////////////////////////
+
+
+		switch (identification)
+		{
+		case 'p':
+			ref.carrier->setX(x);
+			ref.carrier->setY(y);
+			ref.carrier->setOrientation(uRot);
+			break;
+		case 'b':
+			ref.battleship->setX(x);
+			ref.battleship->setY(y);
+			ref.battleship->setOrientation(uRot);
+			break;
+		case 'c':
+			ref.cruiser->setX(x);
+			ref.cruiser->setY(y);
+			ref.cruiser->setOrientation(uRot);
+			break;
+		case 's':
+			ref.submarine->setX(x);
+			ref.submarine->setY(y);
+			ref.cruiser->setOrientation(uRot);
+			break;
+		case 'd':
+			ref.destroyer->setX(x);
+			ref.destroyer->setY(y);
+			ref.destroyer->setOrientation(uRot);
+			break;
+		}
+
+
+
+		/////////////////////////////////////////////////////////////////////
 
 		rotation[0] = 0;
 		rotation[1] = 0;
@@ -792,8 +854,7 @@ protected:
 	}
 
 
-
-	void placeAuto(char board[][10], int size, char identification)
+	void placeAuto(char board[][10], int size, char identification, class fleet& ref)
 	{
 		int x = 0, y = 0;
 		int placeable = YES;
@@ -878,10 +939,12 @@ protected:
 		placeable = YES;
 
 		autoCheck(2, board, &x, &y, rotation, &choice); // rotation choice input
+		int uRot;
 
 		switch (choice)
 		{
 		case 1: // rotate left
+			uRot = 270;
 			for (int i = x; i >= x - size; i--)
 			{
 				board[y][i] = identification;
@@ -889,6 +952,7 @@ protected:
 			break;
 
 		case 2: // rotate rigght
+			uRot = 90;
 			for (int i = x; i <= x + size; i++)
 			{
 				board[y][i] = identification;
@@ -896,6 +960,7 @@ protected:
 			break;
 
 		case 3: // rotate down
+			uRot = 180;
 			for (int i = y; i <= y + size; i++)
 			{
 				board[i][x] = identification;
@@ -903,6 +968,7 @@ protected:
 			break;
 
 		case 4: // roate up
+			uRot = 0;
 			for (int i = y; i >= y - size; i--)
 			{
 				board[i][x] = identification;
@@ -911,6 +977,42 @@ protected:
 
 
 		}
+
+		/////////////////////////////////////////////////////////////////////
+
+
+		switch (identification)
+		{
+		case 'p':
+			ref.carrier->setX(x);
+			ref.carrier->setY(y);
+			ref.carrier->setOrientation(uRot);
+			break;
+		case 'b':
+			ref.battleship->setX(x);
+			ref.battleship->setY(y);
+			ref.battleship->setOrientation(uRot);
+			break;
+		case 'c':
+			ref.cruiser->setX(x);
+			ref.cruiser->setY(y);
+			ref.cruiser->setOrientation(uRot);
+			break;
+		case 's':
+			ref.submarine->setX(x);
+			ref.submarine->setY(y);
+			ref.cruiser->setOrientation(uRot);
+			break;
+		case 'd':
+			ref.destroyer->setX(x);
+			ref.destroyer->setY(y);
+			ref.destroyer->setOrientation(uRot);
+			break;
+		}
+
+
+
+		/////////////////////////////////////////////////////////////////////
 
 		rotation[0] = 0;
 		rotation[1] = 0;
@@ -1013,8 +1115,8 @@ public:
 	{
 		sf::RenderWindow window(sf::VideoMode(880 * 2, 880), "Game Board!");
 		//sf::Style::Resize
-		Board player1(window);
-		Board player2(window);
+		Board boardPlayer1(window);
+		Board boardViewPlayer1(window);
 
 
 
@@ -1032,67 +1134,84 @@ public:
 			}
 
 
-
 			window.clear();
-			player1.drawBoard(0, 0);
-			player2.drawBoard(11, 0);
+			boardPlayer1.drawBoard(0, 0);
+			boardViewPlayer1.drawBoard(11, 0);
 
 
 
-			player2.placeShip("Cruiser", 'A', 6, 0);
-			player2.placeBomb('A', 1);
-			player1.placeShip("Destroyer", 'B', 5, 0);
-			player2.placeBomb('B', 6);
+			boardViewPlayer1.placeShip("Cruiser", 'A', 6, 0);
+			boardViewPlayer1.placeBomb('A', 1);
+			boardPlayer1.placeShip("Destroyer", 'B', 5, 0);
+			boardViewPlayer1.placeBomb('B', 6);
 			//  board.placeShip("Cruiser", 'E', 0, 90);
 			//  window.draw(text);
 			window.display();
 
 
 
-		}
-
-
-		//b1.printBoard(PLAYER1);
-		char dummyChar = '\0';
-
-
-		b1.printBoard(BOARDPLAYER1);
-		b1.placeShip(PLAYER1);
 
 
 
 
-		// Placing ships on computer's board
-		b1.placeShip(PLAYER2);
-		printf("Computer Board\n"); // debug code, speeds up testing of game
-		b1.printBoard(BOARDPLAYER2);
-		do
-		{
 
-			printf("	   Enemy Area\n");
-			b1.printBoard(BOARDVIEWPLAYER2);
-			printf("	You Area of Operations\n");
+
+
+
+			//b1.printBoard(PLAYER1);
+			char dummyChar = '\0';
+
+
 			b1.printBoard(BOARDPLAYER1);
-			b1.fire(PLAYER1);
-			printf("\nPress any key to continue");
-			scanf(" %c", &dummyChar);
-			system("cls");
+			b1.placeShip(PLAYER1);
 
-			b1.fire(PLAYER2);
-			printf("\nPress any key to continue");
-			scanf(" %c", &dummyChar);
-			system("cls");
 
-		} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
 
-		if (b1.getStatusPlayer1() == YES) // did player 1 loose?
-		{
-			printf("You lost!\n");
+
+			// Placing ships on computer's board
+			b1.placeShip(PLAYER2);
+			printf("Computer Board\n"); // debug code, speeds up testing of game
+			b1.printBoard(BOARDPLAYER2);
+			do
+			{
+
+				printf("	   Enemy Area\n");
+				b1.printBoard(BOARDVIEWPLAYER2);
+				printf("	You Area of Operations\n");
+				b1.printBoard(BOARDPLAYER1);
+				b1.fire(PLAYER1);
+				printf("\nPress any key to continue");
+				scanf(" %c", &dummyChar);
+				system("cls");
+
+				b1.fire(PLAYER2);
+				printf("\nPress any key to continue");
+				scanf(" %c", &dummyChar);
+				system("cls");
+
+			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
+
+			if (b1.getStatusPlayer1() == YES) // did player 1 loose?
+			{
+				printf("You lost!\n");
+			}
+			else
+			{
+				printf("you won!\n");
+			}
+
+
+
+
+
+
+
+
+
+
 		}
-		else
-		{
-			printf("you won!\n");
-		}
+
+
 
 
 
