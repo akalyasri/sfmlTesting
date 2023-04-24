@@ -146,7 +146,7 @@
     <ClInclude Include="header.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\battleship_1x5.png" />
+    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\battleship_1x4.png" />
     <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\carrier_1x5.png" />
     <Image Include="ShipTypes\bomb_1x1.png" />
     <Image Include="ShipTypes\cruiser_1x3.png" />
