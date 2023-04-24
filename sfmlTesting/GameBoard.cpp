@@ -1,4 +1,5 @@
 #include "game.h"
+#include "GameBoard.hpp"
 
 
 
@@ -117,7 +118,7 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 	}
 	else if (shipName == "Battleship") {
 
-		if (!texture.loadFromFile("ShipTypes/battleship_1x5.png")) {
+		if (!texture.loadFromFile("ShipTypes/battleship_1x4.png")) {
 			cout << "Error loading ship file" << endl;
 		}
 
@@ -184,6 +185,26 @@ void Board::placeBomb(char x, int y) {
 
 
 	//
+}
+
+void Board::placeExtras(string name, char x, int y) {
+
+	float xCoord = float(80 * ((x + 1 + locationX) - 'A'));
+	float yCoord = float((y + 1 + locationY) * 80);
+
+	sf::Texture texture;
+		
+	if (!texture.loadFromFile("ShipTypes/bomb_1x1.png")) {
+		cout << "Error loading ship file" << endl;
+	}
+
+	sf::Sprite sprite(texture);
+
+	sprite.setPosition(xCoord, yCoord);
+
+	m_window.draw(sprite);
+
+
 }
 
 
