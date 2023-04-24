@@ -114,6 +114,13 @@ public:
 
 };
 
+class logBook //keeps track of shots fired
+{
+public:
+	vector<int> x;
+	vector<int> y;
+};
+
 class board
 {
 public:
@@ -225,6 +232,10 @@ public:
 				boardPlayer2[y][x] = 'o';
 
 
+				logPlayer1.x.push_back(x); //keeps track of shots
+				logPlayer1.y.push_back(y);
+
+
 			}
 			else
 			{
@@ -242,6 +253,9 @@ public:
 						//playerCarrier->sunk = YES;
 						fleetPlayer2.carrier->setSunk(YES);
 					}
+
+					logPlayer1.x.push_back(x); //keeps track of shots
+					logPlayer1.y.push_back(y);
 				}
 				else if (fleetPlayer2.battleship->getIdentification() == boardPlayer2[y][x])
 				{
@@ -259,6 +273,8 @@ public:
 
 					}
 
+					logPlayer1.x.push_back(x); //keeps track of shots
+					logPlayer1.y.push_back(y);
 				}
 				else if (fleetPlayer2.cruiser->getIdentification() == boardPlayer2[y][x])
 				{
@@ -275,6 +291,9 @@ public:
 						fleetPlayer2.cruiser->setSunk(YES);
 
 					}
+
+					logPlayer1.x.push_back(x); //keeps track of shots
+					logPlayer1.y.push_back(y);
 				}
 				else if (fleetPlayer2.submarine->getIdentification() == boardPlayer2[y][x])
 				{
@@ -291,6 +310,9 @@ public:
 						fleetPlayer2.submarine->setSunk(YES);
 
 					}
+
+					logPlayer1.x.push_back(x); //keeps track of shots
+					logPlayer1.y.push_back(y);
 				}
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer2[y][x])
 				{
@@ -306,6 +328,9 @@ public:
 						fleetPlayer2.destroyer->setSunk(YES);
 
 					}
+
+					logPlayer1.x.push_back(x); //keeps track of shots
+					logPlayer1.y.push_back(y);
 				}
 				else
 				{
@@ -370,6 +395,9 @@ public:
 				boardPlayer1[y][x] = 'o';
 				boardViewPlayer2[y][x] = 'o';
 
+				logPlayer2.x.push_back(x); //keeps track of shots
+				logPlayer2.y.push_back(y);
+
 
 			}
 			else
@@ -389,6 +417,9 @@ public:
 						fleetPlayer1.carrier->setSunk(YES);
 
 					}
+
+					logPlayer2.x.push_back(x); //keeps track of shots
+					logPlayer2.y.push_back(y);
 				}
 				else if (fleetPlayer1.battleship->getIdentification() == boardPlayer1[y][x])
 				{
@@ -406,6 +437,9 @@ public:
 
 					}
 
+					logPlayer2.x.push_back(x); //keeps track of shots
+					logPlayer2.y.push_back(y);
+
 				}
 				else if (fleetPlayer1.cruiser->getIdentification() == boardPlayer1[y][x])
 				{
@@ -422,6 +456,9 @@ public:
 						fleetPlayer1.cruiser->setSunk(YES);
 
 					}
+
+					logPlayer2.x.push_back(x); //keeps track of shots
+					logPlayer2.y.push_back(y);
 				}
 				else if (fleetPlayer1.submarine->getIdentification() == boardPlayer1[y][x])
 				{
@@ -438,6 +475,9 @@ public:
 						fleetPlayer1.submarine->setSunk(YES);
 
 					}
+
+					logPlayer2.x.push_back(x); //keeps track of shots
+					logPlayer2.y.push_back(y);
 				}
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer1[y][x])
 				{
@@ -454,6 +494,9 @@ public:
 						fleetPlayer1.destroyer->setSunk(YES);
 
 					}
+
+					logPlayer2.x.push_back(x); //keeps track of shots
+					logPlayer2.y.push_back(y);
 				}
 				else
 				{
@@ -545,6 +588,28 @@ public:
 	{
 		return status[1];
 	}
+
+	logBook* getLogPlayer1()
+	{
+		return &logPlayer1;
+	}
+
+	logBook* getLogPlayer2()
+	{
+		return &logPlayer2;
+	}
+
+
+	fleet* getFleetPlayer1()
+	{
+		return &fleetPlayer1;
+	}
+
+	fleet* getFleetPlayer2()
+	{
+		return &fleetPlayer2;
+	}
+
 private:
 	char boardPlayer1[10][10] = { {'\0'}, {'\0'} };
 	char boardPlayer2[10][10] = { {'\0'}, {'\0'} };
@@ -557,6 +622,9 @@ private:
 
 	fleet fleetPlayer1;
 	fleet fleetPlayer2;
+
+	logBook logPlayer1;
+	logBook logPlayer2;
 
 	int status[2] = { 0,0 };
 
@@ -886,7 +954,7 @@ protected:
 
 		for (int i = x; (i <= x + size); i++) // right check
 		{
-			if ((placeable == YES) && (board[y][i] == '~') && (x + size <= 10))
+			if ((placeable == YES) && (board[y][i] == '~') && (x + size <= 9))
 			{
 
 			}
@@ -1001,7 +1069,7 @@ protected:
 		case 's':
 			ref.submarine->setX(x);
 			ref.submarine->setY(y);
-			ref.cruiser->setOrientation(uRot);
+			ref.submarine->setOrientation(uRot);
 			break;
 		case 'd':
 			ref.destroyer->setX(x);
@@ -1132,25 +1200,22 @@ public:
 
 
 			}
+			// To get the coordinates fired
 
 
-			window.clear();
-			boardPlayer1.drawBoard(0, 0);
-			boardViewPlayer1.drawBoard(11, 0);
-
-
-
-			boardViewPlayer1.placeShip("Cruiser", 'A', 6, 0);
-			boardViewPlayer1.placeBomb('A', 1);
-			boardPlayer1.placeShip("Destroyer", 'B', 5, 0);
-			boardViewPlayer1.placeBomb('B', 6);
-			//  board.placeShip("Cruiser", 'E', 0, 90);
-			//  window.draw(text);
-			window.display();
+			//window.clear();
+			//boardPlayer1.drawBoard(0, 0);
+			//boardViewPlayer1.drawBoard(11, 0);
 
 
 
-
+			//boardViewPlayer1.placeShip("Cruiser", 'A', 6, 0);
+			//boardViewPlayer1.placeBomb('A', 1);
+			//boardPlayer1.placeShip("Destroyer", 'B', 5, 0);
+			//boardViewPlayer1.placeBomb('B', 6);
+			////  board.placeShip("Cruiser", 'E', 0, 90);
+			////  window.draw(text);
+			//window.display();
 
 
 
@@ -1158,20 +1223,27 @@ public:
 
 
 
-			//b1.printBoard(PLAYER1);
+
+
+
+
 			char dummyChar = '\0';
-
-
 			b1.printBoard(BOARDPLAYER1);
 			b1.placeShip(PLAYER1);
-
-
-
 
 			// Placing ships on computer's board
 			b1.placeShip(PLAYER2);
 			printf("Computer Board\n"); // debug code, speeds up testing of game
 			b1.printBoard(BOARDPLAYER2);
+
+			////////////////////////////////////////////////////////////////
+			logPlayer1 = b1.getLogPlayer1();
+			logPlayer2 = b1.getLogPlayer2();
+
+			fleetPlayer1 = b1.getFleetPlayer1();
+			fleetPlayer2 = b1.getFleetPlayer2();
+			////////////////////////////////////////////////////////////////
+
 			do
 			{
 
@@ -1189,6 +1261,9 @@ public:
 				scanf(" %c", &dummyChar);
 				system("cls");
 
+
+
+
 			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
 
 			if (b1.getStatusPlayer1() == YES) // did player 1 loose?
@@ -1199,14 +1274,6 @@ public:
 			{
 				printf("you won!\n");
 			}
-
-
-
-
-
-
-
-
 
 
 		}
@@ -1223,4 +1290,9 @@ public:
 private:
 	board b1;
 
+	logBook* logPlayer1;
+	logBook* logPlayer2;
+
+	fleet* fleetPlayer1;
+	fleet* fleetPlayer2;
 };
