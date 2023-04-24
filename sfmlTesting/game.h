@@ -1254,7 +1254,7 @@ public:
 			fleetPlayer1 = b1.getFleetPlayer1();
 			fleetPlayer2 = b1.getFleetPlayer2();
 			//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
-			int adjust = 90;
+			int adjust = 360;
 
 			window.clear();
 			boardPlayer1.drawBoard(0, 0);
