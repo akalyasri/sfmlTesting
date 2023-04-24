@@ -81,6 +81,19 @@ public:
 	}
 
 
+	int getX()
+	{
+		return x;
+	}
+	int getY()
+	{
+		return y;
+	}
+	int getOrientation()
+	{
+		return orintation;
+	}
+
 private:
 	int player;
 	int hp;
@@ -593,7 +606,6 @@ public:
 	{
 		return &logPlayer1;
 	}
-
 	logBook* getLogPlayer2()
 	{
 		return &logPlayer2;
@@ -604,7 +616,6 @@ public:
 	{
 		return &fleetPlayer1;
 	}
-
 	fleet* getFleetPlayer2()
 	{
 		return &fleetPlayer2;
@@ -1213,8 +1224,8 @@ public:
 			//boardViewPlayer1.placeBomb('A', 1);
 			//boardPlayer1.placeShip("Destroyer", 'B', 5, 0);
 			//boardViewPlayer1.placeBomb('B', 6);
-			////  board.placeShip("Cruiser", 'E', 0, 90);
-			////  window.draw(text);
+			////board.placeShip("Cruiser", 'E', 0, 90);
+			////window.draw(text);
 			//window.display();
 
 
@@ -1236,19 +1247,33 @@ public:
 			printf("Computer Board\n"); // debug code, speeds up testing of game
 			b1.printBoard(BOARDPLAYER2);
 
-			////////////////////////////////////////////////////////////////
-			logPlayer1 = b1.getLogPlayer1();
+			//////////////////////////////////////////////////////////////// IMPORTANT!! GIVES ACCESS TO SHIP COORDINATES AND SHOTS FIRED
+			logPlayer1 = b1.getLogPlayer1(); //vector
 			logPlayer2 = b1.getLogPlayer2();
 
 			fleetPlayer1 = b1.getFleetPlayer1();
 			fleetPlayer2 = b1.getFleetPlayer2();
-			////////////////////////////////////////////////////////////////
+			//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
+			int adjust = 90;
+
+			window.clear();
+			boardPlayer1.drawBoard(0, 0);
+			boardViewPlayer1.drawBoard(11, 0);
+
+			boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation() - adjust);
+			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation() - adjust);
+			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation() - adjust);
+			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation() - adjust);
+
+			window.display();
+
+
 
 			do
 			{
 
 				printf("	   Enemy Area\n");
-				b1.printBoard(BOARDVIEWPLAYER2);
+				b1.printBoard(BOARDVIEWPLAYER1);
 				printf("	You Area of Operations\n");
 				b1.printBoard(BOARDPLAYER1);
 				b1.fire(PLAYER1);
@@ -1276,6 +1301,8 @@ public:
 			}
 
 
+
+
 		}
 
 
@@ -1287,6 +1314,10 @@ public:
 
 	}
 
+
+
+
+
 private:
 	board b1;
 
@@ -1295,4 +1326,7 @@ private:
 
 	fleet* fleetPlayer1;
 	fleet* fleetPlayer2;
+
+	char num2Char[10] = { 'A','B','C','D','E','F','G','H','I','J' };
+	//					   0   1   2   3   4   5   6   7   8   9
 };
