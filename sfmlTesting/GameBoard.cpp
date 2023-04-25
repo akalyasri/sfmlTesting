@@ -2,7 +2,6 @@
 #include "GameBoard.hpp"
 
 
-
 Board::Board(sf::RenderWindow& window) : m_window(window) {
 
 	// Set up the square shape
@@ -103,6 +102,15 @@ void Board::drawBoard(int startX, int startY) {
 void Board::placeShip(string shipName, char x, int y, int orientation) {
 
 	// Convert Corrdinate
+	if (orientation == 90 || orientation == 180)
+	{
+		//x++;
+	}
+	else if (orientation == 270)
+	{
+		//y++;
+	}
+
 
 	float xCoord = float(80 * ((x + 1 + locationX) - 'A'));
 	float yCoord = float((y + 1 + locationY) * 80);
@@ -193,7 +201,7 @@ void Board::placeExtras(string name, char x, int y) {
 	float yCoord = float((y + 1 + locationY) * 80);
 
 	sf::Texture texture;
-		
+
 	if (!texture.loadFromFile("ShipTypes/bomb_1x1.png")) {
 		cout << "Error loading ship file" << endl;
 	}

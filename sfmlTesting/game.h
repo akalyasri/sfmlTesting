@@ -101,9 +101,9 @@ private:
 	int hit;
 	int sunk;
 
-	int x;
-	int y;
-	int orintation;
+	int x = 0;
+	int y = 0;
+	int orintation = 0;
 };
 
 class fleet
@@ -775,7 +775,7 @@ protected:
 		//scanf("%d", &choice);
 		inputCheck(2, board, &x, &y, rotation, &choice); // rotation choice input
 
-		int uRot;
+		int uRot = 0;
 
 		switch (choice)
 		{
@@ -837,7 +837,7 @@ protected:
 		case 's':
 			ref.submarine->setX(x);
 			ref.submarine->setY(y);
-			ref.cruiser->setOrientation(uRot);
+			ref.submarine->setOrientation(uRot);
 			break;
 		case 'd':
 			ref.destroyer->setX(x);
@@ -1254,17 +1254,37 @@ public:
 			fleetPlayer1 = b1.getFleetPlayer1();
 			fleetPlayer2 = b1.getFleetPlayer2();
 			//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
-			int adjust = 90;
+			int adjust = 0;
 
 			window.clear();
 			boardPlayer1.drawBoard(0, 0);
 			boardViewPlayer1.drawBoard(11, 0);
 
-			boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation() - adjust);
-			boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation() - adjust);
-			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation() - adjust);
-			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation() - adjust);
-			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation() - adjust);
+			cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
+			cout << "Battleship (" << fleetPlayer1->battleship->getX() << ", " << fleetPlayer1->battleship->getY() << ")" << "Rotation: " << fleetPlayer1->battleship->getOrientation() << endl;
+			cout << "Cruiser (" << fleetPlayer1->cruiser->getX() << ", " << fleetPlayer1->cruiser->getY() << ")" << "Rotation: " << fleetPlayer1->cruiser->getOrientation() << endl;
+			cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
+			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;
+
+			/*boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation() + adjust);
+			boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation() + adjust);
+			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation() + adjust);
+			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation() + adjust);
+			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation() + adjust);*/
+
+
+			/*boardPlayer1.placeShip("Carrier", num2Char[5], 0, 0);
+			boardPlayer1.placeShip("Battleship", num2Char[2], 4, 90);
+			boardPlayer1.placeShip("Cruiser", num2Char[1], 7, 270);
+			boardPlayer1.placeShip("Submarine", num2Char[6], 1, 180);
+			boardPlayer1.placeShip("Destroyer", num2Char[4], 8, 90);*/
+
+
+			boardPlayer1.placeShip("Carrier", 'F', 0, 90);
+			boardPlayer1.placeShip("Battleship", 'C', 4, 0);
+			boardPlayer1.placeShip("Cruiser", 'B', 7, 270);
+			boardPlayer1.placeShip("Submarine", 'H', 1, 0);
+			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);
 
 			window.display();
 
