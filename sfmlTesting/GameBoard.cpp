@@ -112,34 +112,34 @@ void Board::placeShip(string shipName, char x, int y, int orientation) {
 	if (shipName == "Carrier") {
 
 		if (!texture.loadFromFile("ShipTypes/carrier_1x5.png")) {
-			cout << "Error loading ship file" << endl;
+			cout << "Error loading carrier ship file" << endl;
 		}
 
 	}
 	else if (shipName == "Battleship") {
 
 		if (!texture.loadFromFile("ShipTypes/battleship_1x4.png")) {
-			cout << "Error loading ship file" << endl;
+			cout << "Error loading battleship file" << endl;
 		}
 
 	}
 	else if (shipName == "Cruiser") {
 
 		if (!texture.loadFromFile("ShipTypes/cruiser_1x3.png")) {
-			cout << "Error loading ship file" << endl;
+			cout << "Error loading cruiser ship file" << endl;
 		}
 
 	}
 	else if (shipName == "Destroyer") {
 
 		if (!texture.loadFromFile("ShipTypes/destroyer_1x2.png")) {
-			cout << "Error loading ship file" << endl;
+			cout << "Error loading destroyer ship file" << endl;
 		}
 
 	}
 	else if (shipName == "Submarine") {
 		if (!texture.loadFromFile("ShipTypes/sub_1x3.png")) {
-			cout << "Error loading ship file" << endl;
+			cout << "Error loading sub ship file" << endl;
 		}
 	}
 
