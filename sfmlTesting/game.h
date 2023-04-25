@@ -1023,7 +1023,7 @@ protected:
 		switch (choice)
 		{
 		case 1: // rotate left
-			uRot = 270;
+			uRot = 180;
 			for (int i = x; i >= x - size; i--)
 			{
 				board[y][i] = identification;
@@ -1031,7 +1031,7 @@ protected:
 			break;
 
 		case 2: // rotate rigght
-			uRot = 90;
+			uRot = 0;
 			for (int i = x; i <= x + size; i++)
 			{
 				board[y][i] = identification;
@@ -1039,7 +1039,7 @@ protected:
 			break;
 
 		case 3: // rotate down
-			uRot = 180;
+			uRot = 90;
 			for (int i = y; i <= y + size; i++)
 			{
 				board[i][x] = identification;
@@ -1047,7 +1047,7 @@ protected:
 			break;
 
 		case 4: // roate up
-			uRot = 0;
+			uRot = 270;
 			for (int i = y; i >= y - size; i--)
 			{
 				board[i][x] = identification;
@@ -1273,6 +1273,13 @@ public:
 			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation() + adjust);*/
 
 
+			boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
+			boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation());
+			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation());
+			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
+			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
+
+
 			/*boardPlayer1.placeShip("Carrier", num2Char[5], 0, 0);
 			boardPlayer1.placeShip("Battleship", num2Char[2], 4, 90);
 			boardPlayer1.placeShip("Cruiser", num2Char[1], 7, 270);
@@ -1280,11 +1287,11 @@ public:
 			boardPlayer1.placeShip("Destroyer", num2Char[4], 8, 90);*/
 
 
-			boardPlayer1.placeShip("Carrier", 'F', 0, 0);
+			/*boardPlayer1.placeShip("Carrier", 'F', 0, 0);
 			boardPlayer1.placeShip("Battleship", 'C', 4, 90);
 			boardPlayer1.placeShip("Cruiser", 'B', 7, 270);
 			boardPlayer1.placeShip("Submarine", 'H', 1, 0);
-			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);
+			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);*/
 
 			window.display();
 
