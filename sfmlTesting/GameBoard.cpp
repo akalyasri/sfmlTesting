@@ -102,13 +102,17 @@ void Board::drawBoard(int startX, int startY) {
 void Board::placeShip(string shipName, char x, int y, int orientation) {
 
 	// Convert Corrdinate
-	if (orientation == 90 || orientation == 180)
+	if (orientation == 90)
 	{
-		//x++;
+		x++;
 	}
 	else if (orientation == 270)
 	{
-		//y++;
+		y++;
+	}
+	else if (orientation == 180) {
+		y++;
+		x++;
 	}
 
 

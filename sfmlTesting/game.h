@@ -780,7 +780,7 @@ protected:
 		switch (choice)
 		{
 		case 1: // rotate left
-			uRot = 270;
+			uRot = 180;
 			for (int i = x; i >= x - size; i--)
 			{
 				board[y][i] = identification;
@@ -788,7 +788,7 @@ protected:
 			break;
 
 		case 2: // rotate rigght
-			uRot = 90;
+			uRot = 0;
 			for (int i = x; i <= x + size; i++)
 			{
 				board[y][i] = identification;
@@ -796,7 +796,7 @@ protected:
 			break;
 
 		case 3: // rotate down
-			uRot = 180;
+			uRot = 90;
 			for (int i = y; i <= y + size; i++)
 			{
 				board[i][x] = identification;
@@ -804,7 +804,7 @@ protected:
 			break;
 
 		case 4: // roate up
-			uRot = 0;
+			uRot = 270;
 			for (int i = y; i >= y - size; i--)
 			{
 				board[i][x] = identification;
@@ -1280,8 +1280,8 @@ public:
 			boardPlayer1.placeShip("Destroyer", num2Char[4], 8, 90);*/
 
 
-			boardPlayer1.placeShip("Carrier", 'F', 0, 90);
-			boardPlayer1.placeShip("Battleship", 'C', 4, 0);
+			boardPlayer1.placeShip("Carrier", 'F', 0, 0);
+			boardPlayer1.placeShip("Battleship", 'C', 4, 90);
 			boardPlayer1.placeShip("Cruiser", 'B', 7, 270);
 			boardPlayer1.placeShip("Submarine", 'H', 1, 0);
 			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);
