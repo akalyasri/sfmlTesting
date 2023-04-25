@@ -129,6 +129,7 @@ public:
 
 class logBook //keeps track of shots fired
 {
+
 public:
 	vector<int> x;
 	vector<int> y;
@@ -1293,10 +1294,15 @@ public:
 			boardPlayer1.placeShip("Submarine", 'H', 1, 0);
 			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);*/
 
+			/*boardViewPlayer1.placeBomb('A', 1);
+			boardViewPlayer1.placeBomb('B', 2);
+			boardViewPlayer1.placeBomb('E', 3);
+			boardViewPlayer1.placeBomb('F', 4);*/
+
 			window.display();
 
 
-
+			int tracker = 0;
 			do
 			{
 
@@ -1305,11 +1311,33 @@ public:
 				printf("	You Area of Operations\n");
 				b1.printBoard(BOARDPLAYER1);
 				b1.fire(PLAYER1);
+
+				window.clear();
+				boardPlayer1.drawBoard(0, 0);
+				boardViewPlayer1.drawBoard(11, 0);
+				boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
+				boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation());
+				boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation());
+				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
+				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
+
+
+				for (int i = 0; i < logPlayer1->x.size(); i++)
+				{
+					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
+				}
+
+				window.display();
+
+				tracker++;
+
+
 				printf("\nPress any key to continue");
 				scanf(" %c", &dummyChar);
 				system("cls");
 
 				b1.fire(PLAYER2);
+
 				printf("\nPress any key to continue");
 				scanf(" %c", &dummyChar);
 				system("cls");

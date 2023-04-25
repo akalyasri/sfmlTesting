@@ -46,10 +46,10 @@
     <Image Include="ShipTypes\bomb_1x1.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\carrier_1x5.png">
+    <Image Include="ShipTypes\battleship_1x4.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="..\..\sfmlTesting\sfmlTesting\ShipTypes\battleship_1x4.png">
+    <Image Include="ShipTypes\carrier_1x5.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
