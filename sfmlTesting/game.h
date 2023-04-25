@@ -1327,6 +1327,11 @@ public:
 					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
 				}
 
+				for (int i = 0; i < logPlayer2->x.size(); i++)
+				{
+					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
+				}
+
 				window.display();
 
 				tracker++;
@@ -1337,6 +1342,28 @@ public:
 				system("cls");
 
 				b1.fire(PLAYER2);
+
+				window.clear();
+				boardPlayer1.drawBoard(0, 0);
+				boardViewPlayer1.drawBoard(11, 0);
+				boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
+				boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation());
+				boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation());
+				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
+				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
+
+
+				for (int i = 0; i < logPlayer1->x.size(); i++)
+				{
+					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
+				}
+
+				for (int i = 0; i < logPlayer2->x.size(); i++)
+				{
+					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
+				}
+
+				window.display();
 
 				printf("\nPress any key to continue");
 				scanf(" %c", &dummyChar);
