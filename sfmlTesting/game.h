@@ -149,6 +149,11 @@ public:
 		return choice;
 	}
 
+
+	virtual string inputCheck(int type)
+	{
+
+	}
 };
 
 class layer : public con2Sfml //public con2Sfml
@@ -239,6 +244,132 @@ public:
 
 	}
 
+
+	string inputCheck(int type) override
+	{
+		if (type == 1)
+		{
+
+			sf::RenderWindow window(sf::VideoMode(400, 200), "Input Prompt");
+
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+				std::cout << "Error loading font" << std::endl;
+				return NULL;
+			}
+
+			sf::Text prompt;
+			prompt.setFont(font);
+			prompt.setCharacterSize(24);
+			prompt.setFillColor(sf::Color::White);
+			prompt.setString("You picked a coordinate that has already been taken by other ship. Select a different coordinate (x y):");
+
+			sf::Text text;
+			text.setFont(font);
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color::White);
+			text.setPosition(0, 40);
+
+			std::string inputString;
+
+			while (window.isOpen()) {
+				sf::Event event;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed) {
+						window.close();
+					}
+					else if (event.type == sf::Event::TextEntered) {
+						if (event.text.unicode == '\r') {
+							// Return input string when user presses enter
+							std::cout << "User entered: " << inputString << std::endl;
+							return inputString;
+							window.close();
+						}
+						else if (event.text.unicode == '\b') {
+							// Handle backspace
+							if (!inputString.empty()) {
+								inputString.pop_back();
+								text.setString(inputString);
+							}
+						}
+						else {
+							// Handle other input characters
+							inputString += static_cast<char>(event.text.unicode);
+							text.setString(inputString);
+						}
+					}
+				}
+
+				window.clear(sf::Color::Black);
+				window.draw(prompt);
+				window.draw(text);
+				window.display();
+			}
+
+			return 0;
+		}
+
+		if (type == 2)
+		{
+			sf::RenderWindow window(sf::VideoMode(400, 200), "Input Prompt");
+
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+				std::cout << "Error loading font" << std::endl;
+				return NULL;
+			}
+
+			sf::Text prompt;
+			prompt.setFont(font);
+			prompt.setCharacterSize(24);
+			prompt.setFillColor(sf::Color::White);
+			prompt.setString("Your X or Y is out of bounds, enter within the bound (0 <= X or Y <= 9): ");
+
+			sf::Text text;
+			text.setFont(font);
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color::White);
+			text.setPosition(0, 40);
+
+			std::string inputString;
+
+			while (window.isOpen()) {
+				sf::Event event;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed) {
+						window.close();
+					}
+					else if (event.type == sf::Event::TextEntered) {
+						if (event.text.unicode == '\r') {
+							// Return input string when user presses enter
+							std::cout << "User entered: " << inputString << std::endl;
+							return inputString;
+							window.close();
+						}
+						else if (event.text.unicode == '\b') {
+							// Handle backspace
+							if (!inputString.empty()) {
+								inputString.pop_back();
+								text.setString(inputString);
+							}
+						}
+						else {
+							// Handle other input characters
+							inputString += static_cast<char>(event.text.unicode);
+							text.setString(inputString);
+						}
+					}
+				}
+
+				window.clear(sf::Color::Black);
+				window.draw(prompt);
+				window.draw(text);
+				window.display();
+			}
+
+			return 0;
+		}
+	}
 
 };
 
@@ -734,6 +865,8 @@ public:
 
 			placeAuto(boardPlayer2, 1, fleetPlayer2.destroyer->getIdentification(), fleetPlayer2);
 		}
+
+		delete sfmlLayer;
 	}
 
 	int getStatusPlayer1()
@@ -1005,6 +1138,7 @@ protected:
 	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice)
 	{
 		int tryAgain = YES;
+		con2Sfml* sfmlLayer = new layer;
 
 		if (checkType == 1)
 		{
@@ -1014,8 +1148,10 @@ protected:
 			{
 				if (board[*y][*x] != '~')
 				{
-					printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					scanf("%d %d", x, y);
+					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
+					scanf("%d %d", x, y);*/
+					sfmlLayer->inputCheck(1);
+
 
 				}
 				else
@@ -1025,8 +1161,9 @@ protected:
 					{
 						if (*x > 9 && *x < 0)
 						{
-							printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
-							scanf("%d", x);
+							/*printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
+							scanf("%d", x);*/
+							*x = stoi(sfmlLayer->inputCheck(2));
 						}
 						else
 						{
@@ -1039,8 +1176,9 @@ protected:
 					{
 						if (*y > 9 && *y < 0)
 						{
-							printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
-							scanf("%d", y);
+							/*printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
+							scanf("%d", y);*/
+							*y = stoi(sfmlLayer->inputCheck(2));
 						}
 						else
 						{
