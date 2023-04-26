@@ -141,12 +141,13 @@
   <ItemGroup>
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="main_1.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="game.h" />
+    <ClInclude Include="boardGame.h" />
+    <ClInclude Include="sfmlLayer.h" />
     <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="ships.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ShipTypes\battleship_1x4.png" />
