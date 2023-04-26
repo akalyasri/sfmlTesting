@@ -1282,9 +1282,76 @@ public:
 	}
 
 
-	void displayPlayer1()
+	void displayPlayer1(int type)
 	{
 
+
+		sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+		sf::Font font;
+		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+		{
+			std::cerr << "Error loading font" << std::endl;
+		}
+		Board boardPlayer1(window);
+		Board boardViewPlayer1(window);
+
+		while (window.isOpen())
+		{
+			if (type == 0)
+
+			{
+
+
+				window.clear();
+				boardPlayer1.drawBoard(0, 0);
+				boardViewPlayer1.drawBoard(11, 0);
+
+				cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
+				cout << "Battleship (" << fleetPlayer1->battleship->getX() << ", " << fleetPlayer1->battleship->getY() << ")" << "Rotation: " << fleetPlayer1->battleship->getOrientation() << endl;
+				cout << "Cruiser (" << fleetPlayer1->cruiser->getX() << ", " << fleetPlayer1->cruiser->getY() << ")" << "Rotation: " << fleetPlayer1->cruiser->getOrientation() << endl;
+				cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
+				cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;
+
+
+				sf::Text text;
+				text.setFont(font);
+				text.setCharacterSize(24);
+				text.setFillColor(sf::Color::White);
+				text.setPosition(20, 1100);
+				text.setString("Hello World");
+				window.draw(text);
+				window.display();
+			}
+			else if (type == 1)
+			{
+				window.clear();
+				boardPlayer1.drawBoard(0, 0);
+				boardViewPlayer1.drawBoard(11, 0);
+				boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
+				boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation());
+				boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation());
+				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
+				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
+
+				for (int i = 0; i < logPlayer1->x.size(); i++)
+				{
+					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
+				}
+				for (int i = 0; i < logPlayer2->x.size(); i++)
+				{
+					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
+				}
+
+				sf::Text text;
+				text.setFont(font);
+				text.setCharacterSize(24);
+				text.setFillColor(sf::Color::White);
+				text.setPosition(20, 1100);
+				text.setString("Hello World");
+				window.draw(text);
+				window.display();
+			}
+		}
 	}
 
 	void runGame()
