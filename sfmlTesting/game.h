@@ -3,6 +3,15 @@
 class ship
 {
 public:
+	ship()
+	{
+		player = NULL;
+		hp = 0;
+		identification = NULL;
+		hit = 0;
+		sunk = 0;
+	}
+
 	ship(int uPlayer, int uHP, char uIdentification, int uHit, int uSunk)
 	{
 		player = uPlayer;
@@ -11,8 +20,7 @@ public:
 		hit = uHit;
 		sunk = uSunk;
 	}
-
-	void setShip(int uHP, char uIdentification, int uHit, int uSunk)
+	virtual void setShip(int uHP, char uIdentification, int uHit, int uSunk)
 	{
 
 	}
@@ -20,7 +28,6 @@ public:
 	{
 
 	}
-
 	void setPlayer(int uPlayer)
 	{
 		player = uPlayer;
@@ -41,8 +48,6 @@ public:
 	{
 		sunk = uSunk;
 	}
-
-
 
 	int getPlayer()
 	{
@@ -80,7 +85,6 @@ public:
 		orintation = uRotation;
 	}
 
-
 	int getX()
 	{
 		return x;
@@ -105,6 +109,19 @@ private:
 	int y = 0;
 	int orintation = 0;
 };
+
+
+class destroyerShip : public ship
+{
+	destroyerShip(int uPlayer, int uHP, char uIdentification, int uHit, int uSunk) :ship(uPlayer, uHP, uIdentification, uHit, uSunk)
+	{
+
+	}
+
+
+};
+
+
 
 class fleet
 {
@@ -612,7 +629,6 @@ public:
 		return &logPlayer2;
 	}
 
-
 	fleet* getFleetPlayer1()
 	{
 		return &fleetPlayer1;
@@ -666,7 +682,6 @@ protected:
 		return choice;
 
 	}
-
 
 	void placeMan(char board[][10], int size, char identification, class fleet& ref)
 	{
@@ -859,7 +874,6 @@ protected:
 
 
 	}
-
 	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice)
 	{
 		int tryAgain = YES;
@@ -932,7 +946,6 @@ protected:
 
 		}
 	}
-
 
 	void placeAuto(char board[][10], int size, char identification, class fleet& ref)
 	{
@@ -1102,7 +1115,6 @@ protected:
 
 
 	}
-
 	void autoCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice)
 	{
 		int tryAgain = YES;
@@ -1181,6 +1193,91 @@ protected:
 
 
 
+class con2Sfml // makes a layer that interacts with the console and sfml
+{
+public:
+	con2Sfml()
+	{
+
+	}
+
+	virtual int yesNo(int type)
+	{
+		int choice;
+
+		sf::RenderWindow window(sf::VideoMode(1024, 512), "Selection Interface", sf::Style::Close | sf::Style::Resize);
+
+		sf::Font font;
+
+		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+		{
+			cout << "unable to open airal.ttf" << endl;
+		}
+
+		sf::Text text;
+		text.setFont(font);
+		text.setString("Would you like to place Manually or Automatic (0 for man || 1 for auto:");
+		text.setColor(sf::Color::Red);
+		text.setCharacterSize(20);
+
+
+		while (window.isOpen())
+		{
+			sf::Event evnt;
+
+			while (window.pollEvent(evnt))
+			{
+				if (evnt.type == evnt.Closed)
+				{
+					window.close();
+				}
+
+				window.clear();
+				window.draw(text);
+				window.display();
+
+
+
+
+			}
+
+
+
+
+
+
+		}
+
+
+
+		return 1000;
+	}
+
+	virtual void intputCheck()
+	{
+
+	}
+
+
+
+
+
+private:
+
+
+};
+
+class layer : public con2Sfml
+{
+public:
+
+
+private:
+
+
+};
+
+
 class game
 {
 public:
@@ -1198,8 +1295,6 @@ public:
 		Board boardPlayer1(window);
 		Board boardViewPlayer1(window);
 
-
-
 		while (window.isOpen())
 		{
 			sf::Event event;
@@ -1208,18 +1303,11 @@ public:
 				if (event.type == sf::Event::Closed)
 					window.close();
 
-
-
-
 			}
 			// To get the coordinates fired
-
-
 			//window.clear();
 			//boardPlayer1.drawBoard(0, 0);
 			//boardViewPlayer1.drawBoard(11, 0);
-
-
 
 			//boardViewPlayer1.placeShip("Cruiser", 'A', 6, 0);
 			//boardViewPlayer1.placeBomb('A', 1);
@@ -1229,24 +1317,14 @@ public:
 			////window.draw(text);
 			//window.display();
 
-
-
-
-
-
-
-
-
-
-
 			char dummyChar = '\0';
-			b1.printBoard(BOARDPLAYER1);
+			//b1.printBoard(BOARDPLAYER1);
 			b1.placeShip(PLAYER1);
 
 			// Placing ships on computer's board
 			b1.placeShip(PLAYER2);
-			printf("Computer Board\n"); // debug code, speeds up testing of game
-			b1.printBoard(BOARDPLAYER2);
+			//printf("Computer Board\n"); // debug code, speeds up testing of game
+			//b1.printBoard(BOARDPLAYER2);
 
 			//////////////////////////////////////////////////////////////// IMPORTANT!! GIVES ACCESS TO SHIP COORDINATES AND SHOTS FIRED
 			logPlayer1 = b1.getLogPlayer1(); //vector
@@ -1287,7 +1365,6 @@ public:
 			boardPlayer1.placeShip("Submarine", num2Char[6], 1, 180);
 			boardPlayer1.placeShip("Destroyer", num2Char[4], 8, 90);*/
 
-
 			/*boardPlayer1.placeShip("Carrier", 'F', 0, 0);
 			boardPlayer1.placeShip("Battleship", 'C', 4, 90);
 			boardPlayer1.placeShip("Cruiser", 'B', 7, 270);
@@ -1301,15 +1378,13 @@ public:
 
 			window.display();
 
-
-			int tracker = 0;
 			do
 			{
 
-				printf("	   Enemy Area\n");
-				b1.printBoard(BOARDVIEWPLAYER1);
-				printf("	You Area of Operations\n");
-				b1.printBoard(BOARDPLAYER1);
+				//printf("	   Enemy Area\n");
+				//b1.printBoard(BOARDVIEWPLAYER1);
+				//printf("	You Area of Operations\n");
+				//b1.printBoard(BOARDPLAYER1);
 				b1.fire(PLAYER1);
 
 				window.clear();
@@ -1321,20 +1396,15 @@ public:
 				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
 				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
 
-
 				for (int i = 0; i < logPlayer1->x.size(); i++)
 				{
 					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
 				}
-
 				for (int i = 0; i < logPlayer2->x.size(); i++)
 				{
 					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
 				}
-
 				window.display();
-
-				tracker++;
 
 
 				printf("\nPress any key to continue");
@@ -1342,7 +1412,6 @@ public:
 				system("cls");
 
 				b1.fire(PLAYER2);
-
 				window.clear();
 				boardPlayer1.drawBoard(0, 0);
 				boardViewPlayer1.drawBoard(11, 0);
@@ -1352,25 +1421,20 @@ public:
 				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
 				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
 
-
 				for (int i = 0; i < logPlayer1->x.size(); i++)
 				{
 					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
 				}
-
 				for (int i = 0; i < logPlayer2->x.size(); i++)
 				{
 					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
 				}
-
 				window.display();
+
 
 				printf("\nPress any key to continue");
 				scanf(" %c", &dummyChar);
 				system("cls");
-
-
-
 
 			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
 
@@ -1383,24 +1447,9 @@ public:
 				printf("you won!\n");
 			}
 
-
-			// hello world
-
-
-
 		}
 
-
-
-
-
-
-
-
 	}
-
-
-
 
 
 private:

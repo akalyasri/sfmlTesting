@@ -1,4 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
+#define SFML_NO_DEPRECATED_WARNINGS
+
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <iostream>
