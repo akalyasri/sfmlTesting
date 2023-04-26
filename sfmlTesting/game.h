@@ -150,9 +150,9 @@ public:
 	}
 
 
-	virtual string inputCheck(int type)
+	virtual string inputCheck(int type, string strings[])
 	{
-
+		return "-1";
 	}
 };
 
@@ -245,7 +245,7 @@ public:
 	}
 
 
-	string inputCheck(int type) override
+	string inputCheck(int type, string strings[]) override
 	{
 		if (type == 1)
 		{
@@ -368,6 +368,132 @@ public:
 			}
 
 			return 0;
+		}
+
+		if (type == 3)
+		{
+			// Create a window
+			sf::RenderWindow window(sf::VideoMode(400, 300), "SFML Array and Input");
+
+			// Define the font to be used
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+				cout << "Error: font could not be loaded" << endl;
+				return "-1";
+			}
+
+			// Define the array of strings
+			string arr[] = { "You can Rotate Left", "You can Rotate Right", "You can Rotate Down", "You can Rotate Up" };
+
+			// Create a text object to display the strings in the array
+			sf::Text text("", font, 20);
+			text.setPosition(50, 50);
+
+			// Display each string in the array on a separate line in the window
+			for (int i = 0; i < 4; i++) {
+				if (!arr[i].empty()) {
+					text.setString(arr[i]);
+					window.draw(text);
+					text.move(0, 30);
+				}
+			}
+
+			// Ask the user to input a number
+			int num;
+			cout << "Enter a number: ";
+			cin >> num;
+
+			// Create a text object to display the input number
+			sf::Text input(std::to_string(num), font, 20);
+			input.setPosition(50, 200);
+			window.draw(input);
+
+			// Ask the user to input an index that contains characters
+			int index;
+			do {
+				cout << "Enter an index that contains characters (0-4): ";
+				cin >> index;
+			} while (arr[index].empty());
+
+			// Create a text object to display the input index and corresponding string in the array
+			sf::Text output("Index " + std::to_string(index) + ": " + arr[index], font, 20);
+			output.setPosition(50, 250);
+			window.draw(output);
+
+			// Display the window
+			window.display();
+
+			// Wait for the window to be closed
+			while (window.isOpen()) {
+				sf::Event event;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed) {
+						window.close();
+					}
+				}
+			}
+
+			return 0;
+		}
+
+		if (type == 4)
+		{
+			const int WIDTH = 400;
+			const int HEIGHT = 600;
+			const int NUM_STRINGS = 5;
+			//const std::string strings[NUM_STRINGS] = { "You can Rotate Left", "You can Rotate Right", "You can Rotate Down", "You can Rotate Up" };
+
+			sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Rotate Check");
+
+			int selectedNum = -1; // initialize to an invalid value
+
+			while (window.isOpen() && selectedNum == -1) {
+				sf::Event event;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed)
+						window.close();
+				}
+
+				window.clear(sf::Color::White);
+
+				// display strings
+				for (int i = 0; i < NUM_STRINGS; i++) {
+					if (strings[i] != "\0") {
+						sf::Text text(strings[i], sf::Font(), 20);
+						text.setPosition(50, i * 50 + 50);
+						window.draw(text);
+					}
+				}
+
+				// ask for user input
+				sf::Text prompt("Enter a number: ", sf::Font(), 20);
+				prompt.setPosition(50, 350);
+				window.draw(prompt);
+				window.display();
+
+				std::string input;
+				std::getline(std::cin, input);
+				int num = std::stoi(input);
+
+				// check if input is valid
+				while (num < 0 || num >= NUM_STRINGS || strings[num] == "\0") {
+					sf::Text error("Invalid input. Please enter a number corresponding to a non-empty string: ", sf::Font(), 20);
+					error.setPosition(50, 400);
+					window.draw(error);
+					window.display();
+					std::getline(std::cin, input);
+					num = std::stoi(input);
+				}
+
+				// display selected string and store selected number
+				sf::Text selectedString(strings[num], sf::Font(), 20);
+				selectedString.setPosition(50, 450);
+				window.draw(selectedString);
+				window.display();
+				selectedNum = num;
+			}
+
+			return std::to_string(selectedNum);
 		}
 	}
 
@@ -952,9 +1078,10 @@ protected:
 		// left, right, down, up
 
 		int choice = 0;
+		string rotateString[4] = { NULL };
 
 		// scanf("%d %d", &x, &y); 
-		inputCheck(1, board, &x, &y, rotation, &choice); // x and y input
+		inputCheck(1, board, &x, &y, rotation, &choice, rotateString); // x and y input
 
 
 
@@ -1030,27 +1157,53 @@ protected:
 		}
 		placeable = YES;
 
+
+
 		if (rotation[0] == 1)
 		{
 			printf("1) You can rotate left\n");
+			rotateString[0] = "1) You can rotate left";
 		}
+		else
+		{
+			rotateString[0] = '\0';
+		}
+
 		if (rotation[1] == 1)
 		{
 			printf("2) You can rotate right\n");
+			rotateString[1] = "2) You can rotate right";
 		}
+		else
+		{
+			rotateString[1] = '\0';
+		}
+
 		if (rotation[2] == 1)
 		{
 			printf("3) You can rotate down\n");
+			rotateString[2] = "3) You can rotate down";
 		}
+		else
+		{
+			rotateString[2] = '\0';
+		}
+
 		if (rotation[3] == 1)
 		{
 			printf("4) You can roate up\n");
+			rotateString[3] = "4) You can roate up";
 		}
+		else
+		{
+			rotateString[3] = '\0';
+		}
+
 		// what if no roations were found? Put in check code
 
 		printf("What would you like to do? Pick the corresponding number: ");
 		//scanf("%d", &choice);
-		inputCheck(2, board, &x, &y, rotation, &choice); // rotation choice input
+		inputCheck(2, board, &x, &y, rotation, &choice, rotateString); // rotation choice input
 
 		int uRot = 0;
 
@@ -1135,7 +1288,7 @@ protected:
 
 
 	}
-	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice)
+	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, string rotationString[])
 	{
 		int tryAgain = YES;
 		con2Sfml* sfmlLayer = new layer;
@@ -1150,7 +1303,7 @@ protected:
 				{
 					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
 					scanf("%d %d", x, y);*/
-					sfmlLayer->inputCheck(1);
+					sfmlLayer->inputCheck(1, rotationString);
 
 
 				}
@@ -1163,7 +1316,7 @@ protected:
 						{
 							/*printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
 							scanf("%d", x);*/
-							*x = stoi(sfmlLayer->inputCheck(2));
+							*x = stoi(sfmlLayer->inputCheck(2, rotationString));
 						}
 						else
 						{
@@ -1178,7 +1331,7 @@ protected:
 						{
 							/*printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
 							scanf("%d", y);*/
-							*y = stoi(sfmlLayer->inputCheck(2));
+							*y = stoi(sfmlLayer->inputCheck(2, rotationString));
 						}
 						else
 						{
@@ -1201,8 +1354,11 @@ protected:
 
 				if (rotation[*choice - 1] != 1)
 				{
-					printf("\n You selected an invalid number, selec a valid rotation: ");
-					scanf("%d", choice);
+					/*printf("\n You selected an invalid number, selec a valid rotation: ");
+					scanf("%d", choice);*/
+
+					sfmlLayer->inputCheck(4, rotationString);
+
 				}
 				else
 				{
@@ -1211,6 +1367,10 @@ protected:
 			}
 
 		}
+	}
+	void parseString(int* x, int* y)
+	{
+
 	}
 
 	void placeAuto(char board[][10], int size, char identification, class fleet& ref)
