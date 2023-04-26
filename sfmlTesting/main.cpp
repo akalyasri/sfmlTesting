@@ -6,10 +6,10 @@ int main()
 
 	con2Sfml t1;
 
-	t1.yesNo(1);
+	//t1.yesNo(1);
 
-	//game g1;
-	//g1.runGame();
+	game g1;
+	g1.runGame();
 
 	return 0;
 

@@ -1205,52 +1205,47 @@ public:
 	{
 		int choice;
 
-		sf::RenderWindow window(sf::VideoMode(1024, 512), "Selection Interface", sf::Style::Close | sf::Style::Resize);
+		sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Keyboard Input");
 
 		sf::Font font;
-
 		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
 		{
-			cout << "unable to open airal.ttf" << endl;
+			std::cerr << "Error loading font" << std::endl;
+			return 1;
 		}
 
 		sf::Text text;
 		text.setFont(font);
-		text.setString("Would you like to place Manually or Automatic (0 for man || 1 for auto:");
-		text.setColor(sf::Color::Red);
-		text.setCharacterSize(20);
-
+		text.setCharacterSize(24);
+		text.setFillColor(sf::Color::White);
+		text.setPosition(20, 20);
 
 		while (window.isOpen())
 		{
-			sf::Event evnt;
-
-			while (window.pollEvent(evnt))
+			sf::Event event;
+			while (window.pollEvent(event))
 			{
-				if (evnt.type == evnt.Closed)
+				if (event.type == sf::Event::Closed)
 				{
 					window.close();
 				}
-
-				window.clear();
-				window.draw(text);
-				window.display();
-
-
-
-
+				else if (event.type == sf::Event::TextEntered)
+				{
+					if (event.text.unicode >= '0' && event.text.unicode <= '9')
+					{
+						char c = static_cast<char>(event.text.unicode);
+						std::cout << c << std::endl;
+						text.setString("Input: " + std::string(1, c));
+					}
+				}
 			}
 
-
-
-
-
-
+			window.clear();
+			window.draw(text);
+			window.display();
 		}
 
-
-
-		return 1000;
+		return 0;
 	}
 
 	virtual void intputCheck()
@@ -1287,13 +1282,25 @@ public:
 	}
 
 
+	void displayPlayer1()
+	{
+
+	}
 
 	void runGame()
 	{
-		sf::RenderWindow window(sf::VideoMode(880 * 2, 880), "Game Board!");
+		sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
 		//sf::Style::Resize
 		Board boardPlayer1(window);
 		Board boardViewPlayer1(window);
+
+
+		sf::Font font;
+		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+		{
+			std::cerr << "Error loading font" << std::endl;
+		}
+
 
 		while (window.isOpen())
 		{
@@ -1376,7 +1383,17 @@ public:
 			boardViewPlayer1.placeBomb('E', 3);
 			boardViewPlayer1.placeBomb('F', 4);*/
 
+
+
+			sf::Text text;
+			text.setFont(font);
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color::White);
+			text.setPosition(20, 1100);
+			text.setString("Hello World");
+			window.draw(text);
 			window.display();
+
 
 			do
 			{
