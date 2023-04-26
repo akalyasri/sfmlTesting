@@ -122,6 +122,129 @@ class destroyerShip : public ship
 };
 
 
+class con2Sfml // makes a layer that interacts with the console and sfml
+{
+public:
+	con2Sfml()
+	{
+
+	}
+
+	virtual int yesNo()
+	{
+
+		int choice = NO;
+
+
+		printf("Would you like to place Manually or Automatic (0 for man || 1 for auto) \n");
+		scanf("%d", &choice);
+
+		while (choice != NO && choice != YES)
+		{
+			printf("Please type correctly ");
+			scanf("%d", &choice);
+
+		}
+
+		return choice;
+	}
+
+};
+
+class layer : public con2Sfml //public con2Sfml
+{
+public:
+	layer()
+	{
+
+	}
+
+
+	int yesNo() override
+	{
+		sf::RenderWindow window(sf::VideoMode(1000, 480), "SFML Keyboard Input");
+
+		sf::Font font;
+		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+		{
+			std::cerr << "Error loading font" << std::endl;
+			return 1;
+		}
+
+		sf::Text promptText;
+		promptText.setFont(font);
+		promptText.setCharacterSize(24);
+		promptText.setFillColor(sf::Color::White);
+		promptText.setPosition(20, 20);
+		promptText.setString("Would you like to place Manually or Automatic (0 for man || 1 for auto)");
+
+		sf::Text inputText;
+		inputText.setFont(font);
+		inputText.setCharacterSize(24);
+		inputText.setFillColor(sf::Color::White);
+		inputText.setPosition(20, 70);
+
+		std::string input;
+		int number = -1;
+
+		while (window.isOpen())
+		{
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+				{
+					window.close();
+				}
+				else if (event.type == sf::Event::TextEntered)
+				{
+					if (event.text.unicode == '\r' || event.text.unicode == '\n') // Enter key
+					{
+						if (input == "0" || input == "1")
+						{
+							number = std::stoi(input);
+							std::cout << "You entered: " << number << std::endl;
+							input.clear();
+							promptText.setString("You entered: " + std::to_string(number));
+						}
+						else
+						{
+							std::cout << "Invalid input. Please try again." << std::endl;
+							input.clear();
+							promptText.setString("Invalid input. Please try again.");
+						}
+					}
+					else if (event.text.unicode < 128) // ASCII character
+					{
+						char c = static_cast<char>(event.text.unicode);
+						std::cout << c;
+						input += c;
+						inputText.setString(input);
+					}
+				}
+			}
+
+			window.clear();
+			window.draw(promptText);
+			window.draw(inputText);
+			window.display();
+
+			if (number == 0 || number == 1)
+			{
+				return number;
+			}
+		}
+
+		return 0;
+
+	}
+
+
+};
+
+
+
+
 
 class fleet
 {
@@ -552,9 +675,11 @@ public:
 
 	void placeShip(int whoPlay)
 	{
+		con2Sfml* sfmlLayer = new layer;
+
 		if (whoPlay == PLAYER1)
 		{
-			if (yesNo(1) == 0)
+			if (sfmlLayer->yesNo() == 0)
 			{
 				printf("Pick the first coordinate to place your carrier (X Y): ");
 				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
@@ -638,6 +763,7 @@ public:
 		return &fleetPlayer2;
 	}
 
+
 private:
 	char boardPlayer1[10][10] = { {'\0'}, {'\0'} };
 	char boardPlayer2[10][10] = { {'\0'}, {'\0'} };
@@ -660,8 +786,10 @@ private:
 	int infoY;
 	int infoRotation;
 
+
+
 protected:
-	int yesNo(int type)
+	/*int yesNo(int type)
 	{
 		int choice = NO;
 
@@ -681,7 +809,7 @@ protected:
 		}
 		return choice;
 
-	}
+	}*/
 
 	void placeMan(char board[][10], int size, char identification, class fleet& ref)
 	{
@@ -1193,86 +1321,6 @@ protected:
 
 
 
-class con2Sfml // makes a layer that interacts with the console and sfml
-{
-public:
-	con2Sfml()
-	{
-
-	}
-
-	virtual int yesNo(int type)
-	{
-		int choice;
-
-		sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Keyboard Input");
-
-		sf::Font font;
-		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
-		{
-			std::cerr << "Error loading font" << std::endl;
-			return 1;
-		}
-
-		sf::Text text;
-		text.setFont(font);
-		text.setCharacterSize(24);
-		text.setFillColor(sf::Color::White);
-		text.setPosition(20, 20);
-
-		while (window.isOpen())
-		{
-			sf::Event event;
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-				{
-					window.close();
-				}
-				else if (event.type == sf::Event::TextEntered)
-				{
-					if (event.text.unicode >= '0' && event.text.unicode <= '9')
-					{
-						char c = static_cast<char>(event.text.unicode);
-						std::cout << c << std::endl;
-						text.setString("Input: " + std::string(1, c));
-					}
-				}
-			}
-
-			window.clear();
-			window.draw(text);
-			window.display();
-		}
-
-		return 0;
-	}
-
-	virtual void intputCheck()
-	{
-
-	}
-
-
-
-
-
-private:
-
-
-};
-
-class layer : public con2Sfml
-{
-public:
-
-
-private:
-
-
-};
-
-
 class game
 {
 public:
@@ -1378,18 +1426,6 @@ public:
 					window.close();
 
 			}
-			// To get the coordinates fired
-			//window.clear();
-			//boardPlayer1.drawBoard(0, 0);
-			//boardViewPlayer1.drawBoard(11, 0);
-
-			//boardViewPlayer1.placeShip("Cruiser", 'A', 6, 0);
-			//boardViewPlayer1.placeBomb('A', 1);
-			//boardPlayer1.placeShip("Destroyer", 'B', 5, 0);
-			//boardViewPlayer1.placeBomb('B', 6);
-			////board.placeShip("Cruiser", 'E', 0, 90);
-			////window.draw(text);
-			//window.display();
 
 			char dummyChar = '\0';
 			//b1.printBoard(BOARDPLAYER1);
@@ -1419,11 +1455,6 @@ public:
 			cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
 			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;
 
-			/*boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation() + adjust);
-			boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation() + adjust);
-			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation() + adjust);
-			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation() + adjust);
-			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation() + adjust);*/
 
 
 			boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
@@ -1431,24 +1462,6 @@ public:
 			boardPlayer1.placeShip("Cruiser", num2Char[fleetPlayer1->cruiser->getX()], fleetPlayer1->cruiser->getY(), fleetPlayer1->cruiser->getOrientation());
 			boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
 			boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
-
-
-			/*boardPlayer1.placeShip("Carrier", num2Char[5], 0, 0);
-			boardPlayer1.placeShip("Battleship", num2Char[2], 4, 90);
-			boardPlayer1.placeShip("Cruiser", num2Char[1], 7, 270);
-			boardPlayer1.placeShip("Submarine", num2Char[6], 1, 180);
-			boardPlayer1.placeShip("Destroyer", num2Char[4], 8, 90);*/
-
-			/*boardPlayer1.placeShip("Carrier", 'F', 0, 0);
-			boardPlayer1.placeShip("Battleship", 'C', 4, 90);
-			boardPlayer1.placeShip("Cruiser", 'B', 7, 270);
-			boardPlayer1.placeShip("Submarine", 'H', 1, 0);
-			boardPlayer1.placeShip("Destroyer", 'E', 8, 0);*/
-
-			/*boardViewPlayer1.placeBomb('A', 1);
-			boardViewPlayer1.placeBomb('B', 2);
-			boardViewPlayer1.placeBomb('E', 3);
-			boardViewPlayer1.placeBomb('F', 4);*/
 
 
 
@@ -1465,10 +1478,6 @@ public:
 			do
 			{
 
-				//printf("	   Enemy Area\n");
-				//b1.printBoard(BOARDVIEWPLAYER1);
-				//printf("	You Area of Operations\n");
-				//b1.printBoard(BOARDPLAYER1);
 				b1.fire(PLAYER1);
 
 				window.clear();
