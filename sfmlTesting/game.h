@@ -150,7 +150,7 @@ public:
 	}
 
 
-	virtual string inputCheck(int type, string strings[])
+	virtual string inputCheck(int type, vector<string> strings)
 	{
 		return "-1";
 	}
@@ -245,12 +245,12 @@ public:
 	}
 
 
-	string inputCheck(int type, string strings[]) override
+	string inputCheck(int type, vector<string> strings) override
 	{
 		if (type == 1)
 		{
 
-			sf::RenderWindow window(sf::VideoMode(400, 200), "Input Prompt");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "Input Prompt");
 
 			sf::Font font;
 			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
@@ -311,7 +311,7 @@ public:
 
 		if (type == 2)
 		{
-			sf::RenderWindow window(sf::VideoMode(400, 200), "Input Prompt");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "Input Prompt");
 
 			sf::Font font;
 			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
@@ -373,7 +373,7 @@ public:
 		if (type == 3)
 		{
 			// Create a window
-			sf::RenderWindow window(sf::VideoMode(400, 300), "SFML Array and Input");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "SFML Array and Input");
 
 			// Define the font to be used
 			sf::Font font;
@@ -383,7 +383,7 @@ public:
 			}
 
 			// Define the array of strings
-			string arr[] = { "You can Rotate Left", "You can Rotate Right", "You can Rotate Down", "You can Rotate Up" };
+			//string arr[] = { "You can Rotate Left", "You can Rotate Right", "You can Rotate Down", "You can Rotate Up" };
 
 			// Create a text object to display the strings in the array
 			sf::Text text("", font, 20);
@@ -391,8 +391,8 @@ public:
 
 			// Display each string in the array on a separate line in the window
 			for (int i = 0; i < 4; i++) {
-				if (!arr[i].empty()) {
-					text.setString(arr[i]);
+				if (!strings[i].empty()) {
+					text.setString(strings[i]);
 					window.draw(text);
 					text.move(0, 30);
 				}
@@ -413,10 +413,10 @@ public:
 			do {
 				cout << "Enter an index that contains characters (0-4): ";
 				cin >> index;
-			} while (arr[index].empty());
+			} while (strings[index].empty());
 
 			// Create a text object to display the input index and corresponding string in the array
-			sf::Text output("Index " + std::to_string(index) + ": " + arr[index], font, 20);
+			sf::Text output("Index " + std::to_string(index) + ": " + strings[index], font, 20);
 			output.setPosition(50, 250);
 			window.draw(output);
 
@@ -438,12 +438,24 @@ public:
 
 		if (type == 4)
 		{
-			const int WIDTH = 400;
-			const int HEIGHT = 600;
-			const int NUM_STRINGS = 5;
+			const int WIDTH = 1000;
+			const int HEIGHT = 200;
+			const int NUM_STRINGS = 4;
 			//const std::string strings[NUM_STRINGS] = { "You can Rotate Left", "You can Rotate Right", "You can Rotate Down", "You can Rotate Up" };
 
 			sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "Rotate Check");
+
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+				std::cout << "Error loading font file" << std::endl;
+				return "-1";
+			}
+
+			sf::Text text;
+			text.setFont(font);
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color::White);
+			text.setPosition(50, 50);
 
 			int selectedNum = -1; // initialize to an invalid value
 
@@ -454,7 +466,7 @@ public:
 						window.close();
 				}
 
-				window.clear(sf::Color::White);
+				window.clear(sf::Color::Black);
 
 				// display strings
 				for (int i = 0; i < NUM_STRINGS; i++) {
@@ -462,6 +474,7 @@ public:
 						sf::Text text(strings[i], sf::Font(), 20);
 						text.setPosition(50, i * 50 + 50);
 						window.draw(text);
+						window.display();
 					}
 				}
 
@@ -1078,7 +1091,7 @@ protected:
 		// left, right, down, up
 
 		int choice = 0;
-		string rotateString[4] = { NULL };
+		vector<string> rotateString;
 
 		// scanf("%d %d", &x, &y); 
 		inputCheck(1, board, &x, &y, rotation, &choice, rotateString); // x and y input
@@ -1162,41 +1175,41 @@ protected:
 		if (rotation[0] == 1)
 		{
 			printf("1) You can rotate left\n");
-			rotateString[0] = "1) You can rotate left";
+			rotateString.push_back("1) You can rotate left");
 		}
 		else
 		{
-			rotateString[0] = '\0';
+			rotateString.push_back("\0");
 		}
 
 		if (rotation[1] == 1)
 		{
 			printf("2) You can rotate right\n");
-			rotateString[1] = "2) You can rotate right";
+			rotateString.push_back("2) You can rotate right");
 		}
 		else
 		{
-			rotateString[1] = '\0';
+			rotateString.push_back("\0");
 		}
 
 		if (rotation[2] == 1)
 		{
 			printf("3) You can rotate down\n");
-			rotateString[2] = "3) You can rotate down";
+			rotateString.push_back("3) You can rotate down");
 		}
 		else
 		{
-			rotateString[2] = '\0';
+			rotateString.push_back("\0");
 		}
 
 		if (rotation[3] == 1)
 		{
 			printf("4) You can roate up\n");
-			rotateString[3] = "4) You can roate up";
+			rotateString.push_back("4) You can roate up");
 		}
 		else
 		{
-			rotateString[3] = '\0';
+			rotateString.push_back("\0");
 		}
 
 		// what if no roations were found? Put in check code
@@ -1288,7 +1301,7 @@ protected:
 
 
 	}
-	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, string rotationString[])
+	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, vector<string> rotationString)
 	{
 		int tryAgain = YES;
 		con2Sfml* sfmlLayer = new layer;
@@ -1312,7 +1325,7 @@ protected:
 
 					while (tryAgain == YES)
 					{
-						if (*x > 9 && *x < 0)
+						if (*x > 9 || *x < 0)
 						{
 							/*printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
 							scanf("%d", x);*/
@@ -1327,7 +1340,7 @@ protected:
 
 					while (tryAgain == YES)
 					{
-						if (*y > 9 && *y < 0)
+						if (*y > 9 || *y < 0)
 						{
 							/*printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
 							scanf("%d", y);*/
@@ -1349,22 +1362,24 @@ protected:
 		if (checkType == 2)
 		{
 			scanf("%d", choice);
-			while (tryAgain == YES)
-			{
+			//while (tryAgain == YES)
+			//{
 
-				if (rotation[*choice - 1] != 1)
-				{
-					/*printf("\n You selected an invalid number, selec a valid rotation: ");
-					scanf("%d", choice);*/
+			//	if (rotation[*choice - 1] != 1)
+			//	{
+			//		/*printf("\n You selected an invalid number, selec a valid rotation: ");
+			//		scanf("%d", choice);*/
 
-					sfmlLayer->inputCheck(4, rotationString);
+			//		*choice = stoi(sfmlLayer->inputCheck(4, rotationString));
 
-				}
-				else
-				{
-					tryAgain = NO;
-				}
-			}
+			//	}
+			//	else
+			//	{
+			//		tryAgain = NO;
+			//	}
+			//}
+
+			* choice = stoi(sfmlLayer->inputCheck(3, rotationString));
 
 		}
 	}
