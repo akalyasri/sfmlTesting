@@ -3,29 +3,29 @@
 int main()
 {
 
-	sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+	//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
 
-	game g1(window);
+	game g1;
 
-	while (window.isOpen()) {
+	while (gameWindow.isOpen()) {
 
 		sf::Event event;
 
-		while (window.pollEvent(event)) {
+		while (gameWindow.pollEvent(event)) {
 
 
 			if (event.type == sf::Event::Closed)
-				window.close();
+				gameWindow.close();
 
 		}
 
 
-		window.clear();
+		gameWindow.clear();
 
 		g1.runGame();
 		// draw here
 
-		window.display();
+		gameWindow.display();
 
 
 	}

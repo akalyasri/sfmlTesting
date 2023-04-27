@@ -2,11 +2,110 @@
 #include "ships.h"
 #include "sfmlLayer.h"
 
+const sf::RenderWindow& gameWindow2 = sf::RenderWindow(sf::VideoMode(880 * 2, 1200), "Game Board!");
+
+
+sf::RenderWindow& gameWindow = const_cast<sf::RenderWindow&>(gameWindow2);
+
+void getMouseInput(int& xCoord, int& yCoord) {
+
+	while (gameWindow.isOpen()) {
+
+		sf::Event event;
+
+		while (gameWindow.pollEvent(event)) {
+
+			if (event.type == sf::Event::MouseButtonPressed) {
+
+				//window == 1680 x 1200
+
+				sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
+
+				if (mousePos.x <= 160 && mousePos.x > 80) {
+					xCoord = 0;
+				}
+				else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
+					xCoord = 1;
+				}
+				else if ((mousePos.x <= 320 && mousePos.x > 240) || (mousePos.x <= 1120 && mousePos.x > 1040)) {
+					xCoord = 2;
+				}
+				else if ((mousePos.x <= 400 && mousePos.x > 320) || (mousePos.x <= 1200 && mousePos.x > 1120)) {
+					xCoord = 3;
+				}
+				else if ((mousePos.x <= 480 && mousePos.x > 400) || (mousePos.x <= 1280 && mousePos.x > 1200)) {
+					xCoord = 4;
+				}
+				else if ((mousePos.x <= 560 && mousePos.x > 480) || (mousePos.x <= 1360 && mousePos.x > 1280)) {
+					xCoord = 5;
+				}
+				else if ((mousePos.x <= 640 && mousePos.x > 560) || (mousePos.x <= 1440 && mousePos.x > 1360)) {
+					xCoord = 6;
+				}
+				else if ((mousePos.x <= 720 && mousePos.x > 640) || (mousePos.x <= 1520 && mousePos.x > 1440)) {
+					xCoord = 7;
+				}
+				else if ((mousePos.x <= 800 && mousePos.x > 720) || (mousePos.x <= 1600 && mousePos.x > 1520)) {
+					xCoord = 8;
+				}
+				else if ((mousePos.x <= 880 && mousePos.x > 800) || (mousePos.x <= 1680 && mousePos.x > 1600)) {
+					xCoord = 9;
+				}
+
+
+
+				if (mousePos.y <= 1120 && mousePos.y > 1040) {
+					yCoord = 0;
+				}
+				else if (mousePos.y <= 1040 && mousePos.y > 960) {
+					yCoord = 1;
+				}
+				else if (mousePos.y <= 960 && mousePos.y > 880) {
+					yCoord = 2;
+				}
+				else if (mousePos.y <= 880 && mousePos.y > 800) {
+					yCoord = 3;
+				}
+				else if (mousePos.y <= 800 && mousePos.y > 720) {
+					yCoord = 4;
+				}
+				else if (mousePos.y <= 720 && mousePos.y > 640) {
+					yCoord = 5;
+				}
+				else if (mousePos.y <= 640 && mousePos.y > 560) {
+					yCoord = 6;
+				}
+				else if (mousePos.y <= 560 && mousePos.y > 480) {
+					yCoord = 7;
+				}
+				else if (mousePos.y <= 480 && mousePos.y > 400) {
+					yCoord = 8;
+				}
+				else if (mousePos.y <= 400 && mousePos.y > 320) {
+					yCoord = 9;
+				}
+
+
+				return;
+
+
+			}
+
+
+		}
+
+	}
+
+}
+
+
 class board
 {
 public:
-	board()
-	{
+
+	board() {
+
+
 		int rowIndex = 0, colIndex = 0;
 
 		for (; rowIndex < numRows; ++rowIndex)
@@ -20,6 +119,23 @@ public:
 			}
 		}
 	}
+
+
+	/*board(sf::RenderWindow& window) : gameWindow(window){
+
+		int rowIndex = 0, colIndex = 0;
+
+		for (; rowIndex < numRows; ++rowIndex)
+		{
+			for (colIndex = 0; colIndex < numCols; ++colIndex)
+			{
+				boardPlayer1[rowIndex][colIndex] = '~';
+				boardPlayer2[rowIndex][colIndex] = '~';
+				boardViewPlayer1[rowIndex][colIndex] = '~';
+				boardViewPlayer2[rowIndex][colIndex] = '~';
+			}
+		}
+	}*/
 
 	void printBoard(int type)
 	{
@@ -61,7 +177,14 @@ public:
 	void fire(int whoPlay)
 		// if player is the one who is firing, the board[][], and the structs must be set to computer and vice versa
 	{
-		int x = 0, y = 0;
+		int x = 0;
+		int y = 0;
+
+		int& userXCoord = x;
+		int& userYCoord = y;
+		//getMouseInput(userXCoord, userYCoord);
+
+		//int x = 0, y = 0;
 		char shipHit = '\0';
 		int tryAgain = YES;
 		int win = NO;
@@ -69,8 +192,8 @@ public:
 		if (whoPlay == PLAYER1) // PLAYER 1 game
 		{
 			printf("Type in the coordeinate to fire (X Y) ");
-			scanf("%d %d", &x, &y);
-
+			//scanf("%d %d", &x, &y);
+			getMouseInput(userXCoord, userYCoord);
 			while (tryAgain == YES)
 			{
 				while (tryAgain == YES)
@@ -78,7 +201,8 @@ public:
 					if (x > 9 && x < 0 && y > 9 && y < 0)
 					{
 						printf("\nYour X or Y is out of bounds, enter within the bound (0 <= x <= 9) (0 <= y <= 9): ");
-						scanf("%d %d", &x, &y);
+						//scanf("%d %d", &x, &y);
+						getMouseInput(userXCoord, userYCoord);
 					}
 					else
 					{
@@ -95,7 +219,8 @@ public:
 					if (boardViewPlayer1[y][x] == 'o' || boardViewPlayer1[y][x] == 'x')
 					{
 						printf("\n Your coordinate has already been hit or shot at try again (x y): ");
-						scanf("%d %d", &x, &y);
+						//scanf("%d %d", &x, &y);
+						getMouseInput(userXCoord, userYCoord);
 					}
 					else
 					{
@@ -400,40 +525,54 @@ public:
 
 	}
 
+	
+
+
 	void placeShip(int whoPlay)
 	{
 		con2Sfml* sfmlLayer = new layer;
+
+		int x = 0;
+		int y = 0;
+
+		int& userXCoord = x;
+		int& userYCoord = y;
+
 
 		if (whoPlay == PLAYER1)
 		{
 			if (sfmlLayer->yesNo() == 0) // manually place ships
 			{
 
-				
+				//							MOUSE INPUT
+				//////////////////////////////////////////////////////////////////////////////
+
+				getMouseInput(userXCoord, userYCoord);
+
 
 
 				//printf("Pick the first coordinate to place your carrier (X Y): ");
-				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
+				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1,x,y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your battleship (X Y): ");
-				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
+				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1,x,y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your cruiser (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
+				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1,x,y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your submarine (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
+				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1,x,y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your destroyer (X Y): ");
-				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
+				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1,x,y);
 				system("cls");
 				//print_board(board, 10, 10);
 
@@ -544,9 +683,11 @@ protected:
 
 	}*/
 
-	void placeMan(char board[][10], int size, char identification, class fleet& ref)
+	friend class game;
+
+	void placeMan(char board[][10], int size, char identification, class fleet& ref, int xRef, int yRef)
 	{
-		int x = 0, y = 0;
+		int x = xRef, y = yRef;
 		int placeable = YES;
 		int rotation[4] = { 0 };
 		// left, right, down, up
@@ -769,7 +910,7 @@ protected:
 
 		if (checkType == 1)
 		{
-			scanf("%d %d", x, y);
+			//scanf("%d %d", x, y);
 			//sfmlLayer->parseString(x, y, shipType);
 			while (tryAgain == YES)
 			{
@@ -1089,25 +1230,116 @@ protected:
 
 		}
 	}
+
+
+	//sf::RenderWindow& gameWindow;
+
 };
 
 class game
 {
 public:
-	//game(sf::RenderWindow &window):gameWindow(window) {
 
+	game() {
+		//constructor
+	}
+	
 
-	//	//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+	//game(sf::RenderWindow& window) : gameWindow(window) {
+
+	//	// constructor
 
 	//}
 
-	game(sf::RenderWindow& window) : gameWindow(window) {
+	void getMouseInput(int&xCoord, int& yCoord) {
+
+		while (gameWindow.isOpen()) {
+
+			sf::Event event;
+
+			while (gameWindow.pollEvent(event)) {
+
+				if (event.type == sf::Event::MouseButtonPressed) {
+					 
+					//window == 1680 x 1200
+
+					sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
+
+					if (mousePos.x <= 160 && mousePos.x > 80) {
+						xCoord = 0;
+					} else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
+						xCoord = 1;
+					}
+					else if ((mousePos.x <= 320 && mousePos.x > 240) || (mousePos.x <= 1120 && mousePos.x > 1040)) {
+						xCoord = 2;
+					}
+					else if ((mousePos.x <= 400 && mousePos.x > 320) || (mousePos.x <= 1200 && mousePos.x > 1120)) {
+						xCoord = 3;
+					}
+					else if ((mousePos.x <= 480 && mousePos.x > 400) || (mousePos.x <= 1280 && mousePos.x > 1200)) {
+						xCoord = 4;
+					}
+					else if ((mousePos.x <= 560 && mousePos.x > 480) || (mousePos.x <= 1360 && mousePos.x > 1280)) {
+						xCoord = 5;
+					}
+					else if ((mousePos.x <= 640 && mousePos.x > 560) || (mousePos.x <= 1440 && mousePos.x > 1360)) {
+						xCoord = 6;
+					}
+					else if ((mousePos.x <= 720 && mousePos.x > 640) || (mousePos.x <= 1520 && mousePos.x > 1440)) {
+						xCoord = 7;
+					}
+					else if ((mousePos.x <= 800 && mousePos.x > 720) || (mousePos.x <= 1600 && mousePos.x > 1520)) {
+						xCoord = 8;
+					}
+					else if ((mousePos.x <= 880 && mousePos.x > 800) || (mousePos.x <= 1680 && mousePos.x > 1600)) {
+						xCoord = 9;
+					}
 
 
+
+					if (mousePos.y <= 1120 && mousePos.y > 1040) {
+						yCoord = 0;
+					}
+					else if (mousePos.y <= 1040 && mousePos.y > 960) {
+						yCoord = 1;
+					}
+					else if (mousePos.y <= 960 && mousePos.y > 880) {
+						yCoord = 2;
+					}
+					else if (mousePos.y <= 880 && mousePos.y > 800) {
+						yCoord = 3;
+					}
+					else if (mousePos.y <= 800 && mousePos.y > 720) {
+						yCoord = 4;
+					}
+					else if (mousePos.y <= 720 && mousePos.y > 640) {
+						yCoord = 5;
+					}
+					else if (mousePos.y <= 640 && mousePos.y > 560) {
+						yCoord = 6;
+					}
+					else if (mousePos.y <= 560 && mousePos.y > 480) {
+						yCoord = 7;
+					}
+					else if (mousePos.y <= 480 && mousePos.y > 400) {
+						yCoord = 8;
+					}
+					else if (mousePos.y <= 400 && mousePos.y > 320) {
+						yCoord = 9;
+					}
+
+
+					return;
+
+
+				}
+
+
+			}
+
+		}
 
 	}
-
-
 
 
 	/*
@@ -1284,9 +1516,9 @@ public:
 				gameWindow.display();
 
 
-				printf("\nPress any key to continue");
-				scanf(" %c", &dummyChar);
-				system("cls");
+				//printf("\nPress any key to continue");
+				//scanf(" %c", &dummyChar);
+				//system("cls");
 
 				b1.fire(PLAYER2);
 				gameWindow.clear();
@@ -1309,9 +1541,9 @@ public:
 				gameWindow.display();
 
 
-				printf("\nPress any key to continue");
-				scanf(" %c", &dummyChar);
-				system("cls");
+				//printf("\nPress any key to continue");
+				//scanf(" %c", &dummyChar);
+				//system("cls");
 
 			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
 
@@ -1332,7 +1564,9 @@ public:
 private:
 	board b1;
 
-	sf::RenderWindow& gameWindow;
+	friend class board;
+
+	
 
 	logBook* logPlayer1;
 	logBook* logPlayer2;
