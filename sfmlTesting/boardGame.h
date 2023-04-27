@@ -21,7 +21,7 @@ void getMouseInput(int& xCoord, int& yCoord) {
 
 				sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
 
-				if (mousePos.x <= 160 && mousePos.x > 80) {
+				if (mousePos.x <= 160 && mousePos.x > 80 || mousePos.x <= 1760 && mousePos.x > 1680) {
 					xCoord = 9;
 				}
 				else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
@@ -53,36 +53,45 @@ void getMouseInput(int& xCoord, int& yCoord) {
 				}
 
 
-
-				if (mousePos.y <= 1120 && mousePos.y > 1040) {
-					yCoord = 6;
-				}
-				else if (mousePos.y <= 1040 && mousePos.y > 960) {
-					yCoord = 5;
-				}
-				else if (mousePos.y <= 960 && mousePos.y > 880) {
-					yCoord = 4;
-				}
-				else if (mousePos.y <= 880 && mousePos.y > 800) {
-					yCoord = 3;
-				}
-				else if (mousePos.y <= 800 && mousePos.y > 720) {
+				//Find Y position
+				/*if (mousePos.y <= 1120 && mousePos.y > 1040) {
 					yCoord = 2;
 				}
-				else if (mousePos.y <= 720 && mousePos.y > 640) {
+				else if (mousePos.y <= 1040 && mousePos.y > 960) {
 					yCoord = 1;
 				}
-				else if (mousePos.y <= 640 && mousePos.y > 560) {
+				else if (mousePos.y <= 960 && mousePos.y > 880) {
 					yCoord = 0;
 				}
-				else if (mousePos.y <= 560 && mousePos.y > 480) {
+				else */if (mousePos.y <= 880 && mousePos.y > 800) {
 					yCoord = 9;
 				}
-				else if (mousePos.y <= 480 && mousePos.y > 400) {
+				else if (mousePos.y <= 800 && mousePos.y > 720) {
 					yCoord = 8;
 				}
-				else if (mousePos.y <= 400 && mousePos.y > 320) {
+				else if (mousePos.y <= 720 && mousePos.y > 640) {
 					yCoord = 7;
+				}
+				else if (mousePos.y <= 640 && mousePos.y > 560) {
+					yCoord = 6;
+				}
+				else if (mousePos.y <= 560 && mousePos.y > 480) {
+					yCoord = 5;
+				}
+				else if (mousePos.y <= 480 && mousePos.y > 400) {
+					yCoord = 4;
+				}
+				else if (mousePos.y <= 400 && mousePos.y > 320) {
+					yCoord = 3;
+				}
+				else if (mousePos.y <= 320 && mousePos.y > 240) {
+					yCoord = 2;
+				}
+				else if (mousePos.y <= 240 && mousePos.y > 160) {
+					yCoord = 1;
+				}
+				else if (mousePos.y <= 160 && mousePos.y > 80) {
+					yCoord = 0;
 				}
 
 
