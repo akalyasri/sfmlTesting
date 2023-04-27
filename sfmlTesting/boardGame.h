@@ -1700,11 +1700,6 @@ public:
 	}
 
 
-	//game(sf::RenderWindow& window) : gameWindow(window) {
-
-	//	// constructor
-
-	//}
 
 	void getMouseInput(int& xCoord, int& yCoord) {
 
