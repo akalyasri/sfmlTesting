@@ -155,6 +155,7 @@
     <Image Include="ShipTypes\carrier_1x5.png" />
     <Image Include="ShipTypes\cruiser_1x3.png" />
     <Image Include="ShipTypes\destroyer_1x2.png" />
+    <Image Include="Textures\sea.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
