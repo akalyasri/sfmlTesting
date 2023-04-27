@@ -202,7 +202,7 @@ public:
 
 		if (whoPlay == PLAYER1) // PLAYER 1 game
 		{
-			printf("Type in the coordeinate to fire (X Y) ");
+			//printf("Type in the coordeinate to fire (X Y) ");
 			//scanf("%d %d", &x, &y);
 			getMouseInput(userXCoord, userYCoord);
 			while (tryAgain == YES)
@@ -211,7 +211,7 @@ public:
 				{
 					if (x > 9 && x < 0 && y > 9 && y < 0)
 					{
-						printf("\nYour X or Y is out of bounds, enter within the bound (0 <= x <= 9) (0 <= y <= 9): ");
+						printf("\nYour X or Y is out of bounds (0 <= x <= 9) (0 <= y <= 9): ");
 						//scanf("%d %d", &x, &y);
 						getMouseInput(userXCoord, userYCoord);
 					}
@@ -536,10 +536,8 @@ public:
 
 	}
 
-	
-
-
-	void placeShip(int whoPlay)
+	/*
+	void placeShipNUL(int whoPlay)
 	{
 		con2Sfml* sfmlLayer = new layer;
 
@@ -563,27 +561,27 @@ public:
 
 
 				//printf("Pick the first coordinate to place your carrier (X Y): ");
-				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1,x,y);
+				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1, x, y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your battleship (X Y): ");
-				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1,x,y);
+				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1, x, y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your cruiser (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1,x,y);
+				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1, x, y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your submarine (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1,x,y);
+				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1, x, y);
 				system("cls");
 				printBoard(PLAYER1);
 
 				//printf("Pick the first coordinate to place your destroyer (X Y): ");
-				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1,x,y);
+				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1, x, y);
 				system("cls");
 				//print_board(board, 10, 10);
 
@@ -618,6 +616,149 @@ public:
 
 		delete sfmlLayer;
 	}
+	*/
+	//old placeShip function
+
+	void placeShip(int whoPlay)
+	{
+		con2Sfml* sfmlLayer = new layer;
+
+		if (whoPlay == PLAYER1)
+		{
+			if (sfmlLayer->yesNo() == 0) // manually place ships
+			{
+				sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+				//sf::Style::Resize
+				Board boardPlayer1GUI(window);
+				Board boardViewPlayer1GUI(window);
+				sf::Font font;
+				if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+				{
+					std::cerr << "Error loading font" << std::endl;
+				}
+				while (window.isOpen())
+				{
+					sf::Event event;
+					while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							window.close();
+
+					}
+
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					window.display();
+
+					//printf("Pick the first coordinate to place your carrier (X Y): ");
+					placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your battleship (X Y): ");
+					placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your cruiser (X Y): ");
+					placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your submarine (X Y): ");
+					placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					boardPlayer1GUI.placeShip("Submarine", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your destroyer (X Y): ");
+					placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
+					system("cls");
+					//print_board(board, 10, 10);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					boardPlayer1GUI.placeShip("Submarine", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					boardPlayer1GUI.placeShip("Destroyer", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					window.display();
+
+					window.close();
+
+				}
+
+
+			}
+			else
+			{
+				placeAuto(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
+
+				placeAuto(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
+
+				placeAuto(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
+
+				placeAuto(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
+
+				placeAuto(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
+				system("cls");
+				//print_board(board, 10, 10);
+			}
+		}
+		if (whoPlay == PLAYER2)
+		{
+			placeAuto(boardPlayer2, 4, fleetPlayer2.carrier->getIdentification(), fleetPlayer2);
+
+			placeAuto(boardPlayer2, 3, fleetPlayer2.battleship->getIdentification(), fleetPlayer2);
+
+			placeAuto(boardPlayer2, 2, fleetPlayer2.cruiser->getIdentification(), fleetPlayer2);
+
+			placeAuto(boardPlayer2, 2, fleetPlayer2.submarine->getIdentification(), fleetPlayer2);
+
+			placeAuto(boardPlayer2, 1, fleetPlayer2.destroyer->getIdentification(), fleetPlayer2);
+		}
+
+		delete sfmlLayer;
+	}
+
 
 	int getStatusPlayer1()
 	{
@@ -669,6 +810,8 @@ private:
 	int infoY;
 	int infoRotation;
 
+	char num2Char[10] = { 'A','B','C','D','E','F','G','H','I','J' };
+	//					   0   1   2   3   4   5   6   7   8   9
 
 
 protected:
@@ -696,9 +839,12 @@ protected:
 
 	friend class game;
 
-	void placeMan(char board[][10], int size, char identification, class fleet& ref, int xRef, int yRef)
+
+	/*void placeMan(char board[][10], int size, char identification, class fleet& ref, int xRef, int yRef)*/
+
+	void placeManNUL(char board[][10], int size, char identification, class fleet& ref)
 	{
-		int x = xRef, y = yRef;
+		int x = 0, y;
 		int placeable = YES;
 		int rotation[4] = { 0 };
 		// left, right, down, up
@@ -827,7 +973,308 @@ protected:
 
 		// what if no roations were found? Put in check code
 
-		printf("What would you like to do? Pick the corresponding number: ");
+		//printf("What would you like to do? Pick the corresponding number: ");
+		//scanf("%d", &choice);
+		inputCheck(2, board, &x, &y, rotation, &choice, rotateString, identification); // rotation choice input
+
+		int uRot = 0;
+
+		switch (++choice)
+		{
+		case 1: // rotate left
+			uRot = 180;
+			for (int i = x; i >= x - size; i--)
+			{
+				board[y][i] = identification;
+			}
+			break;
+
+		case 2: // rotate rigght
+			uRot = 0;
+			for (int i = x; i <= x + size; i++)
+			{
+				board[y][i] = identification;
+			}
+			break;
+
+		case 3: // rotate down
+			uRot = 90;
+			for (int i = y; i <= y + size; i++)
+			{
+				board[i][x] = identification;
+			}
+			break;
+
+		case 4: // roate up
+			uRot = 270;
+			for (int i = y; i >= y - size; i--)
+			{
+				board[i][x] = identification;
+			}
+			break;
+
+
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+
+		switch (identification)
+		{
+		case 'p':
+			ref.carrier->setX(x);
+			ref.carrier->setY(y);
+			ref.carrier->setOrientation(uRot);
+			break;
+		case 'b':
+			ref.battleship->setX(x);
+			ref.battleship->setY(y);
+			ref.battleship->setOrientation(uRot);
+			break;
+		case 'c':
+			ref.cruiser->setX(x);
+			ref.cruiser->setY(y);
+			ref.cruiser->setOrientation(uRot);
+			break;
+		case 's':
+			ref.submarine->setX(x);
+			ref.submarine->setY(y);
+			ref.submarine->setOrientation(uRot);
+			break;
+		case 'd':
+			ref.destroyer->setX(x);
+			ref.destroyer->setY(y);
+			ref.destroyer->setOrientation(uRot);
+			break;
+		}
+
+
+
+		/////////////////////////////////////////////////////////////////////
+
+		rotation[0] = 0;
+		rotation[1] = 0;
+		rotation[2] = 0;
+		rotation[3] = 0;
+
+
+
+	}
+	void inputCheckNUL(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, vector<string> rotationString, char shipType)
+	{
+		int tryAgain = YES;
+		con2Sfml* sfmlLayer = new layer;
+
+		if (checkType == 1)
+		{
+			//scanf("%d %d", x, y);
+			//sfmlLayer->parseString(x, y, shipType);
+			while (tryAgain == YES)
+			{
+				if (board[*y][*x] != '~')
+				{
+					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
+					scanf("%d %d", x, y);*/
+
+					//sfmlLayer->inputCheck(1, rotationString);
+
+					sfmlLayer->parseString2(x, y, shipType);
+
+				}
+				else
+				{
+
+					while (tryAgain == YES)
+					{
+						if (*x > 9 || *x < 0)
+						{
+							/*printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
+							scanf("%d", x);*/
+							*x = stoi(sfmlLayer->inputCheck(2, rotationString));
+						}
+						else
+						{
+							tryAgain = NO;
+						}
+					}
+					tryAgain = YES;
+
+					while (tryAgain == YES)
+					{
+						if (*y > 9 || *y < 0)
+						{
+							/*printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
+							scanf("%d", y);*/
+							*y = stoi(sfmlLayer->inputCheck(2, rotationString));
+						}
+						else
+						{
+							tryAgain = NO;
+						}
+					}
+					tryAgain = NO;
+
+				}
+
+			}
+		}
+
+
+		if (checkType == 2)
+		{
+			//scanf("%d", choice);
+			//while (tryAgain == YES)
+			//{
+			//	if (rotation[*choice - 1] != 1)
+			//	{
+			//		/*printf("\n You selected an invalid number, selec a valid rotation: ");
+			//		scanf("%d", choice);*/
+			//		*choice = stoi(sfmlLayer->inputCheck(4, rotationString));
+			//	}
+			//	else
+			//	{
+			//		tryAgain = NO;
+			//	}
+			//}
+
+			* choice = stoi(sfmlLayer->inputCheck(7, rotationString));
+			//*choice++;
+
+		}
+	}
+
+	void placeMan(char board[][10], int size, char identification, class fleet& ref)
+	{
+		int x = 0, y = 0;
+		int placeable = YES;
+		int rotation[4] = { 0 };
+		// left, right, down, up
+
+		int choice = 0;
+		vector<string> rotateString;
+
+		// scanf("%d %d", &x, &y); 
+		inputCheck(1, board, &x, &y, rotation, &choice, rotateString, identification); // x and y input
+
+
+
+		for (int i = x; (i >= x - size); i--) // left check
+		{
+			if ((placeable == YES) && (board[y][i] == '~') && (x - size >= 0))
+			{
+
+			}
+			else
+			{
+				placeable = NO;
+			}
+
+		}
+		if (placeable == YES)
+		{
+			rotation[0] = 1;
+		}
+		placeable = YES;
+
+		for (int i = x; (i <= x + size); i++) // right check
+		{
+			if ((placeable == YES) && (board[y][i] == '~') && (x + size <= 10))
+			{
+
+			}
+			else
+			{
+				placeable = NO;
+			}
+
+		}
+		if (placeable == YES)
+		{
+			rotation[1] = 1;
+		}
+		placeable = YES;
+
+		for (int i = y; (i <= y + size); i++) // down check
+		{
+			if ((placeable == YES) && (board[i][x] == '~') && (y + size <= 9))
+			{
+
+			}
+			else
+			{
+				placeable = NO;
+			}
+
+		}
+		if (placeable == YES)
+		{
+			rotation[2] = 1;
+		}
+		placeable = YES;
+
+		for (int i = y; (i >= y - size); i--) // up check
+		{
+			if ((placeable == YES) && (board[i][x] == '~') && (y + size >= 0))
+			{
+
+			}
+			else
+			{
+				placeable = NO;
+			}
+
+		}
+		if (placeable == YES)
+		{
+			rotation[3] = 1;
+		}
+		placeable = YES;
+
+
+
+		if (rotation[0] == 1)
+		{
+			//printf("1) You can rotate left\n");
+			rotateString.push_back("1) You can rotate left");
+		}
+		else
+		{
+			rotateString.push_back("\0");
+		}
+
+		if (rotation[1] == 1)
+		{
+			//printf("2) You can rotate right\n");
+			rotateString.push_back("2) You can rotate right");
+		}
+		else
+		{
+			rotateString.push_back("\0");
+		}
+
+		if (rotation[2] == 1)
+		{
+			//printf("3) You can rotate down\n");
+			rotateString.push_back("3) You can rotate down");
+		}
+		else
+		{
+			rotateString.push_back("\0");
+		}
+
+		if (rotation[3] == 1)
+		{
+			//printf("4) You can roate up\n");
+			rotateString.push_back("4) You can roate up");
+		}
+		else
+		{
+			rotateString.push_back("\0");
+		}
+
+		// what if no roations were found? Put in check code
+
+		//printf("What would you like to do? Pick the corresponding number: ");
 		//scanf("%d", &choice);
 		inputCheck(2, board, &x, &y, rotation, &choice, rotateString, identification); // rotation choice input
 
@@ -922,15 +1369,16 @@ protected:
 		if (checkType == 1)
 		{
 			//scanf("%d %d", x, y);
-			//sfmlLayer->parseString(x, y, shipType);
+			sfmlLayer->parseString(x, y, shipType);
 			while (tryAgain == YES)
 			{
 				if (board[*y][*x] != '~')
 				{
-					printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					scanf("%d %d", x, y);
-					//sfmlLayer->inputCheck(1, rotationString);
+					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
+					scanf("%d %d", x, y);*/
 
+
+					sfmlLayer->parseString2(x, y, shipType);
 
 				}
 				else
@@ -990,14 +1438,10 @@ protected:
 			//}
 
 			* choice = stoi(sfmlLayer->inputCheck(7, rotationString));
-			//*choice++;
 
 		}
 	}
-	void parseString(int* x, int* y)
-	{
 
-	}
 
 	void placeAuto(char board[][10], int size, char identification, class fleet& ref)
 	{
@@ -1254,7 +1698,7 @@ public:
 	game() {
 		//constructor
 	}
-	
+
 
 	//game(sf::RenderWindow& window) : gameWindow(window) {
 
@@ -1262,7 +1706,7 @@ public:
 
 	//}
 
-	void getMouseInput(int&xCoord, int& yCoord) {
+	void getMouseInput(int& xCoord, int& yCoord) {
 
 		while (gameWindow.isOpen()) {
 
@@ -1271,14 +1715,15 @@ public:
 			while (gameWindow.pollEvent(event)) {
 
 				if (event.type == sf::Event::MouseButtonPressed) {
-					 
+
 					//window == 1680 x 1200
 
 					sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
 
 					if (mousePos.x <= 160 && mousePos.x > 80) {
 						xCoord = 0;
-					} else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
+					}
+					else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
 						xCoord = 1;
 					}
 					else if ((mousePos.x <= 320 && mousePos.x > 240) || (mousePos.x <= 1120 && mousePos.x > 1040)) {
@@ -1369,7 +1814,7 @@ public:
 
 		while (window.isOpen())
 		{
-			if (type == 0) // manually 
+			if (type == 0) // manually
 
 			{
 
@@ -1577,7 +2022,7 @@ private:
 
 	friend class board;
 
-	
+
 
 	logBook* logPlayer1;
 	logBook* logPlayer2;
