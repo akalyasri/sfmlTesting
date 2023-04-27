@@ -22,69 +22,71 @@ void getMouseInput(int& xCoord, int& yCoord) {
 				sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
 
 				if (mousePos.x <= 160 && mousePos.x > 80) {
-					xCoord = 0;
+					xCoord = 9;
 				}
 				else if ((mousePos.x <= 240 && mousePos.x > 160) || (mousePos.x <= 1040 && mousePos.x > 960)) {
-					xCoord = 1;
+					xCoord = 0;
 				}
 				else if ((mousePos.x <= 320 && mousePos.x > 240) || (mousePos.x <= 1120 && mousePos.x > 1040)) {
-					xCoord = 2;
+					xCoord = 1;
 				}
 				else if ((mousePos.x <= 400 && mousePos.x > 320) || (mousePos.x <= 1200 && mousePos.x > 1120)) {
-					xCoord = 3;
+					xCoord = 2;
 				}
 				else if ((mousePos.x <= 480 && mousePos.x > 400) || (mousePos.x <= 1280 && mousePos.x > 1200)) {
-					xCoord = 4;
+					xCoord = 3;
 				}
 				else if ((mousePos.x <= 560 && mousePos.x > 480) || (mousePos.x <= 1360 && mousePos.x > 1280)) {
-					xCoord = 5;
+					xCoord = 4;
 				}
 				else if ((mousePos.x <= 640 && mousePos.x > 560) || (mousePos.x <= 1440 && mousePos.x > 1360)) {
-					xCoord = 6;
+					xCoord = 5;
 				}
 				else if ((mousePos.x <= 720 && mousePos.x > 640) || (mousePos.x <= 1520 && mousePos.x > 1440)) {
-					xCoord = 7;
+					xCoord = 6;
 				}
 				else if ((mousePos.x <= 800 && mousePos.x > 720) || (mousePos.x <= 1600 && mousePos.x > 1520)) {
-					xCoord = 8;
+					xCoord = 7;
 				}
 				else if ((mousePos.x <= 880 && mousePos.x > 800) || (mousePos.x <= 1680 && mousePos.x > 1600)) {
-					xCoord = 9;
+					xCoord = 8;
 				}
 
 
 
 				if (mousePos.y <= 1120 && mousePos.y > 1040) {
-					yCoord = 0;
+					yCoord = 6;
 				}
 				else if (mousePos.y <= 1040 && mousePos.y > 960) {
-					yCoord = 1;
+					yCoord = 5;
 				}
 				else if (mousePos.y <= 960 && mousePos.y > 880) {
-					yCoord = 2;
+					yCoord = 4;
 				}
 				else if (mousePos.y <= 880 && mousePos.y > 800) {
 					yCoord = 3;
 				}
 				else if (mousePos.y <= 800 && mousePos.y > 720) {
-					yCoord = 4;
+					yCoord = 2;
 				}
 				else if (mousePos.y <= 720 && mousePos.y > 640) {
-					yCoord = 5;
+					yCoord = 1;
 				}
 				else if (mousePos.y <= 640 && mousePos.y > 560) {
-					yCoord = 6;
+					yCoord = 0;
 				}
 				else if (mousePos.y <= 560 && mousePos.y > 480) {
-					yCoord = 7;
+					yCoord = 9;
 				}
 				else if (mousePos.y <= 480 && mousePos.y > 400) {
 					yCoord = 8;
 				}
 				else if (mousePos.y <= 400 && mousePos.y > 320) {
-					yCoord = 9;
+					yCoord = 7;
 				}
 
+
+				//double mouseX = sf::Mouse::getPosition(gameWindow).x*(gameWindow.getDefaultView().getSize().x/gameWindow.x)
 
 				return;
 
