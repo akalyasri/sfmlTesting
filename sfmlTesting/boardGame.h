@@ -408,34 +408,105 @@ public:
 		{
 			if (sfmlLayer->yesNo() == 0) // manually place ships
 			{
+				sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+				//sf::Style::Resize
+				Board boardPlayer1GUI(window);
+				Board boardViewPlayer1GUI(window);
+				sf::Font font;
+				if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+				{
+					std::cerr << "Error loading font" << std::endl;
+				}
+				while (window.isOpen())
+				{
+					sf::Event event;
+					while (window.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							window.close();
 
-				
+					}
 
 
-				//printf("Pick the first coordinate to place your carrier (X Y): ");
-				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
-				system("cls");
-				printBoard(PLAYER1);
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					window.display();
 
-				//printf("Pick the first coordinate to place your battleship (X Y): ");
-				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
-				system("cls");
-				printBoard(PLAYER1);
+					//printf("Pick the first coordinate to place your carrier (X Y): ");
+					placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
 
-				//printf("Pick the first coordinate to place your cruiser (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
-				system("cls");
-				printBoard(PLAYER1);
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					window.display();
 
-				//printf("Pick the first coordinate to place your submarine (X Y): ");
-				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
-				system("cls");
-				printBoard(PLAYER1);
 
-				//printf("Pick the first coordinate to place your destroyer (X Y): ");
-				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
-				system("cls");
-				//print_board(board, 10, 10);
+					//printf("Pick the first coordinate to place your battleship (X Y): ");
+					placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your cruiser (X Y): ");
+					placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your submarine (X Y): ");
+					placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
+					system("cls");
+					printBoard(PLAYER1);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					boardPlayer1GUI.placeShip("Submarine", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					window.display();
+
+
+					//printf("Pick the first coordinate to place your destroyer (X Y): ");
+					placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
+					system("cls");
+					//print_board(board, 10, 10);
+
+					window.clear();
+					boardPlayer1GUI.drawBoard(0, 0);
+					boardViewPlayer1GUI.drawBoard(11, 0);
+					boardPlayer1GUI.placeShip("Carrier", num2Char[fleetPlayer1.carrier->getX()], fleetPlayer1.carrier->getY(), fleetPlayer1.carrier->getOrientation());
+					boardPlayer1GUI.placeShip("Battleship", num2Char[fleetPlayer1.battleship->getX()], fleetPlayer1.battleship->getY(), fleetPlayer1.battleship->getOrientation());
+					boardPlayer1GUI.placeShip("Cruiser", num2Char[fleetPlayer1.cruiser->getX()], fleetPlayer1.cruiser->getY(), fleetPlayer1.cruiser->getOrientation());
+					boardPlayer1GUI.placeShip("Submarine", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					boardPlayer1GUI.placeShip("Destroyer", num2Char[fleetPlayer1.submarine->getX()], fleetPlayer1.submarine->getY(), fleetPlayer1.submarine->getOrientation());
+					window.display();
+
+					window.close();
+
+				}
+
 
 			}
 			else
@@ -518,6 +589,10 @@ private:
 	int infoX;
 	int infoY;
 	int infoRotation;
+
+
+	char num2Char[10] = { 'A','B','C','D','E','F','G','H','I','J' };
+	//					   0   1   2   3   4   5   6   7   8   9
 
 
 
@@ -675,7 +750,7 @@ protected:
 
 		// what if no roations were found? Put in check code
 
-		printf("What would you like to do? Pick the corresponding number: ");
+		//printf("What would you like to do? Pick the corresponding number: ");
 		//scanf("%d", &choice);
 		inputCheck(2, board, &x, &y, rotation, &choice, rotateString, identification); // rotation choice input
 
@@ -769,16 +844,17 @@ protected:
 
 		if (checkType == 1)
 		{
-			scanf("%d %d", x, y);
-			//sfmlLayer->parseString(x, y, shipType);
+			//scanf("%d %d", x, y);
+			sfmlLayer->parseString(x, y, shipType);
 			while (tryAgain == YES)
 			{
 				if (board[*y][*x] != '~')
 				{
-					printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					scanf("%d %d", x, y);
-					//sfmlLayer->inputCheck(1, rotationString);
+					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
+					scanf("%d %d", x, y);*/
 
+
+					sfmlLayer->parseString2(x, y, shipType);
 
 				}
 				else
@@ -838,7 +914,6 @@ protected:
 			//}
 
 			* choice = stoi(sfmlLayer->inputCheck(7, rotationString));
-			//*choice++;
 
 		}
 	}
@@ -1106,8 +1181,6 @@ public:
 	}
 
 
-
-
 	/*
 	void displayPlayer1(int type)
 	{
@@ -1124,7 +1197,7 @@ public:
 
 		while (window.isOpen())
 		{
-			if (type == 0) // manually 
+			if (type == 0) // manually
 
 			{
 
@@ -1231,11 +1304,11 @@ public:
 			boardPlayer1.drawBoard(0, 0);
 			boardViewPlayer1.drawBoard(11, 0);
 
-			cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
+			/*cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
 			cout << "Battleship (" << fleetPlayer1->battleship->getX() << ", " << fleetPlayer1->battleship->getY() << ")" << "Rotation: " << fleetPlayer1->battleship->getOrientation() << endl;
 			cout << "Cruiser (" << fleetPlayer1->cruiser->getX() << ", " << fleetPlayer1->cruiser->getY() << ")" << "Rotation: " << fleetPlayer1->cruiser->getOrientation() << endl;
 			cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
-			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;
+			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;*/
 
 
 

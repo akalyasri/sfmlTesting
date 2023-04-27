@@ -1,4 +1,5 @@
 #include "header.h"
+#include <string>
 
 class con2Sfml // makes a layer that interacts with the console and sfml
 {
@@ -33,6 +34,11 @@ public:
 	}
 
 	virtual void parseString(int* x, int* y, char shipType)
+	{
+
+	}
+
+	virtual void parseString2(int* x, int* y, char shipType)
 	{
 
 	}
@@ -695,59 +701,92 @@ public:
 	void parseString(int* x, int* y, char shipType) override
 	{
 		string parString = enterCord(shipType);
-		*x = parString[0];
-		*y = parString[2];
+		char xChar = parString[0];
+		char yChar = parString[2];
+
+		*x = xChar - '0';
+		*y = yChar - '0';
+
 	}
+
+	void parseString2(int* x, int* y, char shipType) override
+	{
+		vector<string> dummy;
+		string parString = inputCheck(1, dummy);
+
+		char xChar = parString[0];
+		char yChar = parString[2];
+
+		*x = xChar - '0';
+		*y = yChar - '0';
+	}
+
 
 
 
 private:
 	string enterCord(char shipType)
 	{
-		sf::RenderWindow window(sf::VideoMode(1000, 400), "Enter Cord");
+		string promptWindow = shipType + "Input Window";
+
+
+		sf::RenderWindow window(sf::VideoMode(1000, 200), promptWindow);
 
 		sf::Font font;
-		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
-		{
-			std::cerr << "Failed to load font\n";
-			return "-1";
+		if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+			std::cout << "Error loading font" << std::endl;
+			return NULL;
 		}
 
-		sf::Text inputText("", font, 24);
-		inputText.setFillColor(sf::Color::White);
+		sf::Text prompt;
+		prompt.setFont(font);
+		prompt.setCharacterSize(24);
+		prompt.setFillColor(sf::Color::White);
+		prompt.setString("Select a Coordinate (x y):");
 
-		while (window.isOpen())
-		{
+		sf::Text text;
+		text.setFont(font);
+		text.setCharacterSize(24);
+		text.setFillColor(sf::Color::White);
+		text.setPosition(0, 40);
+
+		std::string inputString;
+
+		while (window.isOpen()) {
 			sf::Event event;
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-				{
+			while (window.pollEvent(event)) {
+				if (event.type == sf::Event::Closed) {
 					window.close();
 				}
-				else if (event.type == sf::Event::TextEntered)
-				{
-					if (event.text.unicode == '\r' || event.text.unicode == '\n')
-					{
-						std::cout << "Pick the first coordinate to place your " << shipType << "User input (x y): " << inputText.getString().toAnsiString() << std::endl;
-						return inputText.getString().toAnsiString();
+				else if (event.type == sf::Event::TextEntered) {
+					if (event.text.unicode == '\r') {
+						// Return input string when user presses enter
+						std::cout << "User entered: " << inputString << std::endl;
+						return inputString;
 						window.close();
 					}
-					else if (event.text.unicode < 128)
-					{
-						if (inputText.getString().getSize() < 3 && std::isdigit(event.text.unicode))
-						{
-							inputText.setString(inputText.getString() + static_cast<char>(event.text.unicode));
+					else if (event.text.unicode == '\b') {
+						// Handle backspace
+						if (!inputString.empty()) {
+							inputString.pop_back();
+							text.setString(inputString);
 						}
+					}
+					else {
+						// Handle other input characters
+						inputString += static_cast<char>(event.text.unicode);
+						text.setString(inputString);
 					}
 				}
 			}
 
 			window.clear(sf::Color::Black);
-			window.draw(inputText);
+			window.draw(prompt);
+			window.draw(text);
 			window.display();
 		}
-
-		return "-1";
 	}
+
+
 };
+//std::cout << "Pick the first coordinate to place your " << shipType << "User input (x y): " << inputText.getString().toAnsiString() << std::endl;
