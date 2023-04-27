@@ -406,8 +406,12 @@ public:
 
 		if (whoPlay == PLAYER1)
 		{
-			if (sfmlLayer->yesNo() == 0)
+			if (sfmlLayer->yesNo() == 0) // manually place ships
 			{
+
+				
+
+
 				//printf("Pick the first coordinate to place your carrier (X Y): ");
 				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
 				system("cls");
@@ -1090,12 +1094,21 @@ protected:
 class game
 {
 public:
-	game()
-	{
+	//game(sf::RenderWindow &window):gameWindow(window) {
+
+
+	//	//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+
+	//}
+
+	game() {
 
 	}
 
 
+
+
+	/*
 	void displayPlayer1(int type)
 	{
 
@@ -1111,7 +1124,7 @@ public:
 
 		while (window.isOpen())
 		{
-			if (type == 0)
+			if (type == 0) // manually 
 
 			{
 
@@ -1136,7 +1149,7 @@ public:
 				window.draw(text);
 				window.display();
 			}
-			else if (type == 1)
+			else if (type == 1) //
 			{
 				window.clear();
 				boardPlayer1.drawBoard(0, 0);
@@ -1167,6 +1180,9 @@ public:
 			}
 		}
 	}
+
+	*/
+
 
 	void runGame()
 	{
@@ -1238,7 +1254,7 @@ public:
 			text.setPosition(20, 1100);
 			text.setString("Hello World");
 			window.draw(text);
-			window.display();
+			window.display(); //
 
 
 			do
@@ -1313,6 +1329,8 @@ public:
 
 private:
 	board b1;
+
+	//sf::RenderWindow& gameWindow;
 
 	logBook* logPlayer1;
 	logBook* logPlayer2;
