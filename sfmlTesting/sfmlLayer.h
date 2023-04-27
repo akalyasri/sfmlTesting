@@ -27,14 +27,18 @@ public:
 		return choice;
 	}
 
-
 	virtual string inputCheck(int type, vector<string> strings)
 	{
 		return "-1";
 	}
+
+	virtual void parseString(int* x, int* y, char shipType)
+	{
+
+	}
 };
 
-class layer : public con2Sfml //public con2Sfml
+class layer : public con2Sfml //polymorphism
 {
 public:
 	layer()
@@ -386,6 +390,364 @@ public:
 
 			return std::to_string(selectedNum);
 		}
+
+		if (type == 5)
+		{
+			// Define the array of strings
+			//std::vector<std::string> strings = { "string1", "string2", "string3" };
+
+			// Create the SFML window
+			sf::RenderWindow window(sf::VideoMode(1000, 400), "String Array");
+
+			// Create the SFML font object
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+			{
+				std::cerr << "Error loading font\n";
+				return "-1";
+			}
+
+			// Create the SFML text object for displaying the strings
+			sf::Text text("", font, 20);
+			text.setFillColor(sf::Color::White);
+			text.setPosition(10, 10);
+
+			// Create the SFML text object for displaying the user prompt
+			sf::Text prompt("Enter a choice of rotation:", font, 20);
+			prompt.setFillColor(sf::Color::White);
+			prompt.setPosition(10, 250);
+
+			// Create the SFML text object for displaying the user input
+			sf::Text input("", font, 20);
+			input.setFillColor(sf::Color::White);
+			input.setPosition(10, 280);
+
+			// Main loop
+			while (window.isOpen())
+			{
+				// Handle SFML events
+				sf::Event event;
+				while (window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+					{
+						window.close();
+					}
+					else if (event.type == sf::Event::TextEntered)
+					{
+						// If the user has typed a character
+						if (event.text.unicode < 128)
+						{
+							// Append the character to the user input string
+							input.setString(input.getString() + static_cast<char>(event.text.unicode));
+						}
+					}
+					else if (event.type == sf::Event::KeyPressed)
+					{
+						// If the user has pressed the enter key
+						if (event.key.code == sf::Keyboard::Enter)
+						{
+							// Try to convert the user input to an integer
+							int choice = std::stoi(input.getString().toAnsiString());
+
+							// If the choice is valid, return it and close the window
+							if (choice >= 1 && choice <= strings.size())
+							{
+								std::cout << "Choice: " << choice << "\n";
+								window.close();
+							}
+							// Otherwise, ask the user to input another number
+							else
+							{
+								input.setString("");
+							}
+						}
+					}
+				}
+
+				// Update the text object for displaying the strings
+				std::string stringDisplay;
+				for (const auto& str : strings)
+				{
+					stringDisplay += str + "\n";
+				}
+				text.setString(stringDisplay);
+
+				// Clear the window
+				window.clear();
+
+				// Draw the text objects
+				window.draw(text);
+				window.draw(prompt);
+				window.draw(input);
+
+				// Display the window
+				window.display();
+			}
+
+			return "-1";
+		}
+
+		if (type == 6)
+		{
+			// define the array of strings
+			//std::string strArr[] = { "string1", "string2", "string3", "string4" };
+
+			// create the SFML window
+			sf::RenderWindow window(sf::VideoMode(1000, 300), "SFML Array of Strings");
+
+			// create the SFML text object for displaying the strings
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
+				std::cout << "Error loading font file\n";
+				return 0;
+			}
+			sf::Text text("", font, 20);
+			text.setPosition(50, 50);
+
+			// create the SFML text object for the user input prompt
+			sf::Text prompt("Enter a number for a choice of rotation (1-4):", font, 20);
+			prompt.setPosition(50, 250);
+
+			// the index of the selected string in the array (-1 means no selection)
+			int selected = -1;
+
+			// the main loop
+			while (window.isOpen())
+			{
+				// handle events
+				sf::Event event;
+				while (window.pollEvent(event))
+				{
+					switch (event.type)
+					{
+						// close the window when the close button is clicked
+					case sf::Event::Closed:
+						window.close();
+						break;
+
+						// handle key press events
+					case sf::Event::KeyPressed:
+						// if the user pressed a number key (1-4)
+						if (event.key.code >= sf::Keyboard::Num1 && event.key.code <= sf::Keyboard::Num4) {
+							int index = event.key.code - sf::Keyboard::Num1;
+							// if the index corresponds to a string in the array, select it
+							if (index >= 0 && index < sizeof(strings) / sizeof(strings[0])) {
+								selected = index;
+							}
+							// if the index does not correspond to a string in the array, prompt the user to input another number
+							else {
+								text.setString("Invalid selection. Please enter a number from 1 to 4.");
+								selected = -1;
+							}
+						}
+						break;
+
+						// handle text input events
+					case sf::Event::TextEntered:
+						// if the user entered a number key (1-4)
+						if (event.text.unicode >= '1' && event.text.unicode <= '4') {
+							int index = event.text.unicode - '1';
+							// if the index corresponds to a string in the array, select it
+							if (index >= 0 && index < sizeof(strings) / sizeof(strings[0])) {
+								selected = index;
+							}
+							// if the index does not correspond to a string in the array, prompt the user to input another number
+							else {
+								text.setString("Invalid selection. Please enter a number from 1 to 4.");
+								selected = -1;
+							}
+						}
+						break;
+					}
+				}
+
+				// if no string is selected, display the user input prompt
+				if (selected == -1) {
+					window.clear();
+					window.draw(prompt);
+				}
+				// if a string is selected, display it and close the window
+				else {
+					text.setString(strings[selected]);
+					window.clear(sf::Color::White);
+					window.draw(text);
+					window.display();
+					sf::sleep(sf::seconds(1)); // wait for 1 second before closing the window
+					window.close();
+				}
+
+				// display the window
+				window.display();
+			}
+
+			// display the current selection
+			if (selected != -1) {
+				text.setString("Selected: " + strings[selected]);
+				text.setPosition(50, 100);
+				window.draw(text);
+			}
+
+			// display the window
+			window.display();
+		}
+
+		if (type == 7)
+		{
+			// Create the window
+			sf::RenderWindow window(sf::VideoMode(1000, 600), "SFML window");
+
+			// Define the vector of strings
+			//std::vector<std::string> strings = { "string1", "string2", "string3", "string4" };
+
+			// Create the text object for displaying the strings
+			sf::Font font;
+			if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+			{
+				std::cerr << "Error loading font file" << std::endl;
+				return "-1";
+			}
+
+			sf::Text text;
+			text.setFont(font);
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color::White);
+
+			// Create the text object for prompting the user
+			sf::Text prompt;
+			prompt.setFont(font);
+			prompt.setCharacterSize(24);
+			prompt.setFillColor(sf::Color::White);
+			prompt.setString("Enter a choice of rotation (1-4):");
+
+			// Run the game loop
+			while (window.isOpen())
+			{
+				// Handle events
+				sf::Event event;
+				while (window.pollEvent(event))
+				{
+					// Check for window closed
+					if (event.type == sf::Event::Closed)
+					{
+						window.close();
+					}
+
+					// Check for user input
+					if (event.type == sf::Event::TextEntered)
+					{
+						// Check if the input is a number
+						if (event.text.unicode >= '1' && event.text.unicode <= '4')
+						{
+							// Get the index from the input
+							int index = event.text.unicode - '1';
+
+							// Check if the index is within bounds
+							if (index >= 0 && index < strings.size())
+							{
+								// Display the selected string
+								text.setString(strings[index]);
+								window.draw(text);
+								window.display();
+
+								// Wait for a moment before closing the window
+								sf::sleep(sf::seconds(2));
+								return std::to_string(index);
+								window.close();
+							}
+							else
+							{
+								// Prompt the user to enter another number
+								prompt.setString("Invalid index. Enter another choice of rotation (1-4):");
+							}
+						}
+						else
+						{
+							// Prompt the user to enter another number
+							prompt.setString("Invalid input. Enter another choice of rotation (1-4):");
+						}
+					}
+				}
+
+				// Clear the window
+				window.clear();
+
+				// Draw the strings and prompt
+				for (int i = 0; i < strings.size(); ++i)
+				{
+					text.setString(strings[i]);
+					text.setPosition(10, 50 + 30 * i);
+					window.draw(text);
+				}
+				prompt.setPosition(10, 10);
+				window.draw(prompt);
+
+				// Display the window
+				window.display();
+			}
+
+			return "-1";
+		}
+
+		return "-1";
 	}
 
+	void parseString(int* x, int* y, char shipType) override
+	{
+		string parString = enterCord(shipType);
+		*x = parString[0];
+		*y = parString[2];
+	}
+
+
+
+private:
+	string enterCord(char shipType)
+	{
+		sf::RenderWindow window(sf::VideoMode(1000, 400), "Enter Cord");
+
+		sf::Font font;
+		if (!font.loadFromFile("Fonts/ARIAL.ttf"))
+		{
+			std::cerr << "Failed to load font\n";
+			return "-1";
+		}
+
+		sf::Text inputText("", font, 24);
+		inputText.setFillColor(sf::Color::White);
+
+		while (window.isOpen())
+		{
+			sf::Event event;
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+				{
+					window.close();
+				}
+				else if (event.type == sf::Event::TextEntered)
+				{
+					if (event.text.unicode == '\r' || event.text.unicode == '\n')
+					{
+						std::cout << "Pick the first coordinate to place your " << shipType << "User input (x y): " << inputText.getString().toAnsiString() << std::endl;
+						return inputText.getString().toAnsiString();
+						window.close();
+					}
+					else if (event.text.unicode < 128)
+					{
+						if (inputText.getString().getSize() < 3 && std::isdigit(event.text.unicode))
+						{
+							inputText.setString(inputText.getString() + static_cast<char>(event.text.unicode));
+						}
+					}
+				}
+			}
+
+			window.clear(sf::Color::Black);
+			window.draw(inputText);
+			window.display();
+		}
+
+		return "-1";
+	}
 };

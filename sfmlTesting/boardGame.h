@@ -408,27 +408,27 @@ public:
 		{
 			if (sfmlLayer->yesNo() == 0)
 			{
-				printf("Pick the first coordinate to place your carrier (X Y): ");
+				//printf("Pick the first coordinate to place your carrier (X Y): ");
 				placeMan(boardPlayer1, 4, fleetPlayer1.carrier->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
-				printf("Pick the first coordinate to place your battleship (X Y): ");
+				//printf("Pick the first coordinate to place your battleship (X Y): ");
 				placeMan(boardPlayer1, 3, fleetPlayer1.battleship->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
-				printf("Pick the first coordinate to place your cruiser (X Y): ");
+				//printf("Pick the first coordinate to place your cruiser (X Y): ");
 				placeMan(boardPlayer1, 2, fleetPlayer1.cruiser->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
-				printf("Pick the first coordinate to place your submarine (X Y): ");
+				//printf("Pick the first coordinate to place your submarine (X Y): ");
 				placeMan(boardPlayer1, 2, fleetPlayer1.submarine->getIdentification(), fleetPlayer1);
 				system("cls");
 				printBoard(PLAYER1);
 
-				printf("Pick the first coordinate to place your destroyer (X Y): ");
+				//printf("Pick the first coordinate to place your destroyer (X Y): ");
 				placeMan(boardPlayer1, 1, fleetPlayer1.destroyer->getIdentification(), fleetPlayer1);
 				system("cls");
 				//print_board(board, 10, 10);
@@ -551,7 +551,7 @@ protected:
 		vector<string> rotateString;
 
 		// scanf("%d %d", &x, &y); 
-		inputCheck(1, board, &x, &y, rotation, &choice, rotateString); // x and y input
+		inputCheck(1, board, &x, &y, rotation, &choice, rotateString, identification); // x and y input
 
 
 
@@ -631,7 +631,7 @@ protected:
 
 		if (rotation[0] == 1)
 		{
-			printf("1) You can rotate left\n");
+			//printf("1) You can rotate left\n");
 			rotateString.push_back("1) You can rotate left");
 		}
 		else
@@ -641,7 +641,7 @@ protected:
 
 		if (rotation[1] == 1)
 		{
-			printf("2) You can rotate right\n");
+			//printf("2) You can rotate right\n");
 			rotateString.push_back("2) You can rotate right");
 		}
 		else
@@ -651,7 +651,7 @@ protected:
 
 		if (rotation[2] == 1)
 		{
-			printf("3) You can rotate down\n");
+			//printf("3) You can rotate down\n");
 			rotateString.push_back("3) You can rotate down");
 		}
 		else
@@ -661,7 +661,7 @@ protected:
 
 		if (rotation[3] == 1)
 		{
-			printf("4) You can roate up\n");
+			//printf("4) You can roate up\n");
 			rotateString.push_back("4) You can roate up");
 		}
 		else
@@ -673,11 +673,11 @@ protected:
 
 		printf("What would you like to do? Pick the corresponding number: ");
 		//scanf("%d", &choice);
-		inputCheck(2, board, &x, &y, rotation, &choice, rotateString); // rotation choice input
+		inputCheck(2, board, &x, &y, rotation, &choice, rotateString, identification); // rotation choice input
 
 		int uRot = 0;
 
-		switch (choice)
+		switch (++choice)
 		{
 		case 1: // rotate left
 			uRot = 180;
@@ -758,7 +758,7 @@ protected:
 
 
 	}
-	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, vector<string> rotationString)
+	void inputCheck(int checkType, char board[][10], int* x, int* y, int rotation[], int* choice, vector<string> rotationString, char shipType)
 	{
 		int tryAgain = YES;
 		con2Sfml* sfmlLayer = new layer;
@@ -766,14 +766,14 @@ protected:
 		if (checkType == 1)
 		{
 			scanf("%d %d", x, y);
-
+			//sfmlLayer->parseString(x, y, shipType);
 			while (tryAgain == YES)
 			{
 				if (board[*y][*x] != '~')
 				{
-					/*printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					scanf("%d %d", x, y);*/
-					sfmlLayer->inputCheck(1, rotationString);
+					printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
+					scanf("%d %d", x, y);
+					//sfmlLayer->inputCheck(1, rotationString);
 
 
 				}
@@ -818,17 +818,14 @@ protected:
 
 		if (checkType == 2)
 		{
-			scanf("%d", choice);
+			//scanf("%d", choice);
 			//while (tryAgain == YES)
 			//{
-
 			//	if (rotation[*choice - 1] != 1)
 			//	{
 			//		/*printf("\n You selected an invalid number, selec a valid rotation: ");
 			//		scanf("%d", choice);*/
-
 			//		*choice = stoi(sfmlLayer->inputCheck(4, rotationString));
-
 			//	}
 			//	else
 			//	{
@@ -836,7 +833,8 @@ protected:
 			//	}
 			//}
 
-			* choice = stoi(sfmlLayer->inputCheck(3, rotationString));
+			* choice = stoi(sfmlLayer->inputCheck(7, rotationString));
+			//*choice++;
 
 		}
 	}
