@@ -1304,13 +1304,6 @@ public:
 			boardPlayer1.drawBoard(0, 0);
 			boardViewPlayer1.drawBoard(11, 0);
 
-			/*cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
-			cout << "Battleship (" << fleetPlayer1->battleship->getX() << ", " << fleetPlayer1->battleship->getY() << ")" << "Rotation: " << fleetPlayer1->battleship->getOrientation() << endl;
-			cout << "Cruiser (" << fleetPlayer1->cruiser->getX() << ", " << fleetPlayer1->cruiser->getY() << ")" << "Rotation: " << fleetPlayer1->cruiser->getOrientation() << endl;
-			cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
-			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;*/
-
-
 
 			boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
 			boardPlayer1.placeShip("Battleship", num2Char[fleetPlayer1->battleship->getX()], fleetPlayer1->battleship->getY(), fleetPlayer1->battleship->getOrientation());

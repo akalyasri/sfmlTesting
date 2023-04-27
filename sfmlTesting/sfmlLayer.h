@@ -403,7 +403,7 @@ public:
 			//std::vector<std::string> strings = { "string1", "string2", "string3" };
 
 			// Create the SFML window
-			sf::RenderWindow window(sf::VideoMode(1000, 400), "String Array");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "String Array");
 
 			// Create the SFML font object
 			sf::Font font;
@@ -500,7 +500,7 @@ public:
 			//std::string strArr[] = { "string1", "string2", "string3", "string4" };
 
 			// create the SFML window
-			sf::RenderWindow window(sf::VideoMode(1000, 300), "SFML Array of Strings");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "SFML Array of Strings");
 
 			// create the SFML text object for displaying the strings
 			sf::Font font;
@@ -601,7 +601,7 @@ public:
 		if (type == 7)
 		{
 			// Create the window
-			sf::RenderWindow window(sf::VideoMode(1000, 600), "SFML window");
+			sf::RenderWindow window(sf::VideoMode(1000, 200), "SFML window");
 
 			// Define the vector of strings
 			//std::vector<std::string> strings = { "string1", "string2", "string3", "string4" };
