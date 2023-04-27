@@ -1101,7 +1101,9 @@ public:
 
 	//}
 
-	game() {
+	game(sf::RenderWindow& window) : gameWindow(window) {
+
+
 
 	}
 
@@ -1186,10 +1188,10 @@ public:
 
 	void runGame()
 	{
-		sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
+		//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
 		//sf::Style::Resize
-		Board boardPlayer1(window);
-		Board boardViewPlayer1(window);
+		Board boardPlayer1(gameWindow);
+		Board boardViewPlayer1(gameWindow);
 
 
 		sf::Font font;
@@ -1199,13 +1201,13 @@ public:
 		}
 
 
-		while (window.isOpen())
+		while (gameWindow.isOpen())
 		{
 			sf::Event event;
-			while (window.pollEvent(event))
+			while (gameWindow.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					window.close();
+					gameWindow.close();
 
 			}
 
@@ -1227,7 +1229,7 @@ public:
 			//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
 			int adjust = 0;
 
-			window.clear();
+			gameWindow.clear();
 			boardPlayer1.drawBoard(0, 0);
 			boardViewPlayer1.drawBoard(11, 0);
 
@@ -1253,8 +1255,8 @@ public:
 			text.setFillColor(sf::Color::White);
 			text.setPosition(20, 1100);
 			text.setString("Hello World");
-			window.draw(text);
-			window.display(); //
+			gameWindow.draw(text);
+			gameWindow.display(); //
 
 
 			do
@@ -1262,7 +1264,7 @@ public:
 
 				b1.fire(PLAYER1);
 
-				window.clear();
+				gameWindow.clear();
 				boardPlayer1.drawBoard(0, 0);
 				boardViewPlayer1.drawBoard(11, 0);
 				boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
@@ -1279,7 +1281,7 @@ public:
 				{
 					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
 				}
-				window.display();
+				gameWindow.display();
 
 
 				printf("\nPress any key to continue");
@@ -1287,7 +1289,7 @@ public:
 				system("cls");
 
 				b1.fire(PLAYER2);
-				window.clear();
+				gameWindow.clear();
 				boardPlayer1.drawBoard(0, 0);
 				boardViewPlayer1.drawBoard(11, 0);
 				boardPlayer1.placeShip("Carrier", num2Char[fleetPlayer1->carrier->getX()], fleetPlayer1->carrier->getY(), fleetPlayer1->carrier->getOrientation());
@@ -1304,7 +1306,7 @@ public:
 				{
 					boardPlayer1.placeBomb(num2Char[logPlayer2->x[i]], logPlayer2->y[i]);
 				}
-				window.display();
+				gameWindow.display();
 
 
 				printf("\nPress any key to continue");
@@ -1330,7 +1332,7 @@ public:
 private:
 	board b1;
 
-	//sf::RenderWindow& gameWindow;
+	sf::RenderWindow& gameWindow;
 
 	logBook* logPlayer1;
 	logBook* logPlayer2;
