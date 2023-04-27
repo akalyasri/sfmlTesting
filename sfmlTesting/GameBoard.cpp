@@ -1,5 +1,5 @@
-//#include "game.h"
-#include "GameBoard.hpp"
+#include "header.h"
+//#include "GameBoard.hpp"
 
 
 Board::Board(sf::RenderWindow& window) : m_window(window) {
