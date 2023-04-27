@@ -1876,6 +1876,18 @@ public:
 
 	void runGame()
 	{
+		b1.placeShip(PLAYER1);
+		b1.placeShip(PLAYER2);
+		logPlayer1 = b1.getLogPlayer1(); //vector
+		logPlayer2 = b1.getLogPlayer2();
+
+		//////////////////////////////////////////////////////////////// IMPORTANT!! GIVES ACCESS TO SHIP COORDINATES AND SHOTS FIRED
+		fleetPlayer1 = b1.getFleetPlayer1();
+		fleetPlayer2 = b1.getFleetPlayer2();
+		//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
+
+
+
 		//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
 		//sf::Style::Resize
 		Board boardPlayer1(gameWindow);
@@ -1901,31 +1913,25 @@ public:
 
 			char dummyChar = '\0';
 			//b1.printBoard(BOARDPLAYER1);
-			b1.placeShip(PLAYER1);
+			//b1.placeShip(PLAYER1);
 
 			// Placing ships on computer's board
-			b1.placeShip(PLAYER2);
+			//b1.placeShip(PLAYER2);
 			//printf("Computer Board\n"); // debug code, speeds up testing of game
 			//b1.printBoard(BOARDPLAYER2);
 
-			//////////////////////////////////////////////////////////////// IMPORTANT!! GIVES ACCESS TO SHIP COORDINATES AND SHOTS FIRED
-			logPlayer1 = b1.getLogPlayer1(); //vector
-			logPlayer2 = b1.getLogPlayer2();
 
-			fleetPlayer1 = b1.getFleetPlayer1();
-			fleetPlayer2 = b1.getFleetPlayer2();
-			//////////////////////////////////////////////////////////////// To access ship info go to fleetPlayer->shipName->get____ ||to access shots fired history go to logPlayer1->x.__
 			int adjust = 0;
 
 			gameWindow.clear();
 			boardPlayer1.drawBoard(0, 0);
 			boardViewPlayer1.drawBoard(11, 0);
 
-			cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
+			/*cout << "Carrier (" << fleetPlayer1->carrier->getX() << ", " << fleetPlayer1->carrier->getY() << ")" << "Rotation: " << fleetPlayer1->carrier->getOrientation() << endl;
 			cout << "Battleship (" << fleetPlayer1->battleship->getX() << ", " << fleetPlayer1->battleship->getY() << ")" << "Rotation: " << fleetPlayer1->battleship->getOrientation() << endl;
 			cout << "Cruiser (" << fleetPlayer1->cruiser->getX() << ", " << fleetPlayer1->cruiser->getY() << ")" << "Rotation: " << fleetPlayer1->cruiser->getOrientation() << endl;
 			cout << "Submarine (" << fleetPlayer1->submarine->getX() << ", " << fleetPlayer1->submarine->getY() << ")" << "Rotation: " << fleetPlayer1->submarine->getOrientation() << endl;
-			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;
+			cout << "Destroyer (" << fleetPlayer1->destroyer->getX() << ", " << fleetPlayer1->destroyer->getY() << ")" << "Rotation: " << fleetPlayer1->destroyer->getOrientation() << endl;*/
 
 
 
