@@ -40,8 +40,8 @@ enum player
 
 enum state
 {
-	NSUNK,
-	SUNK
+	SUNK,
+	NSUNK
 };
 
 enum choice
