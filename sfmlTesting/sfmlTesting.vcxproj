@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Music\background.ogg" />
+    <None Include="Music\bomb.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -257,7 +257,20 @@ public:
 			else
 			{
 				if (fleetPlayer2.carrier->getIdentification() == boardPlayer2[y][x])
+
 				{
+
+					sf::Music music;
+
+					if (!music.openFromFile("Music/bomb.ogg")) {
+
+						cout << "Error opening music file" << endl;
+
+					}
+
+					
+					music.play();
+
 					printf("You hit carrier\n");
 					//fprintf(infile, "Player has scored a hit on the carrier || Coordinate: (%d,%d)\n ", x, y);
 					boardViewPlayer1[y][x] = 'x';

@@ -4,9 +4,6 @@ int main()
 {
 
 
-
-
-
 	/*
 
 
@@ -45,6 +42,7 @@ int main()
 
     }
 
+    music.setVolume(39);
     music.play();
 
 
