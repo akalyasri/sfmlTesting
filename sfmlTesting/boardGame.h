@@ -270,7 +270,7 @@ public:
 						printf("You sunk carrier\n");
 						//fprintf(infile, "Player has sunk the carrier || Coordinate: (%d,%d)\n", x, y);
 						//playerCarrier->sunk = YES;
-						fleetPlayer2.carrier->setSunk(YES);
+						fleetPlayer2.carrier->setSunk(SUNK);
 					}
 
 					logPlayer1.x.push_back(x); //keeps track of shots
@@ -359,7 +359,7 @@ public:
 				if ((fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK))
 				{
 					//cout << "Player Has Won!" << endl;
-					status[0] = YES;
+					status[0] = SUNK;
 					//fprintf(infile, "Player has won! \n");
 
 				}
@@ -433,7 +433,7 @@ public:
 					{
 						printf("Computer sunk carrier\n");
 						//fprintf(infile, "Computer has sunk the carrier || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.carrier->setSunk(YES);
+						fleetPlayer1.carrier->setSunk(SUNK);
 
 					}
 
@@ -452,7 +452,7 @@ public:
 					{
 						printf("Computer sunk battleship\n");
 						//fprintf(infile, "Computer has sunk the battleship || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.battleship->setSunk(YES);
+						fleetPlayer1.battleship->setSunk(SUNK);
 
 					}
 
@@ -472,7 +472,7 @@ public:
 					{
 						printf("Computer sunk cruiser\n");
 						//fprintf(infile, "Computer has sunk the cruiser || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.cruiser->setSunk(YES);
+						fleetPlayer1.cruiser->setSunk(SUNK);
 
 					}
 
@@ -491,7 +491,7 @@ public:
 					{
 						printf("Computer sunk submarine\n");
 						//fprintf(infile, "Computer has sunk the submarine || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.submarine->setSunk(YES);
+						fleetPlayer1.submarine->setSunk(SUNK);
 
 					}
 
@@ -510,7 +510,7 @@ public:
 					{
 						printf("Computer sunk destroyer\n");
 						//fprintf(infile, "Computer has sunk the destroyer || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.destroyer->setSunk(YES);
+						fleetPlayer1.destroyer->setSunk(SUNK);
 
 					}
 
@@ -525,7 +525,7 @@ public:
 				if (fleetPlayer1.carrier->getSunk() == fleetPlayer1.battleship->getSunk() == fleetPlayer1.cruiser->getSunk() == fleetPlayer1.submarine->getSunk() == fleetPlayer1.destroyer->getSunk() == SUNK)
 				{
 					//cout << "Computer Has Won" << endl;
-					status[1] = YES;
+					status[1] = SUNK;
 					//fprintf(infile, "Computer has won!\n");
 
 				}
@@ -806,7 +806,7 @@ private:
 	logBook logPlayer1;
 	logBook logPlayer2;
 
-	int status[2] = { 0,0 };
+	int status[2] = { NSUNK,NSUNK };
 
 	int infoX;
 	int infoY;
