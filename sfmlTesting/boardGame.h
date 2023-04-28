@@ -367,8 +367,8 @@ public:
 		}
 		else
 		{
-			x = rand() % 9 + 0;
-			y = rand() % 9 + 0;
+			x = rand() % 10 + 0;
+			y = rand() % 10 + 0;
 
 			while (tryAgain == YES)
 			{
@@ -376,8 +376,8 @@ public:
 				{
 					if (x > 9 && x < 0 && y > 9 && y < 0 && boardViewPlayer2[y][x] == 'o' && boardViewPlayer2[y][x] == 'x')
 					{
-						x = rand() % 9 + 0;
-						y = rand() % 9 + 0;
+						x = rand() % 10 + 0;
+						y = rand() % 10 + 0;
 					}
 					else
 					{
