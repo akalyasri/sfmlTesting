@@ -248,6 +248,8 @@ public:
 			{
 				//fprintf(infile, "Player has missed || Coordinate: (%d,%d)\n", x, y);
 				printf("You missed!\n");
+				fireSound(HIT);
+
 				boardViewPlayer1[y][x] = 'o';
 				boardPlayer2[y][x] = 'o';
 
@@ -262,6 +264,8 @@ public:
 				if (fleetPlayer2.carrier->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit carrier\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the carrier || Coordinate: (%d,%d)\n ", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
@@ -280,6 +284,8 @@ public:
 				else if (fleetPlayer2.battleship->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit battleship\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the battleship || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
@@ -299,6 +305,8 @@ public:
 				else if (fleetPlayer2.cruiser->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit cruiser\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the cruiser || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
@@ -318,6 +326,8 @@ public:
 				else if (fleetPlayer2.submarine->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit submarine\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the submarine || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
@@ -337,6 +347,8 @@ public:
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit destroyer\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the destroyer || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
@@ -412,6 +424,8 @@ public:
 			{
 				//fprintf(infile, "Player has missed || Coordinate: (%d,%d)\n", x, y);
 				printf("CPU missed!\n");
+				fireSound(MISS);
+
 				boardPlayer1[y][x] = 'o';
 				boardViewPlayer2[y][x] = 'o';
 
@@ -425,6 +439,8 @@ public:
 				if (fleetPlayer1.carrier->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit carrier \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the carrier || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
@@ -444,6 +460,8 @@ public:
 				else if (fleetPlayer1.battleship->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit battleship \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the battleship || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
@@ -464,6 +482,8 @@ public:
 				else if (fleetPlayer1.cruiser->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit cruiser\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the cruiser || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
@@ -483,6 +503,8 @@ public:
 				else if (fleetPlayer1.submarine->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit submarine\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the submarine || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
@@ -502,6 +524,8 @@ public:
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit destroyer \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the destroyer || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
@@ -1689,6 +1713,40 @@ protected:
 		}
 	}
 
+
+	void fireSound(int type)
+	{
+		sf::SoundBuffer buffer;
+		sf::Sound sound;
+		sound.setBuffer(buffer);
+		sound.play();
+
+		if (type == HIT)
+		{
+
+			if (!buffer.loadFromFile("sound/bomb.wav"))
+			{
+
+			}
+			sound.setBuffer(buffer);
+			sound.play();
+
+			//return -1;
+
+		}
+		else if (type == MISS)
+		{
+
+			if (!buffer.loadFromFile("sound/splash.flac"))
+			{
+
+			}
+			sound.setBuffer(buffer);
+			sound.play();
+			//return -1;
+
+		}
+	}
 
 	//sf::RenderWindow& gameWindow;
 

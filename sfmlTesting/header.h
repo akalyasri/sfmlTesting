@@ -58,6 +58,12 @@ enum printType
 	BOARDVIEWPLAYER2
 };
 
+enum hitType
+{
+	HIT,
+	MISS
+};
+
 
 class Board {
 
