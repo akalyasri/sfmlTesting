@@ -360,7 +360,7 @@ public:
 				if ((fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.battleship->getSunk() == SUNK) && (fleetPlayer2.cruiser->getSunk() == SUNK) && (fleetPlayer2.submarine->getSunk() == SUNK) && (fleetPlayer2.destroyer->getSunk() == SUNK))
 				{
 					//cout << "Player Has Won!" << endl;
-					status[0] = SUNK;
+					status[1] = SUNK;
 					//fprintf(infile, "Player has won! \n");
 
 				}
@@ -526,7 +526,7 @@ public:
 				if ((fleetPlayer1.carrier->getSunk() == SUNK) && (fleetPlayer1.battleship->getSunk() == SUNK) && (fleetPlayer1.cruiser->getSunk() == SUNK) && (fleetPlayer1.submarine->getSunk() == SUNK) && (fleetPlayer1.destroyer->getSunk() == SUNK))
 				{
 					//cout << "Computer Has Won" << endl;
-					status[1] = SUNK;
+					status[0] = SUNK;
 					//fprintf(infile, "Computer has won!\n");
 
 				}
@@ -1496,7 +1496,7 @@ protected:
 
 		for (int i = y; (i <= y + size); i++) // down check
 		{
-			if ((placeable == YES) && (board[i][x] == '~') && (y + size < 9))
+			if ((placeable == YES) && (board[i][x] == '~') && (y + size <= 9))
 			{
 
 			}
@@ -1514,7 +1514,7 @@ protected:
 
 		for (int i = y; (i >= y - size); i--) // up check
 		{
-			if ((placeable == YES) && (board[i][x] == '~') && (y + size > 0))
+			if ((placeable == YES) && (board[i][x] == '~') && (y + size >= 0))
 			{
 
 			}
@@ -1620,16 +1620,16 @@ protected:
 
 		if (checkType == 1)
 		{
-			*x = rand() % 9 + 0;
-			*y = rand() % 9 + 0;
+			*x = rand() % 10 + 0;
+			*y = rand() % 10 + 0;
 
 			while (tryAgain == YES)
 			{
 				if (board[*y][*x] != '~')
 				{
 					//printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					*x = rand() % 9 + 0;
-					*y = rand() % 9 + 0;
+					*x = rand() % 10 + 0;
+					*y = rand() % 10 + 0;
 
 				}
 				else
