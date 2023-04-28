@@ -191,6 +191,18 @@ void Board::placeBomb(char x, int y) {
 
 	sprite.setPosition(xCoord, yCoord);
 
+	sf::Music music;
+
+	if (!music.openFromFile("Music/bomb.ogg")) {
+
+		cout << "Error opening music file" << endl;
+
+	}
+
+
+	music.play();
+
+
 	m_window.draw(sprite);
 
 	// Place bomb

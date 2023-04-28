@@ -42,7 +42,7 @@ int main()
 
     }
 
-    music.setVolume(39);
+    music.setVolume(20);
     music.play();
 
 
@@ -59,13 +59,13 @@ int main()
 
     // load the font
     sf::Font font;
-    if (!font.loadFromFile("Fonts/ARIAL.TTF")) {
+    if (!font.loadFromFile("Fonts/arialbd.ttf")) {
         std::cout << "Error loading font." << std::endl;
         return 1;
     }
 
     // create the title text
-    sf::Text title("BATTLESHIP!", font, 50);
+    sf::Text title("BATTLESHIP !!", font, 50);
     title.setPosition(200, 49);
 
     // create the "Play Game" text
