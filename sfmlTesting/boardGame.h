@@ -356,7 +356,7 @@ public:
 
 				if (fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES)
 				{
-					cout << "Player Has Won!" << endl;
+					//cout << "Player Has Won!" << endl;
 					status[0] = YES;
 					//fprintf(infile, "Player has won! \n");
 
@@ -520,9 +520,9 @@ public:
 					printf("\n CPU Something is wrong with your code");
 				}
 
-				if (fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.battleship->getSunk() == YES && fleetPlayer2.cruiser->getSunk() == YES && fleetPlayer2.submarine->getSunk() == YES && fleetPlayer2.destroyer->getSunk() == YES)
+				if (fleetPlayer1.carrier->getSunk() == YES && fleetPlayer1.battleship->getSunk() == YES && fleetPlayer1.cruiser->getSunk() == YES && fleetPlayer1.submarine->getSunk() == YES && fleetPlayer1.destroyer->getSunk() == YES)
 				{
-					cout << "Computer Has Won" << endl;
+					//cout << "Computer Has Won" << endl;
 					status[1] = YES;
 					//fprintf(infile, "Computer has won!\n");
 
@@ -2006,11 +2006,14 @@ public:
 
 			if (b1.getStatusPlayer1() == YES) // did player 1 loose?
 			{
-				printf("You lost!\n");
+				printf("You Won!\n");
+				gameWindow.close();
+				//gameWindow2.close();
 			}
 			else
 			{
-				printf("you won!\n");
+				printf("CPU has won!\n");
+				gameWindow.close();
 			}
 
 		}
