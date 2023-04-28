@@ -115,7 +115,8 @@ class board
 public:
 
 	board() {
-
+		status[0] = NSUNK;
+		status[1] = NSUNK;
 
 		int rowIndex = 0, colIndex = 0;
 
@@ -356,7 +357,7 @@ public:
 					//printf("\nSomething is wrong with your code"); // debug code
 				}
 
-				if ((fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.carrier->getSunk() == SUNK))
+				if ((fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.battleship->getSunk() == SUNK) && (fleetPlayer2.cruiser->getSunk() == SUNK) && (fleetPlayer2.submarine->getSunk() == SUNK) && (fleetPlayer2.destroyer->getSunk() == SUNK))
 				{
 					//cout << "Player Has Won!" << endl;
 					status[0] = SUNK;
@@ -522,7 +523,7 @@ public:
 					printf("\n CPU Something is wrong with your code");
 				}
 
-				if (fleetPlayer1.carrier->getSunk() == fleetPlayer1.battleship->getSunk() == fleetPlayer1.cruiser->getSunk() == fleetPlayer1.submarine->getSunk() == fleetPlayer1.destroyer->getSunk() == SUNK)
+				if ((fleetPlayer1.carrier->getSunk() == SUNK) && (fleetPlayer1.battleship->getSunk() == SUNK) && (fleetPlayer1.cruiser->getSunk() == SUNK) && (fleetPlayer1.submarine->getSunk() == SUNK) && (fleetPlayer1.destroyer->getSunk() == SUNK))
 				{
 					//cout << "Computer Has Won" << endl;
 					status[1] = SUNK;
@@ -789,7 +790,7 @@ public:
 		return &fleetPlayer2;
 	}
 
-
+	int status[2];
 private:
 	char boardPlayer1[10][10] = { {'\0'}, {'\0'} };
 	char boardPlayer2[10][10] = { {'\0'}, {'\0'} };
@@ -806,7 +807,7 @@ private:
 	logBook logPlayer1;
 	logBook logPlayer2;
 
-	int status[2] = { NSUNK,NSUNK };
+	//int status[2] = { NSUNK,NSUNK };
 
 	int infoX;
 	int infoY;
@@ -2046,17 +2047,17 @@ public:
 				//scanf(" %c", &dummyChar);
 				//system("cls");
 
-			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
+			} while (b1.status[0] == NSUNK && b1.status[1] == NSUNK);
 
-			if (b1.getStatusPlayer1() == YES) // did player 1 loose?
+			if (b1.getStatusPlayer1() == SUNK)
 			{
-				printf("You Won!\n");
+				printf("CPU Has Won!\n");
 				gameWindow.close();
 				//gameWindow2.close();
 			}
 			else
 			{
-				printf("CPU has won!\n");
+				printf("Player has won!\n");
 				gameWindow.close();
 			}
 
