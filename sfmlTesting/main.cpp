@@ -4,7 +4,7 @@ int main()
 {
     srand((unsigned int)time(NULL));
 
-
+    // backgrounf music
     sf::Music music;
 
     if (!music.openFromFile("Music/background.ogg")) {
@@ -65,9 +65,7 @@ int main()
                     if (playGame.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                         // play game option selected
                         window.close();
-                        // game screen
-
-                       
+                   
                         game g1;
                         g1.runGame();
 
@@ -75,12 +73,6 @@ int main()
                     }
                     else if (rules.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                         // rules option selected
-
-                       /* window.clear();
-
-                        sf::Text text("RULES:", font, 50);
-
-                        window.draw(text);*/
 
 
                         window.close();
