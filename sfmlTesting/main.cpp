@@ -89,7 +89,7 @@ int main()
                         sf::RenderWindow rulesWindow(sf::VideoMode(800, 600), "Battleship Rules");
                         sf::Text rules;
                         rules.setFont(font);
-                        rules.setString("Battleship Rules:\n\n1. Each player places their ships on the board.\n2. Players take turns guessing the locations of each other's ships.\n3. The first player to sink all of their opponent's ships wins!");
+                        rules.setString("Battleship Rules:\n\n1.Place ships onto board manually or automattically.\n2. Click on opponents board to fire.\n3. The first person to sink all of their opponent's ships wins!");
                         rules.setCharacterSize(24);
                         rules.setFillColor(sf::Color::White);
                         rules.setPosition(50, 50);
