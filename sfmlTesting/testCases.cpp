@@ -116,7 +116,32 @@ void testSFMLwindow(void) {
 
 void testMouseInput(void) {
 
+	sf::RenderWindow testWindow(sf::VideoMode(800, 600), "SFML Window");
 
+	while (testWindow.isOpen())
+	{
+		sf::Event event;
+		while (testWindow.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+			{
+				testWindow.close();
+			}
+			else if (event.type == sf::Event::MouseButtonPressed)
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					sf::Vector2i mousePosition = sf::Mouse::getPosition(testWindow);
+					if (mousePosition.x >= 400 && mousePosition.y >= 300)
+					{
+						std::cout << "User mouse input is working" << std::endl;
+					}
+				}
+			}
+		}
+
+		testWindow.display();
+	}
 
 
 
