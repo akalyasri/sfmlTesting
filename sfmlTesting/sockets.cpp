@@ -3,6 +3,8 @@
 #include <iostream>
 
 
+// figuring out how to use sockets:
+
 int socketMain(void) {
 
 	// Create a TCP socket to listen for incoming connections
