@@ -1,5 +1,4 @@
-# sfmlTesting
-for PA 9 - battleship using SFML
+PA 9 - battleship using SFML
 
 This code was designed by ****Akalya Sridharan**** and ****Harish Sridharan****
 
