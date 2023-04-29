@@ -2,6 +2,8 @@ PA 9 - battleship using SFML
 
 This code was designed by ****Akalya Sridharan**** and ****Harish Sridharan****
 
+**Propject Properties we changed: **
+
 <img width="484" alt="image" src="https://user-images.githubusercontent.com/123788671/235284864-901e1d19-34dc-4148-8e99-13460ffe0d47.png">
 <img width="506" alt="image" src="https://user-images.githubusercontent.com/123788671/235284888-56055fe5-b101-4367-bc34-43780084ba0b.png">
 <img width="460" alt="image" src="https://user-images.githubusercontent.com/123788671/235284900-4f1b981a-ee62-478c-8e26-cc157f171d36.png">
