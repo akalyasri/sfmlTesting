@@ -1291,7 +1291,7 @@ protected:
 						if (*x > 9 && *x < 0)
 						{
 							//printf("\nYour X is out of bounds, enter within the bound (0 <= x <= 9): ");
-							*x = rand() % 9 + 0;
+							*x = rand() % 10 + 0;
 						}
 						else
 						{
@@ -1305,7 +1305,7 @@ protected:
 						if (*y > 9 && *y < 0)
 						{
 							//printf("\nYour Y is out of bounds, enter within the bound (0 <= x <= 9): ");
-							*y = rand() % 9 + 0;
+							*y = rand() % 10 + 0;
 						}
 						else
 						{
