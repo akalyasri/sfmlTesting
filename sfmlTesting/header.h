@@ -40,8 +40,8 @@ enum player
 
 enum state
 {
-	NSUNK,
-	SUNK
+	NSUNK = 0,
+	SUNK = 1
 };
 
 enum choice
@@ -56,6 +56,12 @@ enum printType
 	BOARDVIEWPLAYER1,
 	BOARDPLAYER2,
 	BOARDVIEWPLAYER2
+};
+
+enum hitType
+{
+	HIT,
+	MISS
 };
 
 

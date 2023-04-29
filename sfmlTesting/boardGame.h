@@ -115,7 +115,8 @@ class board
 public:
 
 	board() {
-
+		status[0] = NSUNK;
+		status[1] = NSUNK;
 
 		int rowIndex = 0, colIndex = 0;
 
@@ -191,6 +192,8 @@ public:
 		int x = 0;
 		int y = 0;
 
+		int hpLeft = 0;
+
 		int& userXCoord = x;
 		int& userYCoord = y;
 		//getMouseInput(userXCoord, userYCoord);
@@ -245,6 +248,8 @@ public:
 			{
 				//fprintf(infile, "Player has missed || Coordinate: (%d,%d)\n", x, y);
 				printf("You missed!\n");
+				fireSound(HIT);
+
 				boardViewPlayer1[y][x] = 'o';
 				boardPlayer2[y][x] = 'o';
 
@@ -261,16 +266,18 @@ public:
 					
 
 					printf("You hit carrier\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the carrier || Coordinate: (%d,%d)\n ", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
 					fleetPlayer2.carrier->setHP(fleetPlayer2.carrier->getHP() - 1);
-					if (fleetPlayer2.carrier->getHP() == 0)
+					if (fleetPlayer2.carrier->getHP() == hpLeft)
 					{
 						printf("You sunk carrier\n");
 						//fprintf(infile, "Player has sunk the carrier || Coordinate: (%d,%d)\n", x, y);
 						//playerCarrier->sunk = YES;
-						fleetPlayer2.carrier->setSunk(YES);
+						fleetPlayer2.carrier->setSunk(SUNK);
 					}
 
 					logPlayer1.x.push_back(x); //keeps track of shots
@@ -279,16 +286,18 @@ public:
 				else if (fleetPlayer2.battleship->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit battleship\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the battleship || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
 					fleetPlayer2.battleship->setHP(fleetPlayer2.battleship->getHP() - 1);
-					if (fleetPlayer2.battleship->getHP() == 0)
+					if (fleetPlayer2.battleship->getHP() == hpLeft)
 					{
 						printf("You sunk battleship\n");
 						//fprintf(infile, "Player has sunk the battleship || Coordinate: (%d,%d)\n", x, y);
 						//playerBattleship->sunk = YES;
-						fleetPlayer2.battleship->setSunk(YES);
+						fleetPlayer2.battleship->setSunk(SUNK);
 
 					}
 
@@ -298,16 +307,18 @@ public:
 				else if (fleetPlayer2.cruiser->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit cruiser\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the cruiser || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
 					fleetPlayer2.cruiser->setHP(fleetPlayer2.cruiser->getHP() - 1);
-					if (fleetPlayer2.cruiser->getHP() == 0)
+					if (fleetPlayer2.cruiser->getHP() == hpLeft)
 					{
 						printf("You sunk cruiser\n");
 						//fprintf(infile, "Player has sunkt the cruiser || Coordinate: (%d,%d)\n", x, y);
 						//playerCruiser->sunk = YES;
-						fleetPlayer2.cruiser->setSunk(YES);
+						fleetPlayer2.cruiser->setSunk(SUNK);
 
 					}
 
@@ -317,16 +328,18 @@ public:
 				else if (fleetPlayer2.submarine->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit submarine\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the submarine || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
 					fleetPlayer2.submarine->setHP(fleetPlayer2.submarine->getHP() - 1);
-					if (fleetPlayer2.submarine->getHP() == 0)
+					if (fleetPlayer2.submarine->getHP() == hpLeft)
 					{
 						printf("You sunk submarine\n");
 						//fprintf(infile, "Player has sunk the submarine || Coordinate: (%d,%d)\n", x, y);
 						//playerSubmarine->sunk = YES;
-						fleetPlayer2.submarine->setSunk(YES);
+						fleetPlayer2.submarine->setSunk(SUNK);
 
 					}
 
@@ -336,15 +349,17 @@ public:
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer2[y][x])
 				{
 					printf("You hit destroyer\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Player has scored a hit on the destroyer || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer1[y][x] = 'x';
 					boardPlayer2[y][x] = 'x';
 					fleetPlayer2.destroyer->setHP(fleetPlayer2.destroyer->getHP() - 1);
-					if (fleetPlayer2.destroyer->getHP() == 0)
+					if (fleetPlayer2.destroyer->getHP() == hpLeft)
 					{
 						printf("You sunk destroyer\n");
 						//fprintf(infile, "Player has sunk the destroyer || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer2.destroyer->setSunk(YES);
+						fleetPlayer2.destroyer->setSunk(SUNK);
 
 					}
 
@@ -356,10 +371,10 @@ public:
 					//printf("\nSomething is wrong with your code"); // debug code
 				}
 
-				if (fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.carrier->getSunk() == YES)
+				if ((fleetPlayer2.carrier->getSunk() == SUNK) && (fleetPlayer2.battleship->getSunk() == SUNK) && (fleetPlayer2.cruiser->getSunk() == SUNK) && (fleetPlayer2.submarine->getSunk() == SUNK) && (fleetPlayer2.destroyer->getSunk() == SUNK))
 				{
-					cout << "Player Has Won!" << endl;
-					status[0] = YES;
+					//cout << "Player Has Won!" << endl;
+					status[1] = SUNK;
 					//fprintf(infile, "Player has won! \n");
 
 				}
@@ -411,6 +426,8 @@ public:
 			{
 				//fprintf(infile, "Player has missed || Coordinate: (%d,%d)\n", x, y);
 				printf("CPU missed!\n");
+				fireSound(MISS);
+
 				boardPlayer1[y][x] = 'o';
 				boardViewPlayer2[y][x] = 'o';
 
@@ -424,16 +441,18 @@ public:
 				if (fleetPlayer1.carrier->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit carrier \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the carrier || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
 					//playerCarrier->hit--;
 					fleetPlayer1.carrier->setHP(fleetPlayer1.carrier->getHP() - 1);
-					if (fleetPlayer1.carrier->getHP() == 0)
+					if (fleetPlayer1.carrier->getHP() == hpLeft)
 					{
 						printf("Computer sunk carrier\n");
 						//fprintf(infile, "Computer has sunk the carrier || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.carrier->setSunk(YES);
+						fleetPlayer1.carrier->setSunk(SUNK);
 
 					}
 
@@ -443,16 +462,18 @@ public:
 				else if (fleetPlayer1.battleship->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit battleship \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the battleship || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
 					//playerBattleship->hit--;
 					fleetPlayer1.battleship->setHP(fleetPlayer1.battleship->getHP() - 1);
-					if (fleetPlayer1.battleship->getHP() == 0)
+					if (fleetPlayer1.battleship->getHP() == hpLeft)
 					{
 						printf("Computer sunk battleship\n");
 						//fprintf(infile, "Computer has sunk the battleship || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.battleship->setSunk(YES);
+						fleetPlayer1.battleship->setSunk(SUNK);
 
 					}
 
@@ -463,16 +484,18 @@ public:
 				else if (fleetPlayer1.cruiser->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit cruiser\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the cruiser || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
 					//playerCruiser->hit--;
 					fleetPlayer1.cruiser->setHP(fleetPlayer1.cruiser->getHP() - 1);
-					if (fleetPlayer1.cruiser->getHP() == 0)
+					if (fleetPlayer1.cruiser->getHP() == hpLeft)
 					{
 						printf("Computer sunk cruiser\n");
 						//fprintf(infile, "Computer has sunk the cruiser || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.cruiser->setSunk(YES);
+						fleetPlayer1.cruiser->setSunk(SUNK);
 
 					}
 
@@ -482,16 +505,18 @@ public:
 				else if (fleetPlayer1.submarine->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit submarine\n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the submarine || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
 					//playerSubmarine->hit--;
 					fleetPlayer1.submarine->setHP(fleetPlayer1.submarine->getHP() - 1);
-					if (fleetPlayer1.submarine->getHP() == 0)
+					if (fleetPlayer1.submarine->getHP() == hpLeft)
 					{
 						printf("Computer sunk submarine\n");
 						//fprintf(infile, "Computer has sunk the submarine || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.submarine->setSunk(YES);
+						fleetPlayer1.submarine->setSunk(SUNK);
 
 					}
 
@@ -501,16 +526,18 @@ public:
 				else if (fleetPlayer1.destroyer->getIdentification() == boardPlayer1[y][x])
 				{
 					printf("Computer hit destroyer \n");
+					fireSound(HIT);
+
 					//fprintf(infile, "Computer has scored a hit on the destroyer || Coordinate: (%d,%d)\n", x, y);
 					boardViewPlayer2[y][x] = 'x';
 					boardPlayer1[y][x] = 'x';
 					//playerDestroyer->hit--;
 					fleetPlayer1.destroyer->setHP(fleetPlayer1.destroyer->getHP() - 1);
-					if (fleetPlayer1.destroyer->getHP() == 0)
+					if (fleetPlayer1.destroyer->getHP() == hpLeft)
 					{
 						printf("Computer sunk destroyer\n");
 						//fprintf(infile, "Computer has sunk the destroyer || Coordinate: (%d,%d)\n", x, y);
-						fleetPlayer1.destroyer->setSunk(YES);
+						fleetPlayer1.destroyer->setSunk(SUNK);
 
 					}
 
@@ -522,10 +549,10 @@ public:
 					printf("\n CPU Something is wrong with your code");
 				}
 
-				if (fleetPlayer2.carrier->getSunk() == YES && fleetPlayer2.battleship->getSunk() == YES && fleetPlayer2.cruiser->getSunk() == YES && fleetPlayer2.submarine->getSunk() == YES && fleetPlayer2.destroyer->getSunk() == YES)
+				if ((fleetPlayer1.carrier->getSunk() == SUNK) && (fleetPlayer1.battleship->getSunk() == SUNK) && (fleetPlayer1.cruiser->getSunk() == SUNK) && (fleetPlayer1.submarine->getSunk() == SUNK) && (fleetPlayer1.destroyer->getSunk() == SUNK))
 				{
-					cout << "Computer Has Won" << endl;
-					status[1] = YES;
+					//cout << "Computer Has Won" << endl;
+					status[0] = SUNK;
 					//fprintf(infile, "Computer has won!\n");
 
 				}
@@ -789,7 +816,7 @@ public:
 		return &fleetPlayer2;
 	}
 
-
+	int status[2];
 private:
 	char boardPlayer1[10][10] = { {'\0'}, {'\0'} };
 	char boardPlayer2[10][10] = { {'\0'}, {'\0'} };
@@ -806,7 +833,7 @@ private:
 	logBook logPlayer1;
 	logBook logPlayer2;
 
-	int status[2] = { 0,0 };
+	//int status[2] = { NSUNK,NSUNK };
 
 	int infoX;
 	int infoY;
@@ -1619,16 +1646,16 @@ protected:
 
 		if (checkType == 1)
 		{
-			*x = rand() % 9 + 0;
-			*y = rand() % 9 + 0;
+			*x = rand() % 10 + 0;
+			*y = rand() % 10 + 0;
 
 			while (tryAgain == YES)
 			{
 				if (board[*y][*x] != '~')
 				{
 					//printf("\nYou picked a coordinate that has already been taken by other ship\n Select a different coordinate: ");
-					*x = rand() % 9 + 0;
-					*y = rand() % 9 + 0;
+					*x = rand() % 10 + 0;
+					*y = rand() % 10 + 0;
 
 				}
 				else
@@ -1688,6 +1715,40 @@ protected:
 		}
 	}
 
+
+	void fireSound(int type)
+	{
+		sf::SoundBuffer buffer;
+		sf::Sound sound;
+		sound.setBuffer(buffer);
+		sound.play();
+
+		if (type == HIT)
+		{
+
+			if (!buffer.loadFromFile("sound/bomb.wav"))
+			{
+
+			}
+			sound.setBuffer(buffer);
+			sound.play();
+
+			//return -1;
+
+		}
+		else if (type == MISS)
+		{
+
+			if (!buffer.loadFromFile("sound/splash.flac"))
+			{
+
+			}
+			sound.setBuffer(buffer);
+			sound.play();
+			//return -1;
+
+		}
+	}
 
 	//sf::RenderWindow& gameWindow;
 
@@ -1915,7 +1976,7 @@ public:
 			// Placing ships on computer's board
 			//b1.placeShip(PLAYER2);
 			//printf("Computer Board\n"); // debug code, speeds up testing of game
-			//b1.printBoard(BOARDPLAYER2);
+			b1.printBoard(BOARDPLAYER2);
 
 
 			int adjust = 0;
@@ -1964,6 +2025,27 @@ public:
 				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
 				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
 
+				if (fleetPlayer2->carrier->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Carrier", num2Char[fleetPlayer2->carrier->getX()], fleetPlayer2->carrier->getY(), fleetPlayer2->carrier->getOrientation());
+				}
+				if (fleetPlayer2->battleship->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Battleship", num2Char[fleetPlayer2->battleship->getX()], fleetPlayer2->battleship->getY(), fleetPlayer2->battleship->getOrientation());
+				}
+				if (fleetPlayer2->cruiser->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Cruiser", num2Char[fleetPlayer2->cruiser->getX()], fleetPlayer2->cruiser->getY(), fleetPlayer2->cruiser->getOrientation());
+				}
+				if (fleetPlayer2->submarine->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Submarine", num2Char[fleetPlayer2->submarine->getX()], fleetPlayer2->submarine->getY(), fleetPlayer2->submarine->getOrientation());
+				}
+				if (fleetPlayer2->destroyer->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Destroyer", num2Char[fleetPlayer2->destroyer->getX()], fleetPlayer2->destroyer->getY(), fleetPlayer2->destroyer->getOrientation());
+				}
+
 				for (int i = 0; i < logPlayer1->x.size(); i++)
 				{
 					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
@@ -1989,6 +2071,27 @@ public:
 				boardPlayer1.placeShip("Submarine", num2Char[fleetPlayer1->submarine->getX()], fleetPlayer1->submarine->getY(), fleetPlayer1->submarine->getOrientation());
 				boardPlayer1.placeShip("Destroyer", num2Char[fleetPlayer1->destroyer->getX()], fleetPlayer1->destroyer->getY(), fleetPlayer1->destroyer->getOrientation());
 
+				if (fleetPlayer2->carrier->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Carrier", num2Char[fleetPlayer2->carrier->getX()], fleetPlayer2->carrier->getY(), fleetPlayer2->carrier->getOrientation());
+				}
+				if (fleetPlayer2->battleship->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Battleship", num2Char[fleetPlayer2->battleship->getX()], fleetPlayer2->battleship->getY(), fleetPlayer2->battleship->getOrientation());
+				}
+				if (fleetPlayer2->cruiser->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Cruiser", num2Char[fleetPlayer2->cruiser->getX()], fleetPlayer2->cruiser->getY(), fleetPlayer2->cruiser->getOrientation());
+				}
+				if (fleetPlayer2->submarine->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Submarine", num2Char[fleetPlayer2->submarine->getX()], fleetPlayer2->submarine->getY(), fleetPlayer2->submarine->getOrientation());
+				}
+				if (fleetPlayer2->destroyer->getSunk() == SUNK)
+				{
+					boardViewPlayer1.placeShip("Destroyer", num2Char[fleetPlayer2->destroyer->getX()], fleetPlayer2->destroyer->getY(), fleetPlayer2->destroyer->getOrientation());
+				}
+
 				for (int i = 0; i < logPlayer1->x.size(); i++)
 				{
 					boardViewPlayer1.placeBomb(num2Char[logPlayer1->x[i]], logPlayer1->y[i]);
@@ -2004,21 +2107,26 @@ public:
 				//scanf(" %c", &dummyChar);
 				//system("cls");
 
-			} while (b1.getStatusPlayer1() == b1.getStatusPlayer2());
+			} while (b1.status[0] == NSUNK && b1.status[1] == NSUNK);
 
-			if (b1.getStatusPlayer1() == YES) // did player 1 loose?
+			if (b1.getStatusPlayer1() == SUNK)
 			{
-				printf("You lost!\n");
+				printf("CPU Has Won!\n");
+				gameWindow.close();
+				//gameWindow2.close();
 			}
 			else
 			{
-				printf("you won!\n");
+				printf("Player has won!\n");
+				gameWindow.close();
 			}
 
 		}
 
 	}
 
+
+	//hello
 
 private:
 	board b1;

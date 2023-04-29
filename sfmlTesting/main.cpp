@@ -21,13 +21,13 @@ int main()
     // create the window
     sf::RenderWindow window(sf::VideoMode(800, 600), "Battleship Menu");
 
-    // load the background image
-    sf::Texture backgroundTexture;
-    if (!backgroundTexture.loadFromFile("Textures/sea.jpg")) {
-        std::cout << "Error loading background texture." << std::endl;
-        return 1;
-    }
-    sf::Sprite background(backgroundTexture);
+	// load the background image
+	sf::Texture backgroundTexture;
+	if (!backgroundTexture.loadFromFile("Textures/sea.jpg")) {
+		std::cout << "Error loading background texture." << std::endl;
+		return 1;
+	}
+	sf::Sprite background(backgroundTexture);
 
     // load the font
     sf::Font font;
@@ -40,17 +40,17 @@ int main()
     sf::Text title("BATTLESHIP !!", font, 50);
     title.setPosition(200, 49);
 
-    // create the "Play Game" text
-    sf::Text playGame("Play Game", font, 30);
-    playGame.setPosition(300, 200);
+	// create the "Play Game" text
+	sf::Text playGame("Play Game", font, 30);
+	playGame.setPosition(300, 200);
 
-    // create the "Rules" text
-    sf::Text rules("Rules", font, 30);
-    rules.setPosition(340, 250);
+	// create the "Rules" text
+	sf::Text rules("Rules", font, 30);
+	rules.setPosition(340, 250);
 
-    // create the "Exit" text
-    sf::Text exit("Exit", font, 30);
-    exit.setPosition(350, 300);
+	// create the "Exit" text
+	sf::Text exit("Exit", font, 30);
+	exit.setPosition(350, 300);
 
     // run the main loop
     while (window.isOpen()) {
@@ -164,19 +164,16 @@ int main()
             }
         }
 
-        // draw the background, title, and options
-        window.clear();
-        window.draw(background);
-        window.draw(title);
-        window.draw(playGame);
-        window.draw(rules);
-        window.draw(exit);
-        window.display();
-    }
+		// draw the background, title, and options
+		window.clear();
+		window.draw(background);
+		window.draw(title);
+		window.draw(playGame);
+		window.draw(rules);
+		window.draw(exit);
+		window.display();
+	}
 
    
-
-	return 0;
-
 
 }
