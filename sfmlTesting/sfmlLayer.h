@@ -30,17 +30,20 @@ public:
 
 	virtual string inputCheck(int type, vector<string> strings)
 	{
+		cout << "get coordinates from user" << endl;
 		return "-1";
 	}
 
 	virtual void parseString(int* x, int* y, char shipType) //
 	{
 		cout << "take user input and parse it into x and y" << endl;
+
 	}
 
 	virtual void parseString2(int* x, int* y, char shipType)
 	{
 		cout << "take user input and parse it into x and y" << endl;
+
 	}
 };
 
