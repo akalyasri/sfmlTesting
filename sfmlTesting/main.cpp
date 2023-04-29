@@ -11,6 +11,7 @@ int main()
 
         cout << "Error opening music file" << endl;
 
+
     }
 
     music.setVolume(20);
