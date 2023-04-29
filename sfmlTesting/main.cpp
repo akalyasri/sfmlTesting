@@ -2,36 +2,7 @@
 
 int main()
 {
-
-
-	/*
-
-
-	//sf::RenderWindow window(sf::VideoMode(880 * 2, 1200), "Game Board!");
-	//while (gameWindow.isOpen()) {
-
-	//	sf::Event event;
-
-	//	while (gameWindow.pollEvent(event)) {
-
-
-	//		if (event.type == sf::Event::Closed)
-	//			gameWindow.close();
-
-	//	}
-
-
-	//	gameWindow.clear();
-
-	//	
-	//	// draw here
-
-	//	gameWindow.display();
-
-
-	//}
-
-	*/
+    srand((unsigned int)time(NULL));
 
 
     sf::Music music;
@@ -93,9 +64,9 @@ int main()
                     if (playGame.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                         // play game option selected
                         window.close();
-                        // TODO: launch game screen
+                        // game screen
 
-                        srand((unsigned int)time(NULL));
+                       
                         game g1;
                         g1.runGame();
 
@@ -104,15 +75,85 @@ int main()
                     else if (rules.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                         // rules option selected
 
-                        window.clear();
+                       /* window.clear();
 
                         sf::Text text("RULES:", font, 50);
 
-                        window.draw(text);
+                        window.draw(text);*/
 
 
-                       // window.close();
-                        // TODO: launch rules screen
+                        window.close();
+
+                        // rules screen
+                        sf::RenderWindow rulesWindow(sf::VideoMode(800, 600), "Battleship Rules");
+                        sf::Text rules;
+                        rules.setFont(font);
+                        rules.setString("Battleship Rules:\n\n1. Each player places their ships on the board.\n2. Players take turns guessing the locations of each other's ships.\n3. The first player to sink all of their opponent's ships wins!");
+                        rules.setCharacterSize(24);
+                        rules.setFillColor(sf::Color::White);
+                        rules.setPosition(50, 50);
+
+                        // Create a "Play Game" button
+                        sf::RectangleShape playButton(sf::Vector2f(200, 50));
+                        playButton.setFillColor(sf::Color::Transparent);
+                        playButton.setOutlineThickness(2);
+                        playButton.setOutlineColor(sf::Color::Black);
+                        playButton.setPosition(300, 450);
+
+                        sf::Text playText;
+                        playText.setFont(font);
+                        playText.setString("Play Game");
+                        playText.setCharacterSize(24);
+                        playText.setFillColor(sf::Color::White);
+                        playText.setPosition(320, 460);
+
+
+                        // Main loop
+                        while (rulesWindow.isOpen())
+                        {
+                            // Handle events
+                            sf::Event event;
+                            while (rulesWindow.pollEvent(event))
+                            {
+                                if (event.type == sf::Event::Closed)
+                                {
+                                    rulesWindow.close();
+                                }
+                                else if (event.type == sf::Event::MouseButtonPressed)
+                                {
+                                    // Check if the "Play Game" button was clicked
+                                    if (playButton.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y))
+                                    {
+                                        rulesWindow.close();
+                                        // Start the game here
+                                       
+                                        game g1;
+                                        g1.runGame();
+
+                                    }
+                                }
+                            }
+
+                            // Clear the window
+                            rulesWindow.clear(sf::Color::White);
+
+                            rulesWindow.draw(background);
+
+                            // Draw the rules text
+                            rulesWindow.draw(rules);
+
+                            // Draw the "Play Game" button
+                            rulesWindow.draw(playButton);
+                            rulesWindow.draw(playText);
+
+                            // Display the window
+                            rulesWindow.display();
+                        }
+
+                        window.close();
+                        // game screen
+
+                       
                     }
                     else if (exit.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
                         // exit option selected
@@ -132,8 +173,7 @@ int main()
         window.display();
     }
 
-    return 0;
-
+   
 
 	return 0;
 
