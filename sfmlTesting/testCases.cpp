@@ -98,7 +98,7 @@ void testUserTextInput(void)
 	sf::Font font;
 	if (!font.loadFromFile("Fonts/ARIAL.ttf")) {
 		std::cout << "Error loading font" << std::endl;
-		break;
+		//break;
 	}
 
 	sf::Text prompt;
