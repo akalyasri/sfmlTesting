@@ -2,7 +2,7 @@
 
 // to test ato see if code is working it will be called in main then commented out
 
-void testShipPlacement(void)
+void testShipPlacement(void) //manually placing ships
 {
 
 	Board boardPlayer1(gameWindow);
@@ -28,17 +28,17 @@ void testShipPlacement(void)
 
 		}
 
-		boardPlayer1.placeShip("Carrier", 'A', 1, 0);
-		boardPlayer1.placeShip("Battleship", 'B', 2, 90);
-		boardPlayer1.placeShip("Cruiser", 'C', 3, 180);
-		boardPlayer1.placeShip("Submarine", 'D', 4, 270);
-		boardPlayer1.placeShip("Destroyer", 'E', 5, 360);
+		boardPlayer1.placeShip("Carrier", 'A', 1, 0); //placing carrier at a1 0 degrees
+		boardPlayer1.placeShip("Battleship", 'B', 2, 90); //placing battleship at b2 90 degrees
+		boardPlayer1.placeShip("Cruiser", 'C', 3, 180); // placing cruiser at c3 180 degrees
+		boardPlayer1.placeShip("Submarine", 'D', 4, 270); //placing submarine at d4 270 degrees
+		boardPlayer1.placeShip("Destroyer", 'E', 5, 360); //placing destroyer at e5 360 degrees
 		gameWindow.display();
 
 	}
 }
 
-void testBombPlacents(void)
+void testBombPlacents(void) // manually placing bombs
 {
 
 	Board boardPlayer1(gameWindow);
@@ -64,14 +64,14 @@ void testBombPlacents(void)
 
 		}
 
-		boardViewPlayer1.placeBomb('A', 1);
-		boardViewPlayer1.placeBomb('B', 2);
-		boardViewPlayer1.placeBomb('C', 3);
-		boardViewPlayer1.placeBomb('D', 4);
-		boardViewPlayer1.placeBomb('E', 5);
-		boardViewPlayer1.placeBomb('F', 6);
-		boardViewPlayer1.placeBomb('G', 7);
-		boardViewPlayer1.placeBomb('H', 8);
+		boardViewPlayer1.placeBomb('A', 1); // place bomb at a1
+		boardViewPlayer1.placeBomb('B', 2); // place bomb at b2
+		boardViewPlayer1.placeBomb('C', 3); // place bomb at c3
+		boardViewPlayer1.placeBomb('D', 4); // place bomb at d4 
+		boardViewPlayer1.placeBomb('E', 5); // place bomb at e5
+		boardViewPlayer1.placeBomb('F', 6); // place bomb at f6
+		boardViewPlayer1.placeBomb('G', 7); // place bomb at g7
+		boardViewPlayer1.placeBomb('H', 8); // place bomb at h8
 		gameWindow.display();
 
 	}
@@ -84,33 +84,33 @@ void testSFMLwindow(void) {
 
 	sf::RenderWindow testWindow(sf::VideoMode(800, 800), "SFML Window");
 
-    sf::Font font;
+	sf::Font font;
 
-    if (!font.loadFromFile("Fonts/arialbd.ttf")) {
+	if (!font.loadFromFile("Fonts/arialbd.ttf")) {
 
-        std::cout << "Error loading font." << std::endl;
-        return;
-    }
+		std::cout << "Error loading font." << std::endl;
+		return;
+	}
 
-    sf::Text text("SFML window is working !!", font, 50);
-    text.setPosition(200, 49);
+	sf::Text text("SFML window is working !!", font, 50);
+	text.setPosition(200, 49);
 
-    while (testWindow.isOpen()) {
+	while (testWindow.isOpen()) {
 
-        sf::Event event;
-        while (testWindow.pollEvent(event)) {
-           
+		sf::Event event;
+		while (testWindow.pollEvent(event)) {
 
-            if (event.type == sf::Event::Closed) {
 
-                testWindow.close();
-            }
-        }
+			if (event.type == sf::Event::Closed) {
 
-        
-        testWindow.draw(text);
-        testWindow.display();
-    }
+				testWindow.close();
+			}
+		}
+
+
+		testWindow.draw(text);
+		testWindow.display();
+	}
 
 }
 
@@ -120,7 +120,7 @@ void testMouseInput(void) {
 
 }
 
-void testUserTextInput(void)
+void testUserTextInput(void) // a popup that gets userinput for coodinates
 {
 	sf::RenderWindow window(sf::VideoMode(1000, 200), "Input Prompt");
 
