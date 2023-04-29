@@ -81,6 +81,7 @@ void testBombPlacents(void) // manually placing bombs
 
 void testSFMLwindow(void) {
 
+	//check if window is opening correctly
 
 	sf::RenderWindow testWindow(sf::VideoMode(800, 800), "SFML Window");
 
@@ -118,22 +119,27 @@ void testMouseInput(void) {
 
 	sf::RenderWindow testWindow(sf::VideoMode(800, 600), "SFML Window");
 
-	while (testWindow.isOpen())
-	{
+	while (testWindow.isOpen()) {
+
 		sf::Event event;
-		while (testWindow.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
+
+		while (testWindow.pollEvent(event)) {
+
+			if (event.type == sf::Event::Closed) {
+
 				testWindow.close();
 			}
-			else if (event.type == sf::Event::MouseButtonPressed)
-			{
-				if (event.mouseButton.button == sf::Mouse::Left)
-				{
+
+			//checking if mouse button is pressed
+			else if (event.type == sf::Event::MouseButtonPressed) {
+
+				if (event.mouseButton.button == sf::Mouse::Left) {
+
 					sf::Vector2i mousePosition = sf::Mouse::getPosition(testWindow);
-					if (mousePosition.x >= 400 && mousePosition.y >= 300)
-					{
+					
+					if (mousePosition.x >= 400 && mousePosition.y >= 300) {
+
+						// user input working
 						std::cout << "User mouse input is working" << std::endl;
 					}
 				}
