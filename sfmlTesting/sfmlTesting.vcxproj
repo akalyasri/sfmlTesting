@@ -148,7 +148,7 @@
     <ClInclude Include="GameBoard.hpp" />
     <ClInclude Include="header.h" />
     <ClInclude Include="ships.h" />
-    <ClInclude Include="testCases.hpp" />
+    <ClInclude Include="testCases.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="ShipTypes\battleship_1x4.png" />
