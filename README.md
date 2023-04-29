@@ -4,6 +4,8 @@ link to PA9: https://github.com/akalyasri/sfmlTesting.git
 
 This code was designed by ****Akalya Sridharan**** and ****Harish Sridharan****
 
+For manual placement during the rotation input, press the number and do not press enter **
+
 **Project Properties:**
 
 <img width="484" alt="image" src="https://user-images.githubusercontent.com/123788671/235284864-901e1d19-34dc-4148-8e99-13460ffe0d47.png">
